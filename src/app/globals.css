@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 3.9%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--neutral-200);
+  }
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+body.dark {
+  background-color: #1a202c; /* bg-gray-900 */
+  color: #ffffff; /* text-white */
 }

@@ -231,7 +231,7 @@ export default function Home() {
   return (
     <div className="max-w-xl mx-auto">
       <CreatePost />
-      <div className="space-y-4">
+      <div className="sm:space-y-4">
         {MOCK_POSTS.map((post) => (
           <Post key={post.id} {...post} />
         ))}

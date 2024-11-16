@@ -8,10 +8,17 @@ export default function CreatePost() {
   const maxLength = 280;
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-sm mb-6">
+    <div
+      className="
+      bg-white p-4
+      sm:rounded-xl sm:shadow-sm sm:mb-6"
+    >
       <form className="flex flex-col gap-4">
         <textarea
-          className="w-full resize-none border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="
+          w-full resize-none
+          rounded-lg p-3 border border-neutral-200
+          focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Düşüncelerini paylaş..."
           rows={3}
           maxLength={maxLength}

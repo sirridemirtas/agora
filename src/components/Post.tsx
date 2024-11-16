@@ -24,7 +24,12 @@ export default function Post({
   isPrivate,
 }: PostProps) {
   return (
-    <article className="bg-white sm:rounded-xl px-6 py-4 sm:shadow-sm sm:mb-4 max-w-screen-md dark:bg-black">
+    <article
+      className="bg-white sm:rounded-xl px-6 py-4 sm:shadow-sm sm:mb-4 max-w-screen-md dark:bg-black border-t border-neutral-200 sm:border-none
+      hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200 ease-in-out
+      cursor-pointer
+    "
+    >
       <div className="flex items-center justify-between mb-2">
         <div>
           {!isPrivate && username ? (

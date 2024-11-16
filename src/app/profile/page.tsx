@@ -1,25 +1,25 @@
-import { Settings } from 'lucide-react';
-import Link from 'next/link';
-import Post from '@/components/Post';
+import { Settings } from "lucide-react";
+import Link from "next/link";
+import Post from "@/components/Post";
 
 const MOCK_USER_POSTS = [
   {
-    id: '1',
-    content: 'Kampüste yeni açılan kafeterya harika!',
-    timestamp: '2024-03-10T16:45:00Z',
-    university: 'İstanbul Üniversitesi',
-    username: 'kampus123',
+    id: "1",
+    content: "Kampüste yeni açılan kafeterya harika!",
+    timestamp: "2024-03-10T16:45:00Z",
+    university: "İstanbul Üniversitesi",
+    username: "kampus123",
     upvotes: 18,
     downvotes: 1,
     commentsCount: 5,
-    isPrivate: false
-  }
+    isPrivate: false,
+  },
 ];
 
 export default function ProfilePage() {
   return (
     <div className="max-w-xl mx-auto">
-      <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
+      <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-6">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl font-semibold">kampus123</h1>
           <Link
@@ -35,7 +35,7 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="sm:space-y-4">
         {MOCK_USER_POSTS.map((post) => (
           <Post key={post.id} {...post} />
         ))}

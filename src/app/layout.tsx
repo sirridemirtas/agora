@@ -19,12 +19,19 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body className={`${inter.className} bg-neutral-50`}>
-        <header className="p-4 flex justify-between items-center">
+        <header
+          className="
+        fixed top-0 left-0 right-0
+        flex justify-between items-center 
+        p-4 h-16
+        bg-white border-b
+        "
+        >
           <h1 className="text-2xl font-bold">My Application</h1>
           <DarkModeToggle />
         </header>
+        <main className="pt-16 pb-16">{children}</main>
         <Navigation />
-        <main>{children}</main>
       </body>
     </html>
   );

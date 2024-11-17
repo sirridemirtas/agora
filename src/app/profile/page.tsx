@@ -18,8 +18,8 @@ const MOCK_USER_POSTS = [
 
 export default function ProfilePage() {
   return (
-    <div className="max-w-xl mx-auto">
-      <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-6">
+    <div className="lg:flex-1">
+      <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-4">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl font-semibold">kampus123</h1>
           <Link

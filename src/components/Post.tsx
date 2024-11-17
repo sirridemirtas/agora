@@ -1,6 +1,12 @@
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
-import { ThumbsUp, ThumbsDown, MessageSquare } from "lucide-react";
+import {
+  ThumbsUp,
+  ThumbsDown,
+  MessageSquare,
+  Bookmark,
+  Ellipsis,
+} from "lucide-react";
 
 interface PostProps {
   content: string;
@@ -25,9 +31,16 @@ export default function Post({
 }: PostProps) {
   return (
     <article
-      className="bg-white sm:rounded-xl px-6 py-4 sm:shadow-sm sm:mb-4 max-w-screen-md dark:bg-black border-t border-neutral-200 sm:border-none
-      hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors duration-200 ease-in-out
+      className="
+      px-6 py-4 pb-2
+
+      bg-white
+      hover:bg-neutral-100
+      transition-colors duration-200 ease-in-out
+      border-t border-neutral-200
       cursor-pointer
+
+      sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none
     "
     >
       <div className="flex items-center justify-between mb-2">
@@ -51,17 +64,33 @@ export default function Post({
       <p className="text-neutral-800 mb-4">{content}</p>
 
       <div className="flex justify-between">
-        <button className="flex items-center gap-1 text-neutral-500 hover:text-blue-500">
-          <ThumbsUp size={18} />
+        <button className="flex items-center text-neutral-500">
+          <span className="p-2 rounded-3xl hover:bg-green-50 hover:text-green-700">
+            <ThumbsUp size={18} />
+          </span>
           <span className="text-sm">{upvotes}</span>
         </button>
-        <button className="flex items-center gap-1 text-neutral-500 hover:text-red-500">
-          <ThumbsDown size={18} />
+        <button className="flex items-center text-neutral-500">
+          <span className="p-2 rounded-3xl hover:bg-red-100 hover:text-red-700">
+            <ThumbsDown size={18} />
+          </span>
           <span className="text-sm">{downvotes}</span>
         </button>
-        <button className="flex items-center gap-1 text-neutral-500">
-          <MessageSquare size={18} />
+        <button className="flex items-center text-neutral-500">
+          <span className="p-2 rounded-3xl hover:bg-slate-300 hover:text-slate-700">
+            <MessageSquare size={18} />
+          </span>
           <span className="text-sm">{commentsCount}</span>
+        </button>
+        <button className="flex items-center text-neutral-500">
+          <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
+            <Bookmark size={18} />
+          </span>
+        </button>
+        <button className="flex items-center text-neutral-500">
+          <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
+            <Ellipsis size={18} />
+          </span>
         </button>
       </div>
     </article>

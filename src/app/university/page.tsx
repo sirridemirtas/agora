@@ -29,7 +29,7 @@ const MOCK_POSTS = [
 
 export default function UniversityPage() {
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="lg:flex-1">
       <UniversityHeader university="İstanbul Üniversitesi" />
       <CreatePost />
       <div className="sm:space-y-4">

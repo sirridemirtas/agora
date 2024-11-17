@@ -11,14 +11,14 @@ export default function CreatePost() {
     <div
       className="
       bg-white p-4
-      sm:rounded-xl sm:shadow-sm sm:mb-6"
+      sm:rounded-xl sm:shadow-sm sm:mb-4"
     >
       <form className="flex flex-col gap-4">
         <textarea
           className="
           w-full resize-none
           rounded-lg p-3 border border-neutral-200
-          focus:outline-none focus:ring-2 focus:ring-blue-500"
+          focus:outline-none focus:ring-2 focus:ring-blue-700"
           placeholder="Düşüncelerini paylaş..."
           rows={3}
           maxLength={maxLength}
@@ -31,7 +31,7 @@ export default function CreatePost() {
           </span>
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-600 transition-colors"
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-colors"
           >
             <Send size={18} />
             Paylaş

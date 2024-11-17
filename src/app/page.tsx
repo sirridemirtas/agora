@@ -229,7 +229,7 @@ const MOCK_POSTS = [
 
 export default function Home() {
   return (
-    <div className="max-w-xl mx-auto">
+    <div className="">
       <CreatePost />
       <div className="sm:space-y-4">
         {MOCK_POSTS.map((post) => (

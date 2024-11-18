@@ -1,3 +1,4 @@
+"use client";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import {
@@ -29,6 +30,29 @@ export default function Post({
   commentsCount,
   isPrivate,
 }: PostProps) {
+  function requireLogin(func: Function) {
+    return (...args: any[]) => {
+      const isLogged = true; // Giriş kontrolü
+      if (!isLogged) {
+        console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
+        return;
+      }
+      return func(...args);
+    };
+  }
+
+  const onUpvote = requireLogin(() => {
+    console.log("Upvoted");
+  });
+
+  const onDownvote = requireLogin(() => {
+    console.log("Downvoted");
+  });
+
+  const onComment = requireLogin(() => {
+    console.log("Commented");
+  });
+
   return (
     <article
       className="
@@ -64,34 +88,45 @@ export default function Post({
       <p className="text-neutral-800 mb-4">{content}</p>
 
       <div className="flex justify-between">
-        <button className="flex items-center text-neutral-500">
+        <button
+          className="flex items-center text-neutral-500"
+          onClick={onUpvote}
+        >
           <span className="p-2 rounded-3xl hover:bg-green-50 hover:text-green-700">
             <ThumbsUp size={18} />
           </span>
           <span className="text-sm">{upvotes}</span>
         </button>
-        <button className="flex items-center text-neutral-500">
+        <button
+          className="flex items-center text-neutral-500"
+          onClick={onDownvote}
+        >
           <span className="p-2 rounded-3xl hover:bg-red-100 hover:text-red-700">
             <ThumbsDown size={18} />
           </span>
           <span className="text-sm">{downvotes}</span>
         </button>
-        <button className="flex items-center text-neutral-500">
+        <button
+          className="flex items-center text-neutral-500"
+          onClick={onComment}
+        >
           <span className="p-2 rounded-3xl hover:bg-slate-300 hover:text-slate-700">
             <MessageSquare size={18} />
           </span>
           <span className="text-sm">{commentsCount}</span>
         </button>
-        <button className="flex items-center text-neutral-500">
-          <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
-            <Bookmark size={18} />
-          </span>
-        </button>
-        <button className="flex items-center text-neutral-500">
-          <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
-            <Ellipsis size={18} />
-          </span>
-        </button>
+        <span className="flex flex-row">
+          <button className="flex items-center text-neutral-500">
+            <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
+              <Bookmark size={18} />
+            </span>
+          </button>
+          <button className="flex items-center text-neutral-500">
+            <span className="p-2 rounded-3xl hover:bg-blue-100 hover:text-blue-700">
+              <Ellipsis size={18} />
+            </span>
+          </button>
+        </span>
       </div>
     </article>
   );

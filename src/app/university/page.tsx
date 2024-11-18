@@ -1,6 +1,7 @@
 import CreatePost from "@/components/CreatePost";
 import Post from "@/components/Post";
-import UniversityHeader from "@/components/UniversityHeader";
+import { School } from "lucide-react";
+import PageTitle from "@/components/PageTitle";
 
 const MOCK_POSTS = [
   {
@@ -30,7 +31,7 @@ const MOCK_POSTS = [
 export default function UniversityPage() {
   return (
     <div className="lg:flex-1">
-      <UniversityHeader university="İstanbul Üniversitesi" />
+      <PageTitle icon={School} title="İstanbul Üniversitesi" />
       <CreatePost />
       <div className="sm:space-y-4">
         {MOCK_POSTS.map((post) => (

@@ -7,6 +7,8 @@ import {
   Mail,
   Settings,
   MessageSquareWarning,
+  Plus,
+  Send,
 } from "lucide-react";
 import Link from "next/link";
 import cn from "classnames";
@@ -116,8 +118,11 @@ export default function Navigation() {
         className="
       hidden lg:block w-full mt-2 font-extrabold
       rounded-full bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white text-base text-center
-      py-3"
+      py-3
+      
+      "
       >
+        {/* <Send className="inline-block mr-2" size={20} /> */}
         Paylaş
       </button>
     </nav>

@@ -1,5 +1,7 @@
+import PageTitle from "@/components/PageTitle";
 import CreatePost from "../components/CreatePost";
 import Post from "../components/Post";
+import { House } from "lucide-react";
 
 const MOCK_POSTS = [
   {
@@ -230,6 +232,7 @@ const MOCK_POSTS = [
 export default function Home() {
   return (
     <div className="">
+      <PageTitle title="Ana Sayfa" icon={House} />
       <CreatePost />
       <div className="sm:space-y-4">
         {MOCK_POSTS.map((post) => (

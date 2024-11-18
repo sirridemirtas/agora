@@ -30,8 +30,8 @@ export default function Post({
   commentsCount,
   isPrivate,
 }: PostProps) {
-  function requireLogin(func: Function) {
-    return (...args: any[]) => {
+  function requireLogin(func: (...args: unknown[]) => void) {
+    return (...args: unknown[]) => {
       const isLogged = true; // Giriş kontrolü
       if (!isLogged) {
         console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");

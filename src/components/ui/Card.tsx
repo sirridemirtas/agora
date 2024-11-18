@@ -4,7 +4,7 @@ import React from "react";
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  props?: any;
+  props?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 const Card: React.FC<CardProps> = ({ children, className, props }) => {

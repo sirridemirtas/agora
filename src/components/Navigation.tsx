@@ -7,8 +7,6 @@ import {
   Mail,
   Settings,
   MessageSquareWarning,
-  Plus,
-  Send,
 } from "lucide-react";
 import Link from "next/link";
 import cn from "classnames";

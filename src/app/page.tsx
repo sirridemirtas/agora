@@ -1,6 +1,6 @@
-import PageTitle from "@/components/PageTitle";
-import CreatePost from "../components/CreatePost";
-import Post from "../components/Post";
+import PageTitle from "@/components/common/PageTitle";
+import CreatePost from "@/components/common/CreatePost";
+import Post from "@/components/common/Post";
 import { House } from "lucide-react";
 
 const MOCK_POSTS = [

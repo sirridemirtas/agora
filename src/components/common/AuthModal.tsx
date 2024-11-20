@@ -1,9 +1,9 @@
 import React, { InvalidEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, School, AtSign } from "lucide-react";
-import Button from "./ui/Button";
-import Input from "./ui/Input";
-import Combobox from "./ui/ComboBox";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import Combobox from "@/components/ui/ComboBox";
 
 import { universities } from "@/constants/universities";
 

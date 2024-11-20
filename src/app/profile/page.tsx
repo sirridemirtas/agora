@@ -1,6 +1,6 @@
 import { Settings } from "lucide-react";
 import Link from "next/link";
-import Post from "@/components/Post";
+import Post from "@/components/common/Post";
 
 const MOCK_USER_POSTS = [
   {

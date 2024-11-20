@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import "../styles/globals.scss";
+import cn from "classnames";
 import { Inter } from "next/font/google";
+import "@/styles/globals.scss";
 
-import Navigation from "../components/Navigation";
-import LandingPage from "../components/LandingPage";
-import { GlobalProvider } from "@/store/GlobalProvider";
+import Navigation from "@/components/common/Navigation";
+import LandingPage from "@/components/common/LandingPage";
+import { GlobalProvider } from "@/contexts/GlobalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +23,7 @@ export default function RootLayout({
 
   return (
     <html lang="tr">
-      <body className={`${inter.className} bg-neutral-50`}>
+      <body className={cn(inter.className, "bg-neutral-50")}>
         <main
           className="max-w-[640px] mx-auto pb-16
         sm:pl-4 sm:pr-4 sm:py-4

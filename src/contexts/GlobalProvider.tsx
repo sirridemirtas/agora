@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import { ThemeProvider } from "./theme/ThemeProvider";
-import { AuthProvider } from "./auth/AuthProvider";
+import { ThemeProvider } from "./ThemeProvider";
+import { AuthProvider } from "./AuthProvider";
 
 export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   children,

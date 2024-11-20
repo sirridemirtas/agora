@@ -2,8 +2,8 @@
 
 import { Send } from "lucide-react";
 import { useState } from "react";
-import Button from "./ui/Button";
-import Textarea from "./ui/Textarea";
+import Button from "@/components/ui/Button";
+import Textarea from "@/components/ui/Textarea";
 
 export default function CreatePost() {
   const [content, setContent] = useState("");

@@ -97,7 +97,7 @@ function Combobox<T>({
                   classNames(
                     "cursor-default select-none relative py-2 pl-10 pr-4",
                     active
-                      ? "bg-blue-600 text-white"
+                      ? "bg-blue-100 text-blue-600"
                       : "text-gray-900 dark:text-gray-200",
                     selected && "font-medium"
                   )

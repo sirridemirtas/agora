@@ -1,7 +1,7 @@
 "use client";
 import { MessageCircle, Shield, School, Lock } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import AuthModal from "./AuthModal";
+import AuthModal from "@/components/common/AuthModal";
 
 export default function Home() {
   const searchParams = useSearchParams();

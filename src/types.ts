@@ -7,7 +7,8 @@ export interface Post {
   downvotes: number;
   username?: string;
   isPrivate: boolean;
-  comments: Comment[];
+  //comments: Comment[] | null;
+  commentsCount: number;
 }
 
 export interface Comment {

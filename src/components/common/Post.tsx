@@ -8,6 +8,7 @@ import {
   Bookmark,
   Ellipsis,
 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 interface PostProps {
   content: string;
@@ -30,10 +31,11 @@ export default function Post({
   commentsCount,
   isPrivate,
 }: PostProps) {
+  const { isLoggedIn } = useAuth();
+
   function requireLogin(func: (...args: unknown[]) => void) {
     return (...args: unknown[]) => {
-      const isLogged = true; // Giriş kontrolü
-      if (!isLogged) {
+      if (!isLoggedIn) {
         console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
         return;
       }

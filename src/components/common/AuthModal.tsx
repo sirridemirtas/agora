@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { Lock, School, AtSign } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
-import Combobox from "@/components/ui/ComboBox";
+import Combobox from "@/components/ui/Combobox";
 
 import { universities } from "@/constants/universities";
 

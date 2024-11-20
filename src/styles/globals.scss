@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'theme/light.scss';
+@import 'theme/dark.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    @extend .light;
+  }
+
+  :root[class~="dark"] {
+    @extend .dark;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--neutral-200);
+  }
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
+body.dark {
+  background-color: #1a202c; /* bg-gray-900 */
+  color: #ffffff; /* text-white */
+}

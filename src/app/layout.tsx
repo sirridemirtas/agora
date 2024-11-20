@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../styles/globals.scss";
 import { Inter } from "next/font/google";
+
 import Navigation from "../components/Navigation";
-import LandingPage from "@/components/LandingPage";
+import LandingPage from "../components/LandingPage";
+import { GlobalProvider } from "@/store/GlobalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,14 +29,16 @@ export default function RootLayout({
         lg:relative lg:max-w-[900px] lg:flex lg:flex-row lg:items-start lg:gap-4
         "
         >
-          {isLogged ? (
-            <>
-              <Navigation />
-              {children}
-            </>
-          ) : (
-            <LandingPage />
-          )}
+          <GlobalProvider>
+            {isLogged ? (
+              <>
+                <Navigation />
+                {children}
+              </>
+            ) : (
+              <LandingPage />
+            )}
+          </GlobalProvider>
         </main>
       </body>
     </html>

@@ -58,7 +58,7 @@ export default function Post({
       className="
       px-6 py-4 pb-2
 
-      bg-white
+      bg-white dark:bg-slate-800
       hover:bg-neutral-100
       transition-colors duration-200 ease-in-out
       border-t border-neutral-200

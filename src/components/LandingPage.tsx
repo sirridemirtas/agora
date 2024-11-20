@@ -1,20 +1,14 @@
 "use client";
-
-import { useState } from "react";
 import { MessageCircle, Shield, School, Lock } from "lucide-react";
-import Button from "../components/ui/Button";
-import AuthModal from "../components/auth/AuthModal";
+import { useSearchParams } from "next/navigation";
+import AuthModal from "./AuthModal";
 
 export default function Home() {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode") || "login";
   return (
     <main className="w-full">
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
-
+      <AuthModal mode={mode as "login" | "register"} />
       <section className="px-4 pt-20 pb-16 text-center">
         <div className="w-full max-w-md mx-auto">
           <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 mb-4">
@@ -23,15 +17,8 @@ export default function Home() {
           <p className="text-lg text-neutral-600 dark:text-neutral-300 mb-8">
             Üniversite öğrencileri için güvenli ve anonim mikroblog platformu
           </p>
-          <Button
-            onClick={() => setIsAuthModalOpen(true)}
-            className="px-8 py-3 text-lg shadow-lg hover:shadow-xl"
-          >
-            Hemen Başla
-          </Button>
         </div>
       </section>
-
       <section className="px-4 py-16 bg-white dark:bg-neutral-900 sm:rounded-xl sm:shadow-sm">
         <div className="max-w-md mx-auto ">
           <h2 className="text-2xl font-bold text-center text-neutral-900 dark:text-neutral-50 mb-12">
@@ -61,7 +48,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <section className="px-4 py-16">
         <div className="max-w-md mx-auto">
           <h2 className="text-2xl font-bold text-center text-neutral-900 dark:text-neutral-50 mb-12">
@@ -86,7 +72,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       <footer className="px-4 py-8 text-sm text-center">
         <div className="max-w-md mx-auto">
           <p className="text-gray-500">© 2024 Tüm hakları saklıdır</p>

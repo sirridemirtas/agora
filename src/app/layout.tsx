@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
 
 import Navigation from "@/components/common/Navigation";
-import LandingPage from "@/components/common/LandingPage";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,8 +18,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isLogged = true;
-
   return (
     <html lang="tr">
       <body className={cn(inter.className, "bg-neutral-50")}>
@@ -31,14 +28,9 @@ export default function RootLayout({
         "
         >
           <GlobalProvider>
-            {isLogged ? (
-              <>
-                <Navigation />
-                {children}
-              </>
-            ) : (
-              <LandingPage />
-            )}
+            <Navigation />
+            {children}
+            {/* <LandingPage /> */}
           </GlobalProvider>
         </main>
       </body>

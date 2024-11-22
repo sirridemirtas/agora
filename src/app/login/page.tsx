@@ -1,12 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AtSign, SquareAsterisk, LogIn } from "lucide-react";
+import { AtSign, LogIn, SquareAsterisk } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import Input from "@/components/ui/Input";
-import Card from "@/components/ui/Card";
-import PageTitle from "@/components/common/PageTitle";
-import Button from "@/components/ui/Button";
+import { Button, Card, Input } from "@/components/ui";
+import { PageTitle } from "@/components/common";
 
 export default function Login() {
   const { login } = useAuth();

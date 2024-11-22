@@ -1,5 +1,5 @@
+"use client";
 import cn from "classnames";
-import React from "react";
 
 interface CardProps {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
-import PageTitle from "@/components/common/PageTitle";
-import Card from "@/components/ui/Card";
 import { MessageSquare, MessageSquareOff } from "lucide-react";
+import { Card } from "@/components/ui";
+import { PageTitle } from "@/components/common";
 
 export default function MessagesPage() {
   return (

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { X } from "lucide-react";
 import classNames from "classnames";
+import { X } from "lucide-react";
+import { Dialog, Transition } from "@headlessui/react";
 
 interface ModalProps {
   isOpen: boolean;

@@ -1,7 +1,6 @@
 import { Settings } from "lucide-react";
 import Link from "next/link";
-import Post from "@/components/common/Post";
-import LogOutButton from "@/components/common/LogOutButton";
+import { LogOutButton, Post } from "@/components/common";
 
 const MOCK_USER_POSTS = [
   {

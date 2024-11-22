@@ -1,6 +1,7 @@
-import React, { forwardRef, useState } from "react";
-import { Check } from "lucide-react";
+"use client";
+import { forwardRef, useState } from "react";
 import cn from "classnames";
+import { Check } from "lucide-react";
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string | React.ReactNode;

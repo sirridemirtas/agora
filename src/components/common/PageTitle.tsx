@@ -5,7 +5,7 @@ interface PageTitleProps {
   icon?: LucideIcon;
 }
 
-export default function PageTitle({ title, icon: Icon }: PageTitleProps) {
+const PageTitle = ({ title, icon: Icon }: PageTitleProps) => {
   return (
     <div className="bg-white sm:rounded-xl p-4 shadow-sm sm:mb-4 flex items-center gap-3">
       {Icon ? (
@@ -18,4 +18,6 @@ export default function PageTitle({ title, icon: Icon }: PageTitleProps) {
       <h1 className="text-xl font-semibold">{title}</h1>
     </div>
   );
-}
+};
+
+export default PageTitle;

@@ -2,11 +2,11 @@
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import {
-  ThumbsUp,
-  ThumbsDown,
-  MessageSquare,
   Bookmark,
   Ellipsis,
+  MessageSquare,
+  ThumbsDown,
+  ThumbsUp,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -21,7 +21,7 @@ interface PostProps {
   isPrivate: boolean;
 }
 
-export default function Post({
+const Post = ({
   content,
   timestamp,
   university,
@@ -30,7 +30,7 @@ export default function Post({
   downvotes,
   commentsCount,
   isPrivate,
-}: PostProps) {
+}: PostProps) => {
   const { isLoggedIn } = useAuth();
 
   function requireLogin(func: (...args: unknown[]) => void) {
@@ -132,4 +132,6 @@ export default function Post({
       </div>
     </article>
   );
-}
+};
+
+export default Post;

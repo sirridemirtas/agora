@@ -1,11 +1,9 @@
 "use client";
-
 import { Send } from "lucide-react";
 import { useState } from "react";
-import Button from "@/components/ui/Button";
-import Textarea from "@/components/ui/Textarea";
+import { Button, Textarea } from "@/components/ui";
 
-export default function CreatePost() {
+const CreatePost = () => {
   const [content, setContent] = useState("");
   const maxLength = 500;
 
@@ -37,4 +35,6 @@ export default function CreatePost() {
       </form>
     </div>
   );
-}
+};
+
+export default CreatePost;

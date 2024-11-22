@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import cn from "classnames";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
-
-import Navigation from "@/components/common/Navigation";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
-import { AuthRedirect } from "@/components/common/AuthRedirect";
+import { AuthRedirect, Navigation } from "@/components/common";
 
 const inter = Inter({ subsets: ["latin"] });
 

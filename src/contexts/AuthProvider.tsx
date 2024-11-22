@@ -1,6 +1,5 @@
 "use client";
-
-import React, { createContext, ReactNode } from "react";
+import { createContext, ReactNode } from "react";
 import { useSharedState } from "@/hooks/useSharedState";
 
 export interface AuthContextType {

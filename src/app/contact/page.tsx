@@ -1,10 +1,6 @@
-import Card from "@/components/ui/Card";
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
-import Textarea from "@/components/ui/Textarea";
-import Select from "@/components/ui/Select";
-import PageTitle from "@/components/common/PageTitle";
-import { User, AtSign, MessageSquareQuote } from "lucide-react";
+import { AtSign, User, MessageSquareQuote } from "lucide-react";
+import { Button, Card, Input, Select, Textarea } from "@/components/ui";
+import { PageTitle } from "@/components/common";
 
 export default function Contact() {
   return (

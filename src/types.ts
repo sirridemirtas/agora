@@ -25,3 +25,8 @@ export interface User {
   isPrivate: boolean;
   role: 'user' | 'moderator' | 'admin';
 }
+
+export interface University {
+  id: string;
+  name: string;
+}

@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import cn from "classnames";
@@ -16,7 +15,7 @@ import {
   SquarePen,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import Logo from "@/components/common/Logo";
+import { Logo } from "@/components/common";
 
 interface NavItem {
   href: string;
@@ -116,7 +115,7 @@ const NavItem: React.FC<NavItem> = ({
   );
 };
 
-export default function Navigation() {
+const Navigation = () => {
   const { isLoggedIn } = useAuth();
 
   const handleShare = () => {
@@ -162,4 +161,6 @@ export default function Navigation() {
       )}
     </nav>
   );
-}
+};
+
+export default Navigation;

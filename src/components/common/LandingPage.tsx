@@ -1,9 +1,9 @@
 "use client";
-import { MessageCircle, Shield, School, Lock } from "lucide-react";
+import { Lock, MessageCircle, School, Shield } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import AuthModal from "@/components/common/AuthModal";
+import { AuthModal } from "@/components/common";
 
-export default function Home() {
+const Home = () => {
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode") || "login";
   return (
@@ -79,7 +79,7 @@ export default function Home() {
       </footer>
     </main>
   );
-}
+};
 
 function Feature({
   icon,
@@ -132,3 +132,5 @@ function Step({
     </div>
   );
 }
+
+export default Home;

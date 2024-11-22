@@ -1,10 +1,8 @@
-import React, { InvalidEvent } from "react";
+"use client";
+import { InvalidEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Lock, School, AtSign } from "lucide-react";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import Combobox from "@/components/ui/Combobox";
-
+import { AtSign, Lock, School } from "lucide-react";
+import { Button, Combobox, Input } from "@/components/ui";
 import { universities } from "@/constants/universities";
 
 interface AuthLandingProps {

@@ -1,6 +1,6 @@
 import { Settings } from "lucide-react";
-import PageTitle from "@/components/common/PageTitle";
-import Card from "@/components/ui/Card";
+import { Card } from "@/components/ui";
+import { PageTitle } from "@/components/common";
 
 export default function SettingsPage() {
   return (

@@ -8,7 +8,7 @@ interface AuthRedirectProps {
   publicRoutes?: string[];
 }
 
-export const AuthRedirect: React.FC<AuthRedirectProps> = ({
+const AuthRedirect: React.FC<AuthRedirectProps> = ({
   protectedRoutes = ["/messages", "/notifications", "/profile", "/settings"],
   publicRoutes = ["/login", "/register"],
 }) => {
@@ -36,3 +36,5 @@ export const AuthRedirect: React.FC<AuthRedirectProps> = ({
 
   return null; // Herhangi bir UI render etmez
 };
+
+export default AuthRedirect;

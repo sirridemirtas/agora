@@ -1,25 +1,20 @@
 "use client";
-
-import React, { useState, InvalidEvent } from "react";
+import { useState, InvalidEvent } from "react";
 import Link from "next/link";
-import classNames from "classnames";
-import { Lock, School, AtSign, SquarePen } from "lucide-react";
-import PageTitle from "@/components/common/PageTitle";
-import Card from "@/components/ui/Card";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import Combobox from "@/components/ui/Combobox";
-import Checkbox from "@/components/ui/Checkbox";
+import cn from "classnames";
+import { AtSign, Lock, School, SquarePen } from "lucide-react";
 import { universities } from "@/constants/universities";
+import { Button, Card, Checkbox, Combobox, Input } from "@/components/ui";
+import { PageTitle } from "@/components/common";
 
 export default function Register() {
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
 
   return (
-    <div className={classNames("lg:flex-1")}>
+    <div className={cn("lg:flex-1")}>
       <PageTitle title="Kayıt Ol" icon={SquarePen} />
       <Card>
-        <form className={classNames("space-y-4")}>
+        <form className={cn("space-y-4")}>
           <Combobox
             icon={School}
             label="Üniversite"
@@ -78,15 +73,12 @@ export default function Register() {
           </Button>
 
           <div
-            className={classNames(
+            className={cn(
               "text-center text-sm text-gray-600 dark:text-gray-400"
             )}
           >
             Zaten hesabınız var mı?{" "}
-            <Link
-              href="/login"
-              className={classNames("text-blue-600 hover:underline")}
-            >
+            <Link href="/login" className={cn("text-blue-600 hover:underline")}>
               Giriş yap
             </Link>
           </div>

@@ -1,4 +1,4 @@
-export default function Modal() {
+const Modal = () => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4 rounded-xl shadow-lg w-full sm:w-96">
@@ -18,4 +18,6 @@ export default function Modal() {
       </div>
     </div>
   );
-}
+};
+
+export default Modal;

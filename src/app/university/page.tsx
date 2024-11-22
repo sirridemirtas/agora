@@ -1,7 +1,5 @@
-import CreatePost from "@/components/common/CreatePost";
-import Post from "@/components/common/Post";
 import { School } from "lucide-react";
-import PageTitle from "@/components/common/PageTitle";
+import { CreatePost, PageTitle, Post } from "@/components/common";
 
 const MOCK_POSTS = [
   {

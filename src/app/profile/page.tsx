@@ -1,6 +1,7 @@
 import { Settings } from "lucide-react";
 import Link from "next/link";
 import Post from "@/components/common/Post";
+import LogOutButton from "@/components/common/LogOutButton";
 
 const MOCK_USER_POSTS = [
   {
@@ -8,7 +9,7 @@ const MOCK_USER_POSTS = [
     content: "Kampüste yeni açılan kafeterya harika!",
     timestamp: "2024-03-10T16:45:00Z",
     university: "İstanbul Üniversitesi",
-    username: "kampus123",
+    username: "johndoe",
     upvotes: 18,
     downvotes: 1,
     commentsCount: 5,
@@ -21,17 +22,17 @@ export default function ProfilePage() {
     <div className="lg:flex-1">
       <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-4">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-xl font-semibold">kampus123</h1>
+          <h1 className="text-xl font-semibold">johndoe</h1>
           <Link
-            href="/profile/settings"
+            href="/settings"
             className="text-neutral-500 hover:text-neutral-700"
           >
             <Settings size={20} />
           </Link>
         </div>
-        <div className="flex items-center gap-4 text-sm text-neutral-500">
+        <div className="flex items-center gap-4 text-sm text-neutral-500 justify-between ">
           <span>İstanbul Üniversitesi</span>
-          <span>Açık Mod</span>
+          <LogOutButton asLink />
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import "@/styles/globals.scss";
 
 import Navigation from "@/components/common/Navigation";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
+import { AuthRedirect } from "@/components/common/AuthRedirect";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,7 @@ export default function RootLayout({
         "
         >
           <GlobalProvider>
+            <AuthRedirect />
             <Navigation />
             {children}
             {/* <LandingPage /> */}

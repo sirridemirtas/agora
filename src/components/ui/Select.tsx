@@ -1,4 +1,3 @@
-"use client";
 import cn from "classnames";
 import { Field, Label, Select } from "@headlessui/react";
 import { LucideIcon } from "lucide-react";

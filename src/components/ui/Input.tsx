@@ -1,4 +1,3 @@
-"use client";
 import { forwardRef } from "react";
 import cn from "classnames";
 import { LucideIcon } from "lucide-react";

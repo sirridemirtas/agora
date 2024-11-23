@@ -1,4 +1,3 @@
-"use client";
 import { AtSign, MessageSquareQuote, User } from "lucide-react";
 import { PageTitle } from "@/components/common";
 import { Button, Card, Input, Select, Textarea } from "@/components/ui";

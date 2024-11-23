@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import cn from "classnames";
 import {
   Combobox as HeadlessCombobox,
   ComboboxButton,
@@ -8,7 +9,6 @@ import {
   ComboboxOptions,
 } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "lucide-react";
-import classNames from "classnames";
 
 interface ComboboxProps<T> {
   label?: string;
@@ -62,7 +62,7 @@ function Combobox<T>({
         <HeadlessCombobox value={selected} onChange={setSelected}>
           <div className="relative">
             <ComboboxInput
-              className={classNames(
+              className={cn(
                 "w-full px-4 pr-10 py-2 bg-white dark:bg-gray-800 border rounded-lg",
                 "focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600",
                 "transition-all duration-200",
@@ -85,7 +85,7 @@ function Combobox<T>({
           </div>
 
           <ComboboxOptions
-            className={classNames(
+            className={cn(
               "absolute mt-1 w-full max-h-60 overflow-auto rounded-lg bg-white dark:bg-gray-800",
               "shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
             )}
@@ -95,7 +95,7 @@ function Combobox<T>({
                 key={index}
                 value={option}
                 className={({ active, selected }) =>
-                  classNames(
+                  cn(
                     "cursor-default select-none relative py-2 pl-10 pr-4",
                     active
                       ? "bg-blue-100 text-blue-700"
@@ -107,7 +107,7 @@ function Combobox<T>({
                 {({ selected }) => (
                   <>
                     <span
-                      className={classNames(
+                      className={cn(
                         "block truncate",
                         selected && "font-semibold"
                       )}

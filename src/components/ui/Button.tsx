@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import classNames from "classnames";
 import { LucideIcon } from "lucide-react";
@@ -13,6 +12,7 @@ interface ButtonProps {
   children?: React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

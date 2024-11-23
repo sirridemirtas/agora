@@ -1,7 +1,7 @@
 "use client";
 import { forwardRef } from "react";
-import { Checkbox as HeadlessCheckbox } from "@headlessui/react";
 import cn from "classnames";
+import { Checkbox as HeadlessCheckbox } from "@headlessui/react";
 import { Check } from "lucide-react";
 
 interface CheckboxProps {
@@ -12,6 +12,7 @@ interface CheckboxProps {
   indeterminate?: boolean;
   className?: string;
   disabled?: boolean;
+  required?: boolean;
 }
 
 const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
@@ -36,6 +37,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
         onChange={onChange}
         disabled={disabled}
         className={cn("group flex items-center", className)}
+        required={props.required}
         {...props}
       >
         {({ checked }) => (

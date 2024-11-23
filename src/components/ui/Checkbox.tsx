@@ -1,88 +1,76 @@
 "use client";
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
+import { Checkbox as HeadlessCheckbox } from "@headlessui/react";
 import cn from "classnames";
 import { Check } from "lucide-react";
 
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface CheckboxProps {
   label?: string | React.ReactNode;
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onChange?: (checked: boolean) => void;
   indeterminate?: boolean;
+  className?: string;
+  disabled?: boolean;
 }
 
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
   (
     {
       label,
-      className,
-      indeterminate = false,
-      checked: controlledChecked,
+      checked,
+      defaultChecked,
       onChange,
+      indeterminate = false,
+      className,
+      disabled = false,
       ...props
     },
     ref
   ) => {
-    const [internalChecked, setInternalChecked] = useState(false);
-
-    // Determine the actual checked state
-    const isChecked =
-      controlledChecked !== undefined ? controlledChecked : internalChecked;
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      // If not a controlled component, update internal state
-      if (controlledChecked === undefined) {
-        setInternalChecked(e.target.checked);
-      }
-
-      // Call the original onChange if provided
-      if (onChange) {
-        onChange(e);
-      }
-    };
-
     return (
-      <div className="flex items-center">
-        <div
-          className={cn(
-            "relative inline-flex h-5 w-5 items-center justify-center rounded border",
-            {
-              "bg-blue-600 border-blue-600": isChecked || indeterminate,
-              "bg-white border-gray-300": !(isChecked || indeterminate),
-              "opacity-50 cursor-not-allowed": props.disabled,
-              "cursor-pointer hover:border-blue-600": !props.disabled,
-            },
-            "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          )}
-        >
-          <input
-            type="checkbox"
-            ref={ref}
-            className={cn(
-              "absolute inset-0 opacity-0 cursor-pointer",
-              className
+      <HeadlessCheckbox
+        ref={ref}
+        checked={checked}
+        defaultChecked={defaultChecked}
+        onChange={onChange}
+        disabled={disabled}
+        className={cn("group flex items-center", className)}
+        {...props}
+      >
+        {({ checked }) => (
+          <>
+            <div
+              className={cn(
+                "w-5 h-5 flex items-center justify-center rounded border",
+                "transition-colors duration-200",
+                checked
+                  ? "bg-blue-600 border-blue-600"
+                  : "border-gray-300 dark:border-gray-600",
+                disabled && "opacity-50 cursor-not-allowed",
+                "group-hover:border-blue-600"
+              )}
+            >
+              {checked && (
+                <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+              )}
+              {!checked && indeterminate && (
+                <div className="w-2 h-2 bg-blue-600 rounded-sm" />
+              )}
+            </div>
+            {label && (
+              <span
+                className={cn(
+                  "ml-2 text-sm text-gray-700 dark:text-gray-200",
+                  disabled && "opacity-50"
+                )}
+              >
+                {label}
+              </span>
             )}
-            checked={isChecked}
-            onChange={handleChange}
-            {...props}
-          />
-          {(isChecked || indeterminate) && (
-            <Check
-              className={cn("h-4 w-4 text-white", {
-                "rotate-90 scale-75": indeterminate,
-              })}
-              strokeWidth={3}
-            />
-          )}
-        </div>
-        {label && (
-          <label
-            className={cn("ml-2 select-none text-sm", {
-              "text-gray-400": props.disabled,
-              "text-gray-700 hover:text-gray-900": !props.disabled,
-            })}
-          >
-            {label}
-          </label>
+          </>
         )}
-      </div>
+      </HeadlessCheckbox>
     );
   }
 );

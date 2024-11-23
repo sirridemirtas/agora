@@ -1,4 +1,6 @@
-import classNames from "classnames";
+"use client";
+import cn from "classnames";
+import { Field, Label, Select } from "@headlessui/react";
 import { LucideIcon } from "lucide-react";
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -8,30 +10,37 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options: { value: string; label: string }[];
 }
 
-const Select: React.FC<SelectProps> = ({
+const SelectComponent: React.FC<SelectProps> = ({
   icon: Icon,
   label,
   error,
   options,
   className,
+  disabled,
   ...props
 }) => {
   return (
-    <div className="flex flex-col space-y-1">
+    <Field disabled={disabled} className="flex flex-col space-y-1">
       {label && (
-        <label className="text-sm font-medium text-gray-700 dark:text-gray-200">
+        <Label className="text-sm font-medium text-gray-700 dark:text-gray-200 data-[disabled]:opacity-50">
           {label}
-        </label>
+        </Label>
       )}
       <div className="relative">
         {Icon && (
-          <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+          <Icon
+            className={cn(
+              "absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500",
+              disabled && "opacity-50"
+            )}
+          />
         )}
-        <select
-          className={classNames(
+        <Select
+          className={cn(
             "w-full px-4 py-2 bg-white dark:bg-gray-800 border rounded-lg",
             "focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600",
             "transition-all duration-200",
+            "disabled:opacity-50 disabled:cursor-not-allowed",
             Icon ? "pl-10" : "",
             error ? "border-red-500" : "border-gray-300 dark:border-gray-600",
             className
@@ -43,11 +52,15 @@ const Select: React.FC<SelectProps> = ({
               {option.label}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
-      {error && <p className="text-sm text-red-500">{error}</p>}
-    </div>
+      {error && (
+        <p className="text-sm text-red-500" role="alert">
+          {error}
+        </p>
+      )}
+    </Field>
   );
 };
 
-export default Select;
+export default SelectComponent;

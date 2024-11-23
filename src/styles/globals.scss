@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'theme/light.scss';
+/* @import 'theme/light.scss';
 @import 'theme/dark.scss';
 
 *,
@@ -24,14 +24,17 @@
 @layer base {
   * {
     border-color: var(--neutral-200);
+    color: #1d1d1f;
+    // color: theme('colors.blue.700');
   }
   body {
     background-color: white;
     color: black;
   }
+  
+  body.dark {
+    background-color: black;
+    color: white;
+  }
 }
-
-body.dark {
-  background-color: #1a202c; /* bg-gray-900 */
-  color: #ffffff; /* text-white */
-}
+ */

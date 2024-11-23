@@ -34,7 +34,7 @@ const LoginForm = () => {
       />
       <Button type="submit">Giriş Yap</Button>
 
-      <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+      <div className="text-center text-sm text-gray-600">
         Hesabın yok mu?{" "}
         <Link href="/register" className="text-blue-600 hover:underline">
           Kaydol

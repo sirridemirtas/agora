@@ -59,13 +59,8 @@ const Post = ({
     <article
       className="
       px-6 py-4 pb-2
-
-      bg-white dark:bg-slate-800
-      _hover:bg-neutral-100
-      _cursor-pointer
-      transition-colors duration-200 ease-in-out
+      bg-white transition-colors duration-200 ease-in-out
       border-t border-neutral-200
-
       sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none
     "
     >

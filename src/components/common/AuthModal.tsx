@@ -14,13 +14,13 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
   const isLogin = mode === "login";
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="text-center md:text-left space-y-6">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-4xl font-bold text-gray-900">
             {isLogin ? "Tekrar Hoş Geldiniz!" : "Aramıza Katılın!"}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-lg text-gray-600">
             {isLogin
               ? "Hesabınıza giriş yaparak tüm özelliklerden faydalanabilirsiniz."
               : "Hemen kayıt olun ve topluluğumuzun bir parçası olun."}
@@ -28,8 +28,8 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
         </div>
 
         {/* Sağ Panel: Form */}
-        <div className="bg-white dark:bg-gray-800 p-6 sm:rounded-xl sm:shadow-xl">
-          <h2 className="text-2xl font-bold text-center mb-6 text-gray-900 dark:text-white">
+        <div className="bg-white p-6 sm:rounded-xl sm:shadow-xl">
+          <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">
             {isLogin ? "Giriş Yap" : "Kayıt Ol"}
           </h2>
 
@@ -100,7 +100,7 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
               {isLogin ? "Giriş Yap" : "Kayıt Ol"}
             </Button>
 
-            <div className="text-center text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-center text-sm text-gray-600">
               {isLogin ? (
                 <>
                   Hesabınız yok mu?{" "}

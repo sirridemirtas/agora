@@ -11,17 +11,17 @@ const Home = () => {
       <AuthModal mode={mode as "login" | "register"} />
       <section className="px-4 pt-20 pb-16 text-center">
         <div className="w-full max-w-md mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 mb-4">
+          <h1 className="text-4xl font-bold tracking-tight text-neutral-900 mb-4">
             Özgürce Paylaş, Anonim Kal
           </h1>
-          <p className="text-lg text-neutral-600 dark:text-neutral-300 mb-8">
+          <p className="text-lg text-neutral-600 mb-8">
             Üniversite öğrencileri için güvenli ve anonim mikroblog platformu
           </p>
         </div>
       </section>
-      <section className="px-4 py-16 bg-white dark:bg-neutral-900 sm:rounded-xl sm:shadow-sm">
+      <section className="px-4 py-16 bg-white sm:rounded-xl sm:shadow-sm">
         <div className="max-w-md mx-auto ">
-          <h2 className="text-2xl font-bold text-center text-neutral-900 dark:text-neutral-50 mb-12">
+          <h2 className="text-2xl font-bold text-center text-neutral-900 mb-12">
             Özellikler
           </h2>
           <div className="grid gap-8">
@@ -50,7 +50,7 @@ const Home = () => {
       </section>
       <section className="px-4 py-16">
         <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-center text-neutral-900 dark:text-neutral-50 mb-12">
+          <h2 className="text-2xl font-bold text-center text-neutral-900 mb-12">
             Nasıl Çalışır?
           </h2>
           <div className="space-y-8">
@@ -92,16 +92,10 @@ function Feature({
 }) {
   return (
     <div className="flex items-start space-x-4">
-      <div className="flex-shrink-0 p-3 bg-blue-100 dark:bg-blue-900 rounded-lg">
-        {icon}
-      </div>
+      <div className="flex-shrink-0 p-3 bg-blue-100 rounded-lg">{icon}</div>
       <div>
-        <h3 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1">
-          {title}
-        </h3>
-        <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-          {description}
-        </p>
+        <h3 className="font-semibold text-neutral-900 mb-1">{title}</h3>
+        <p className="text-neutral-600 text-sm">{description}</p>
       </div>
     </div>
   );
@@ -122,12 +116,8 @@ function Step({
         {number}
       </div>
       <div>
-        <h3 className="font-semibold text-neutral-900 dark:text-neutral-50 mb-1">
-          {title}
-        </h3>
-        <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-          {description}
-        </p>
+        <h3 className="font-semibold text-neutral-900 mb-1">{title}</h3>
+        <p className="text-neutral-600 text-sm">{description}</p>
       </div>
     </div>
   );

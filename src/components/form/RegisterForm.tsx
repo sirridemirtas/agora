@@ -69,9 +69,7 @@ export function RegisterForm() {
           Kayıt Ol
         </Button>
 
-        <div
-          className={cn("text-center text-sm text-gray-600 dark:text-gray-400")}
-        >
+        <div className={cn("text-center text-sm text-gray-600")}>
           Zaten hesabınız var mı?{" "}
           <Link href="/login" className={cn("text-blue-600 hover:underline")}>
             Giriş yap

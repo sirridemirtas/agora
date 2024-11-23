@@ -1,6 +1,7 @@
-import { AtSign, User, MessageSquareQuote } from "lucide-react";
-import { Button, Card, Input, Select, Textarea } from "@/components/ui";
+"use client";
+import { AtSign, MessageSquareQuote, User } from "lucide-react";
 import { PageTitle } from "@/components/common";
+import { Button, Card, Input, Select, Textarea } from "@/components/ui";
 
 export default function Contact() {
   return (
@@ -12,6 +13,7 @@ export default function Contact() {
             label="Ad Soyad"
             icon={User}
             placeholder="Adınızı ve soyadınızı girin"
+            autoFocus
             required
           />
           <Input

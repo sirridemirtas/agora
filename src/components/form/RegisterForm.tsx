@@ -11,13 +11,13 @@ export function RegisterForm() {
 
   return (
     <Card>
-      <form className={cn("space-y-4")}>
+      <form className={"flex flex-col gap-4 max-w-sm mx-auto my-8 p-4"}>
         <Combobox
           icon={School}
-          label="Üniversite"
           placeholder="Üniversitenizi seçin"
           options={universities}
           displayValue={(person: { id: string; name: string }) => person.name}
+          autoFocus
           required
         />
 
@@ -30,7 +30,6 @@ export function RegisterForm() {
               "Sadece harf karakterleri kullanabilirsiniz"
             );
           }}
-          label="Kullanıcı adı"
           placeholder="Kullanıcı adınızı seçin"
           required
         />
@@ -38,7 +37,6 @@ export function RegisterForm() {
         <Input
           icon={Lock}
           type="password"
-          label="Şifre"
           placeholder="Şifrenizi girin"
           required
         />
@@ -46,7 +44,6 @@ export function RegisterForm() {
         <Input
           icon={Lock}
           type="password"
-          label="Şifre (Tekrar)"
           placeholder="Şifrenizi tekrar girin"
           required
         />
@@ -71,7 +68,7 @@ export function RegisterForm() {
 
         <div className={cn("text-center text-sm text-gray-600")}>
           Zaten hesabınız var mı?{" "}
-          <Link href="/login" className={cn("text-blue-600 hover:underline")}>
+          <Link href="/login" className={"underline"}>
             Giriş yap
           </Link>
         </div>

@@ -7,26 +7,22 @@ export default function Contact() {
     <div className="lg:flex-1">
       <PageTitle title="Destek" icon={MessageSquareQuote} />
       <Card>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4 max-w-sm mx-auto my-8 p-4">
           <Input
-            label="Ad Soyad"
             icon={User}
             placeholder="Adınızı ve soyadınızı girin"
             autoFocus
             required
           />
           <Input
-            label="E-posta"
             icon={AtSign}
             placeholder="E-posta adresinizi girin"
             type="email"
             required
           />
           <Select
-            label="Konu"
             icon={MessageSquareQuote}
             options={[
-              { value: "", label: "-Konuyu seçin-" },
               { value: "genel", label: "Genel" },
               { value: "destek", label: "Destek" },
               { value: "teknik", label: "Teknik" },
@@ -38,7 +34,6 @@ export default function Contact() {
 
           <Textarea
             className="h-32"
-            label="Mesaj"
             placeholder="Mesajınızı girin"
             maxLength={500}
             required

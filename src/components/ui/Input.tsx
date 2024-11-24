@@ -30,12 +30,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             className={cn(
-              "w-full px-4 py-2 bg-white border rounded-lg",
-              "focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600",
-              "transition-all duration-200",
-              "disabled:opacity-50 disabled:cursor-not-allowed",
-              Icon ? "pl-10" : "",
-              error ? "border-red-500" : "border-gray-300",
+              "input",
+              Icon && "input-with-icon",
+              error ? "input-error" : "input-default",
               className
             )}
             aria-invalid={error ? "true" : "false"}

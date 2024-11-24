@@ -16,9 +16,11 @@ const LoginForm = () => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-4 max-w-sm mx-auto my-8 p-4"
+      onSubmit={handleSubmit}
+    >
       <Input
-        label="Kullancı Adı"
         icon={AtSign}
         placeholder="Kullanıcı adınızı girin"
         pattern="[A-Za-z]+"
@@ -28,7 +30,6 @@ const LoginForm = () => {
       <Input
         icon={SquareAsterisk}
         placeholder="Şifrenizi girin"
-        label="Şifre"
         type="password"
         required
       />
@@ -36,7 +37,7 @@ const LoginForm = () => {
 
       <div className="text-center text-sm text-gray-600">
         Hesabın yok mu?{" "}
-        <Link href="/register" className="text-blue-600 hover:underline">
+        <Link href="/register" className="underline">
           Kaydol
         </Link>
       </div>

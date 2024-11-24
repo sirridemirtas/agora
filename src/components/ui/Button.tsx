@@ -1,5 +1,5 @@
 import React from "react";
-import classNames from "classnames";
+import cn from "classnames";
 import { LucideIcon } from "lucide-react";
 import { Button as HeadlessButton } from "@headlessui/react";
 
@@ -28,13 +28,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const buttonClass = classNames(
+    const buttonClass = cn(
       "flex items-center justify-center",
-      "px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all",
+      "px-4 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all",
       "disabled:opacity-50 disabled:cursor-not-allowed",
       {
-        "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-600":
-          variant === "primary",
+        "bg-black text-white focus:ring-neutral-600": variant === "primary",
         "bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-600":
           variant === "secondary",
         "bg-red-600 text-white hover:bg-red-700 focus:ring-red-600":

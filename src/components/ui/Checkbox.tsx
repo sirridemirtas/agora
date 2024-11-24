@@ -46,16 +46,15 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
               className={cn(
                 "w-5 h-5 flex items-center justify-center rounded border",
                 "transition-colors duration-200",
-                checked ? "bg-blue-600 border-blue-600" : "border-gray-300 ",
-                disabled && "opacity-50 cursor-not-allowed",
-                "group-hover:border-blue-600"
+                checked && "bg-black border",
+                disabled && "opacity-50 cursor-not-allowed"
               )}
             >
               {checked && (
                 <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
               )}
               {!checked && indeterminate && (
-                <div className="w-2 h-2 bg-blue-600 rounded-sm" />
+                <div className="w-2 h-2 bg-black rounded-sm" />
               )}
             </div>
             {label && (

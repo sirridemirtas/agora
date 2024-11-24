@@ -9,8 +9,8 @@ const PageTitle = ({ title, icon: Icon }: PageTitleProps) => {
   return (
     <div className="bg-white sm:rounded-xl p-4 shadow-sm sm:mb-4 flex items-center gap-3">
       {Icon ? (
-        <div className="bg-blue-100 p-2 rounded-lg">
-          <Icon className="text-blue-700" size={24} />
+        <div className="bg-neutral-100 p-2 rounded-lg">
+          <Icon className="text-black" size={24} />
         </div>
       ) : (
         ""

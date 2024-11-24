@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.input {
+  /* Base styles */
+  @apply w-full px-4 py-2 bg-neutral-50 border rounded-xl;
+
+  /* Focus states */
+  @apply focus:outline-none;
+  @apply focus:ring-2;
+  @apply focus:ring-offset-2;
+  @apply focus:ring-neutral-600;
+
+  /* Disabled states */
+  @apply disabled:opacity-50;
+  @apply disabled:cursor-not-allowed;
+
+  /* Transitions */
+  @apply transition-all;
+}
+
+.input-with-icon {
+  @apply pl-10;
+}
+
+.input-error {
+  @apply border-red-500;
+}
+
+.input-default {
+  @apply border-gray-300;
+}
+
+select.input {
+  @apply appearance-none;
+}
+
 /* @import 'theme/light.scss';
 @import 'theme/dark.scss';
 
@@ -10,6 +50,7 @@
 *::after {
   box-sizing: border-box;
 }
+  
 
 @layer base {
   :root {

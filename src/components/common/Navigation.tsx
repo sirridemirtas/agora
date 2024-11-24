@@ -104,13 +104,16 @@ const NavItem: React.FC<NavItem> = ({
     <Link
       href={href}
       className={cn(
-        "flex flex-col items-center gap-1 rounded-full sm:hover:bg-blue-50 px-4 py-2 sm:flex-row sm:gap-2 sm:justify-start lg:py-3 lg:pr-6 lg:gap-3",
+        "flex flex-col items-center gap-1 rounded-full",
+        "sm:hover:bg-neutral-100 px-4 py-2 transition-all",
+        "sm:flex-row sm:gap-2 sm:justify-start lg:py-3 lg:pr-6 lg:gap-3",
+        "outline-none focus-visible:ring-2 focus-visible:ring-neutral-600",
         onlyLargeScreen && "hidden lg:flex",
-        pathname === href && "text-blue-700 font-semibold"
+        pathname === href && "sm:bg-neutral-100"
       )}
     >
       <Icon size={24} />
-      <span className="text-xs lg:text-base">{text}</span>
+      <span className={"text-xs lg:text-base"}>{text}</span>
     </Link>
   );
 };
@@ -126,7 +129,8 @@ const Navigation = () => {
     <nav
       className={cn(
         "fixed bottom-0 left-0 right-0",
-        "bg-white backdrop-blur-md bg-opacity-50 border-t border-neutral-200",
+        //"bg-white backdrop-blur-md bg-opacity-50 border-t border-neutral-200",
+        "bg-white border-t border-neutral-200",
         "h-16 flex items-center justify-around",
         "px-4 z-50",
 
@@ -149,9 +153,8 @@ const Navigation = () => {
           <button
             onClick={handleShare}
             className={cn(
-              "w-full font-extrabold py-3",
-              "rounded-full bg-blue-50 text-blue-700",
-              "hover:bg-blue-600 hover:text-white",
+              "w-full font-extrabold py-3 mt-4",
+              "rounded-full text-black bg-gray-100",
               "text-base text-center transition-colors duration-300"
             )}
           >

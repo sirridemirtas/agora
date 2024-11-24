@@ -108,6 +108,7 @@ const NavItem: React.FC<NavItem> = ({
         "sm:hover:bg-neutral-100 px-4 py-2 transition-all",
         "sm:flex-row sm:gap-2 sm:justify-start lg:py-3 lg:pr-6 lg:gap-3",
         "outline-none focus-visible:ring-2 focus-visible:ring-neutral-600",
+        "sm:active:bg-neutral-200",
         onlyLargeScreen && "hidden lg:flex",
         pathname === href && "sm:bg-neutral-100"
       )}
@@ -154,8 +155,9 @@ const Navigation = () => {
             onClick={handleShare}
             className={cn(
               "w-full font-extrabold py-3 mt-4",
-              "rounded-full text-black bg-gray-100",
-              "text-base text-center transition-colors duration-300"
+              "rounded-full text-black bg-gray-100 outline-none",
+              "text-base text-center transition-colors duration-300",
+              "hover:bg-gray-200 active:bg-gray-300 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-600"
             )}
           >
             Paylaş

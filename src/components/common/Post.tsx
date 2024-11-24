@@ -1,6 +1,7 @@
 "use client";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
+import cn from "classnames";
 import {
   Bookmark,
   Ellipsis,
@@ -57,12 +58,12 @@ const Post = ({
 
   return (
     <article
-      className="
-      px-6 py-4 pb-2
-      bg-white transition-colors duration-200 ease-in-out
-      border-t border-neutral-200
-      sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none
-    "
+      className={cn(
+        "px-6 py-4 pb-2",
+        "bg-white transition-colors duration-200 ease-in-out",
+        "border-t border-neutral-200",
+        "sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none"
+      )}
     >
       <div className="flex items-center justify-between mb-2">
         <div>

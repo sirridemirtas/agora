@@ -44,9 +44,10 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
           <>
             <div
               className={cn(
-                "w-5 h-5 flex items-center justify-center rounded border",
+                "w-5 h-5 flex items-center justify-center rounded",
+                "border border-gray-300",
                 "transition-colors duration-200",
-                checked && "bg-black border",
+                checked ? "bg-black border-transparent" : "bg-neutral-50",
                 disabled && "opacity-50 cursor-not-allowed"
               )}
             >

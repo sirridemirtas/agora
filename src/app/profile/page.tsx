@@ -5,7 +5,8 @@ import { LogOutButton, Post } from "@/components/common";
 const MOCK_USER_POSTS = [
   {
     id: "1",
-    content: "Kampüste yeni açılan kafeterya harika!",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam molestie elit vel eros mattis posuere. Integer blandit elit ligula, ut porta odio porta suscipit. Nam aliquam nunc sit amet luctus scelerisque. ",
     timestamp: "2024-03-10T16:45:00Z",
     university: "İstanbul Üniversitesi",
     username: "johndoe",

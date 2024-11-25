@@ -3,6 +3,7 @@ export interface Post {
   content: string;
   timestamp: string;
   university: string;
+  universityId: string;
   upvotes: number;
   downvotes: number;
   username?: string;

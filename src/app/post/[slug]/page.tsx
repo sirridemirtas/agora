@@ -16,6 +16,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           content={post.content}
           timestamp={post.timestamp}
           university={post.university}
+          universityId={post.universityId}
           upvotes={post.upvotes}
           downvotes={post.downvotes}
           commentsCount={post.commentsCount}

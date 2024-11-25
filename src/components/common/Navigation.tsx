@@ -45,7 +45,7 @@ const navItems: NavItem[] = [
     hideOnLogin: true,
   },
   {
-    href: "/university",
+    href: "/university/115069",
     icon: School,
     text: "Üniversite",
     loginRequired: true,

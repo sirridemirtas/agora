@@ -18,6 +18,7 @@ interface PostProps {
   content: string;
   timestamp: string;
   university: string;
+  universityId: string;
   username?: string;
   upvotes: number;
   downvotes: number;
@@ -30,6 +31,7 @@ const Post = ({
   content,
   timestamp,
   university,
+  universityId,
   username,
   upvotes,
   downvotes,
@@ -87,7 +89,14 @@ const Post = ({
             <span className="text-neutral-500">Anonim</span>
           )}
           <span className="text-neutral-400 mx-2">·</span>
-          <span className="text-neutral-500">{university}</span>
+          <span className="text-neutral-500 hover:underline">
+            <Link
+              href={`/university/${universityId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {university}
+            </Link>
+          </span>
         </div>
         <time className="text-sm text-neutral-400 hover:underline">
           <Link href={`/post/${id}`}>

@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import cn from "classnames";
@@ -12,6 +14,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 
 interface PostProps {
+  id: string;
   content: string;
   timestamp: string;
   university: string;
@@ -23,6 +26,7 @@ interface PostProps {
 }
 
 const Post = ({
+  id,
   content,
   timestamp,
   university,
@@ -33,14 +37,17 @@ const Post = ({
   isPrivate,
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
+  const router = useRouter();
 
   function requireLogin(func: (...args: unknown[]) => void) {
-    return (...args: unknown[]) => {
+    return (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation(); // Stop event bubbling
+
       if (!isLoggedIn) {
         console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
         return;
       }
-      return func(...args);
+      return func(e);
     };
   }
 
@@ -56,14 +63,21 @@ const Post = ({
     console.log("Commented");
   });
 
+  const onDetail = () => {
+    if (!id) return;
+    router.push(`/post/${id}`);
+  };
+
   return (
     <article
       className={cn(
         "px-6 py-4 pb-2",
         "bg-white transition-colors duration-200 ease-in-out",
         "border-t border-neutral-200",
-        "sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none"
+        "sm:rounded-xl sm:shadow-sm sm:mb-4 sm:border-none",
+        "cursor-pointer hover:bg-opacity-50"
       )}
+      onClick={onDetail}
     >
       <div className="flex items-center justify-between mb-2">
         <div>
@@ -75,11 +89,13 @@ const Post = ({
           <span className="text-neutral-400 mx-2">·</span>
           <span className="text-neutral-500">{university}</span>
         </div>
-        <time className="text-sm text-neutral-400">
-          {formatDistanceToNow(new Date(timestamp), {
-            locale: tr,
-            addSuffix: true,
-          })}
+        <time className="text-sm text-neutral-400 hover:underline">
+          <Link href={`/post/${id}`}>
+            {formatDistanceToNow(new Date(timestamp), {
+              locale: tr,
+              addSuffix: true,
+            })}
+          </Link>
         </time>
       </div>
 

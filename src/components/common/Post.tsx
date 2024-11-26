@@ -12,19 +12,7 @@ import {
   ThumbsUp,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-
-interface PostProps {
-  id: string;
-  content: string;
-  timestamp: string;
-  university: string;
-  universityId: string;
-  username?: string;
-  upvotes: number;
-  downvotes: number;
-  commentsCount: number;
-  isPrivate: boolean;
-}
+import { Post as PostType } from "@/types";
 
 const Post = ({
   id,
@@ -37,7 +25,7 @@ const Post = ({
   downvotes,
   commentsCount,
   isPrivate,
-}: PostProps) => {
+}: PostType) => {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 

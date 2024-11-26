@@ -1,23 +1,12 @@
 import { Settings } from "lucide-react";
 import Link from "next/link";
 import { LogOutButton, Post } from "@/components/common";
-
-const MOCK_USER_POSTS = [
-  {
-    id: "1",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam molestie elit vel eros mattis posuere. Integer blandit elit ligula, ut porta odio porta suscipit. Nam aliquam nunc sit amet luctus scelerisque. ",
-    timestamp: "2024-03-10T16:45:00Z",
-    university: "İstanbul Üniversitesi",
-    username: "johndoe",
-    upvotes: 18,
-    downvotes: 1,
-    commentsCount: 5,
-    isPrivate: false,
-  },
-];
+import { MOCK_POSTS } from "@/constants/posts";
 
 export default function ProfilePage() {
+  const MOCK_USER_POSTS = MOCK_POSTS.filter(
+    (post) => post.username === "user123"
+  );
   return (
     <div className="lg:flex-1">
       <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-4">

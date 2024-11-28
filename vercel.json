@@ -3,7 +3,7 @@
     "deploymentEnabled": {
       "main": {
         "silent": true,
-        "commitMessage": "^.*action:deploy.*$"
+        "commitMessage": "^action:deploy(:(prod|staging|dev))?(:.*)?$"
       }
     }
   }

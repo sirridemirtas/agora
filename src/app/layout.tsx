@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import cn from "classnames";
 import { Inter } from "next/font/google";
-import "@/styles/globals.scss";
+import "@/styles/globals.css";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
 import { Logo, Navigation, PageTitle, SplashScreen } from "@/components/common";
 

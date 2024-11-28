@@ -64,7 +64,7 @@ const Post = ({
         "sm:px-6",
         "transition-colors duration-200 ease-in-out",
         //"border-b border-neutral-200",
-        "cursor-pointer hover:bg-neutral-50 rounded-xl"
+        "cursor-pointer _hover:bg-neutral-50 rounded-xl"
       )}
       onClick={onDetail}
     >

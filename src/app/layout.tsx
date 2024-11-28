@@ -3,7 +3,7 @@ import cn from "classnames";
 import { Inter } from "next/font/google";
 import "@/styles/globals.scss";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
-import { Logo, Navigation, PageTitle } from "@/components/common";
+import { Logo, Navigation, PageTitle, SplashScreen } from "@/components/common";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +21,7 @@ export default function RootLayout({
     <html lang="tr">
       <body className={cn(inter.className, "bg-neutral-50")}>
         <GlobalProvider>
+          <SplashScreen visible={false} />
           <div
             className={cn(
               "md:max-w-[640px] mx-auto lg:pl-4",

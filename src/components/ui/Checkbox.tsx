@@ -1,4 +1,5 @@
 "use client";
+
 import { forwardRef } from "react";
 import cn from "classnames";
 import { Checkbox as HeadlessCheckbox } from "@headlessui/react";
@@ -64,6 +65,12 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
                   "ml-2 text-sm text-gray-700",
                   disabled && "opacity-50"
                 )}
+                onClick={(e) => {
+                  // Prevent checkbox toggle only if clicking on a link
+                  if ((e.target as HTMLElement).closest("a")) {
+                    e.stopPropagation();
+                  }
+                }}
               >
                 {label}
               </span>

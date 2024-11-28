@@ -1,18 +1,19 @@
 "use client";
+import cn from "classnames";
 import { Send } from "lucide-react";
 import { useState } from "react";
 import { Button, Textarea } from "@/components/ui";
 
-const CreatePost = () => {
+interface CreatePostProps {
+  className?: string;
+}
+
+const CreatePost = ({ className }: CreatePostProps) => {
   const [content, setContent] = useState("");
   const maxLength = 500;
 
   return (
-    <div
-      className="
-      bg-white p-4
-      sm:rounded-xl sm:shadow-sm sm:mb-4"
-    >
+    <div className={cn("p-6", className)}>
       <form
         className="flex flex-col gap-4"
         onSubmit={(e) => e.preventDefault()}

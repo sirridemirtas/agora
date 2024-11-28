@@ -15,7 +15,7 @@ import {
   SquarePen,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { Logo } from "@/components/common";
+//import { Logo } from "@/components/common";
 
 interface NavItem {
   href: string;
@@ -26,7 +26,7 @@ interface NavItem {
   hideOnLogin?: boolean;
 }
 
-const navItems: NavItem[] = [
+export const navItems: NavItem[] = [
   {
     href: "/",
     icon: Home,
@@ -130,20 +130,20 @@ const Navigation = () => {
     <nav
       className={cn(
         "fixed bottom-0 left-0 right-0",
-        //"bg-white backdrop-blur-md bg-opacity-50 border-t border-neutral-200",
-        "bg-white border-t border-neutral-200",
-        "h-16 flex items-center justify-around",
-        "px-4 z-50",
+        "h-16 flex items-center justify-around px-4 z-10",
+
+        "bg-neutral-50 backdrop-blur-md bg-opacity-80 border-t",
+        "md:backdrop-blur-none md:bg-opacity-100 md:border-none",
 
         // Large screen styles
-        "lg:sticky lg:top-4 lg:h-full lg:w-64",
-        "lg:bg-white lg:bg-opacity-100 lg:backdrop-blur-none",
-        "lg:border-none lg:bg-transparent lg:p-4 lg:rounded-xl lg:shadow-sm",
+        "lg:bg-white lg:shadow-sm",
+        "lg:border-none lg:rounded-xl",
         "lg:font-semibold text-neutral-800",
-        "lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:py-4"
+        "lg:relative lg:h-auto lg:w-64",
+        "lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:p-4 lg:pt-6"
       )}
     >
-      <Logo className="hidden lg:block ml-1 mb-4" />
+      {/* <Logo className="hidden lg:block ml-1 mb-4" /> */}
 
       {navItems.map((item) => (
         <NavItem key={item.href} {...item} />

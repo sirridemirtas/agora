@@ -4,7 +4,7 @@ export {default as CreatePost} from './CreatePost';
 export {default as LandingPagge} from './LandingPage';
 export {default as Logo} from './Logo';
 export {default as LogOutButton} from './LogOutButton';
-export {default as Navigation} from './Navigation';
+export {default as Navigation, navItems} from './Navigation';
 export {default as PageTitle} from './PageTitle';
 export {default as Post} from './Post';
 export {default as ThemeToggle} from './ThemeToggle';

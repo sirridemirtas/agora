@@ -1,10 +1,9 @@
 "use client";
 import { useParams } from "next/navigation";
-import { School } from "lucide-react";
-import { PageTitle, Post } from "@/components/common";
 import { universities } from "@/constants/universities";
 import { MOCK_POSTS } from "@/constants/posts";
 import { Card } from "@/components/ui";
+import { Post } from "@/components/common";
 
 export default function UniversityFeed() {
   const { slug } = useParams();
@@ -26,7 +25,6 @@ export default function UniversityFeed() {
 
   return (
     <div>
-      <PageTitle title={university.name} icon={School} />
       <div className="sm:space-y-4">
         {filteredPosts.length > 0 ? (
           filteredPosts.map((post) => <Post key={post.id} {...post} />)

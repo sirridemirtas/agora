@@ -16,10 +16,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form
-      className="flex flex-col gap-4 max-w-sm mx-auto my-8 p-4"
-      onSubmit={handleSubmit}
-    >
+    <form className="form" onSubmit={handleSubmit}>
       <Input
         icon={AtSign}
         placeholder="Kullanıcı adınızı girin"

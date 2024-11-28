@@ -4,7 +4,7 @@ import { Post } from "@/components/common";
 
 const HomeFeed = () => {
   return (
-    <div className="sm:space-y-4">
+    <div className="_sm:space-y-4">
       {MOCK_POSTS.map((post) => (
         <Post key={post.id} {...post} />
       ))}

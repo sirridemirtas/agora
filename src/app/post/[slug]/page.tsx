@@ -1,18 +1,24 @@
-import { MOCK_POSTS } from "@/constants/posts";
-import { MessageSquare } from "lucide-react";
-import { PageTitle, Post as PostComponent } from "@/components/common";
+"use client";
+import { Post } from "@/components/common";
 
-export default function PostPage({ params }: { params: { slug: string } }) {
-  const post = MOCK_POSTS.find((p) => p.id === params.slug);
-
-  if (!post) return <div>Post bulunamadı</div>;
-
+export default function PostPage() {
   return (
     <div className="lg:flex-1">
-      <PageTitle title="Gönderi Detayı" icon={MessageSquare} />
       <div className="max-w-4xl mx-auto">
-        <PostComponent
-          {...post}
+        <Post
+          {...{
+            id: "3",
+            content:
+              "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
+            timestamp: "2024-01-05T16:45:00Z",
+            university: "Orta Doğu Teknik Üniversitesi",
+            universityId: "122571",
+            username: "techStudent",
+            upvotes: 56,
+            downvotes: 4,
+            commentsCount: 12,
+            isPrivate: false,
+          }}
         />
       </div>
     </div>

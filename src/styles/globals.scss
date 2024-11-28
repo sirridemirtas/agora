@@ -42,6 +42,10 @@ select.input {
   @apply appearance-none;
 }
 
+.form {
+  @apply flex flex-col gap-4 max-w-sm mx-auto py-16;
+}
+
 /* @import 'theme/light.scss';
 @import 'theme/dark.scss';
 

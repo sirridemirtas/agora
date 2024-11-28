@@ -1,13 +1,16 @@
-import { House } from "lucide-react";
+import { Metadata } from "next";
 import { HomeFeed } from "@/components/feed";
-import { CreatePost, PageTitle } from "@/components/common";
+import { CreatePost } from "@/components/common";
+
+export const metadata: Metadata = {
+  title: "Ana Sayfa | Agora",
+};
 
 export default function Home() {
   return (
-    <div className="lg:flex-1">
-      <PageTitle title="Ana Sayfa" icon={House} />
+    <>
       <CreatePost />
       <HomeFeed />
-    </div>
+    </>
   );
 }

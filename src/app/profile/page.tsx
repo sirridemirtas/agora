@@ -1,3 +1,4 @@
+"use client";
 import { Settings } from "lucide-react";
 import Link from "next/link";
 import { LogOutButton, Post } from "@/components/common";
@@ -9,7 +10,7 @@ export default function ProfilePage() {
   );
   return (
     <div className="lg:flex-1">
-      <div className="bg-white sm:rounded-xl p-6 sm:shadow-sm sm:mb-4">
+      <div className="p-6 sm:mb-4">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl font-semibold">johndoe</h1>
           <Link

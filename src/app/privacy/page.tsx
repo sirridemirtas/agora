@@ -1,11 +1,8 @@
-import { ScrollText } from "lucide-react";
 import { Card } from "@/components/ui";
-import { PageTitle } from "@/components/common";
 
 export default function PrivacyPage() {
   return (
     <div className="lg:flex-1">
-      <PageTitle title="Gizlilik Politikası" icon={ScrollText} />
       <Card className="font-serif p-8">
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-2">1. Genel Bilgiler</h2>

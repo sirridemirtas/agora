@@ -1,23 +1,18 @@
-import { LucideIcon } from "lucide-react";
+"use client";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { navItems } from "./Navigation";
 
-interface PageTitleProps {
-  title: string;
-  icon?: LucideIcon;
-}
+const PageTitle = () => {
+  const [title, setTitle] = useState("Microblog");
+  const pathname = usePathname();
 
-const PageTitle = ({ title, icon: Icon }: PageTitleProps) => {
-  return (
-    <div className="bg-white sm:rounded-xl p-4 shadow-sm sm:mb-4 flex items-center gap-3">
-      {Icon ? (
-        <div className="bg-neutral-100 p-2 rounded-lg">
-          <Icon className="text-black" size={24} />
-        </div>
-      ) : (
-        ""
-      )}
-      <h1 className="text-xl font-semibold">{title}</h1>
-    </div>
-  );
+  useEffect(() => {
+    const currentItem = navItems.find((item) => item.href === pathname);
+    setTitle(currentItem ? currentItem.text : "Microblog");
+  }, [pathname]);
+
+  return <h1 className="text-center text-md font-semibold">{title}</h1>;
 };
 
 export default PageTitle;

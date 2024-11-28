@@ -24,11 +24,6 @@ export function RegisterForm() {
         icon={AtSign}
         type="text"
         pattern="[A-Za-z]+"
-        onInvalid={(e: InvalidEvent<HTMLInputElement>) => {
-          e.target.setCustomValidity(
-            "Sadece harf karakterleri kullanabilirsiniz"
-          );
-        }}
         placeholder="Kullanıcı adınızı seçin"
         required
       />
@@ -58,7 +53,7 @@ export function RegisterForm() {
             nı okudum ve kabul ediyorum.
           </>
         }
-        required
+        required={true}
       />
 
       <Button fullWidth type="submit">

@@ -61,7 +61,7 @@ const Post = ({
   return (
     <article
       className={cn(
-        "sm:px-6",
+        "sm:px-6 text-sm sm:text-base",
         "transition-colors duration-200 ease-in-out",
         //"border-b border-neutral-200",
         "cursor-pointer _hover:bg-neutral-50 rounded-xl"

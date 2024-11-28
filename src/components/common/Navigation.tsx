@@ -30,7 +30,7 @@ export const navItems: NavItem[] = [
   {
     href: "/",
     icon: Home,
-    text: "Ana Sayfa",
+    text: "Anasayfa",
   },
   {
     href: "/login",
@@ -114,7 +114,7 @@ const NavItem: React.FC<NavItem> = ({
       )}
     >
       <Icon size={24} />
-      <span className={"text-xs lg:text-base"}>{text}</span>
+      <span className={"text-xs lg:text-base truncate"}>{text}</span>
     </Link>
   );
 };

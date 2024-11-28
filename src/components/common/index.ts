@@ -1,6 +1,7 @@
 export {default as AuthModal} from './AuthModal';
 export {default as AuthRedirect} from './AuthRedirect';
 export {default as CreatePost} from './CreatePost';
+export {default as FeedFilters} from './FeedFilters';
 export {default as LandingPagge} from './LandingPage';
 export {default as Logo} from './Logo';
 export {default as LogOutButton} from './LogOutButton';

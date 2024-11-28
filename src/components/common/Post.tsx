@@ -64,11 +64,11 @@ const Post = ({
         "sm:px-6",
         "transition-colors duration-200 ease-in-out",
         //"border-b border-neutral-200",
-        "cursor-pointer _hover:bg-opacity-50"
+        "cursor-pointer hover:bg-neutral-50 rounded-xl"
       )}
       onClick={onDetail}
     >
-      <div className="px-6 sm:px-0 py-4 border-t border-neutral-200">
+      <div className="px-6 sm:px-0 pt-4 pb-2 border-t border-neutral-200">
         <div className="flex items-center justify-between mb-2">
           <div>
             {!isPrivate && username ? (

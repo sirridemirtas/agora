@@ -1,5 +1,5 @@
 "use client";
-import { useState, InvalidEvent } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import cn from "classnames";
 import { AtSign, Lock, School } from "lucide-react";

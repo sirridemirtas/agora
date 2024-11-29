@@ -1,11 +1,13 @@
 "use client";
-import { createContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useEffect, ReactNode } from "react";
+import { useSharedState } from "@/hooks/useSharedState";
 
 export type Theme = "light" | "dark" | "system";
 
 export interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
+  isLoading: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -13,7 +15,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<Theme>("system");
+  const [theme, setTheme, isLoading] = useSharedState<Theme>("theme", "system");
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -38,7 +40,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme, isLoading }}>
       {children}
     </ThemeContext.Provider>
   );

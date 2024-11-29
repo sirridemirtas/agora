@@ -1,11 +1,11 @@
 "use client";
 import { createContext, useEffect, useState, ReactNode } from "react";
 
-export type Theme = "light" | "dark";
+export type Theme = "light" | "dark" | "system";
 
 export interface ThemeContextType {
   theme: Theme;
-  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -13,24 +13,32 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
-    document.body.classList.remove("light", "dark");
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    if (theme === "light") {
-      document.body.classList.add("light");
-    } else if (theme === "dark") {
-      document.body.classList.add("dark");
+    const handleThemeChange = () => {
+      if (theme === "system") {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(mediaQuery.matches ? "dark" : "light");
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleThemeChange);
+
+    document.body.classList.remove("light", "dark");
+    if (theme === "system") {
+      document.body.classList.add(mediaQuery.matches ? "dark" : "light");
+    } else {
+      document.body.classList.add(theme);
     }
+
+    return () => mediaQuery.removeEventListener("change", handleThemeChange);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

@@ -9,4 +9,4 @@ export {default as Navigation, navItems} from './Navigation';
 export {default as PageTitle} from './PageTitle';
 export {default as Post} from './Post';
 export {default as SplashScreen} from './SplashScreen';
-export {default as ThemeToggle} from './ThemeToggle';
+export {default as ThemeToggleButton} from './ThemeToggleButton';

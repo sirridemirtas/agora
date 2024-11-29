@@ -72,8 +72,8 @@ export const navItems: NavItem[] = [
     href: "/settings",
     icon: Settings,
     text: "Ayarlar",
-    onlyLargeScreen: true,
-    loginRequired: true,
+    onlyLargeScreen: false,
+    loginRequired: false,
   },
   {
     href: "/contact",

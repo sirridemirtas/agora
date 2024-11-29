@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import { Send } from "lucide-react";
 import { useState } from "react";
 import { Button, Textarea } from "@/components/ui";
@@ -13,7 +13,7 @@ const CreatePost = ({ className }: CreatePostProps) => {
   const maxLength = 500;
 
   return (
-    <div className={cn("p-6", className)}>
+    <div className={clsx("p-6", className)}>
       <form
         className="flex flex-col gap-4"
         onSubmit={(e) => e.preventDefault()}

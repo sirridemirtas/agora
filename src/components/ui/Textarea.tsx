@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
 import { Field, Label, Textarea as HeadlessTextarea } from "@headlessui/react";
 
@@ -27,15 +27,15 @@ const Textarea: React.FC<TextareaProps> = ({
       <div className="relative">
         {Icon && (
           <Icon
-            className={cn(
-              "absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500",
+            className={clsx(
+              "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500",
               disabled && "opacity-50"
             )}
             aria-hidden="true"
           />
         )}
         <HeadlessTextarea
-          className={cn(
+          className={clsx(
             "input",
             "resize-none",
             Icon && "input-with-icon",

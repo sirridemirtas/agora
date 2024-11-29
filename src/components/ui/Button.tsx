@@ -1,5 +1,5 @@
 import React from "react";
-import cn from "classnames";
+import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
 import { Button as HeadlessButton } from "@headlessui/react";
 
@@ -28,7 +28,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const buttonClass = cn(
+    const buttonClass = clsx(
       "flex items-center justify-center",
       "px-4 py-2 rounded-xl",
       "focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all",
@@ -48,11 +48,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <HeadlessButton ref={ref} className={buttonClass} {...props}>
         {Icon && iconPosition === "left" && (
-          <Icon className="w-5 h-5 mr-2" aria-hidden="true" />
+          <Icon className="mr-2 h-5 w-5" aria-hidden="true" />
         )}
         {children}
         {Icon && iconPosition === "right" && (
-          <Icon className="w-5 h-5 ml-2" aria-hidden="true" />
+          <Icon className="ml-2 h-5 w-5" aria-hidden="true" />
         )}
       </HeadlessButton>
     );

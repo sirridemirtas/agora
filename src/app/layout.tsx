@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import cn from "classnames";
+import clsx from "clsx";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
@@ -19,26 +19,26 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
-      <body className={cn(inter.className, "bg-neutral-50")}>
+      <body className={clsx(inter.className, "bg-neutral-50 dark:bg-black")}>
         <GlobalProvider>
           <SplashScreen visible={false} />
           <div
-            className={cn(
-              "md:max-w-[640px] mx-auto lg:pl-4",
-              "lg:max-w-[920px] lg:flex lg:flex-row lg:items-start"
+            className={clsx(
+              "mx-auto md:max-w-[640px] lg:pl-4",
+              "lg:flex lg:max-w-[920px] lg:flex-row lg:items-start"
             )}
           >
             <div
-              className={cn(
-                "lg:h-screen lg:sticky lg:top-0",
+              className={clsx(
+                "lg:sticky lg:top-0 lg:h-screen",
                 "lg:flex lg:flex-col"
               )}
             >
-              <div className="hidden lg:inline h-16">
+              <div className="hidden h-16 lg:inline">
                 <Logo className="ml-5 mt-2" />
               </div>
               <Navigation />
-              <div className="hidden lg:flex pt-4 justify-start">
+              <div className="hidden justify-start pt-4 lg:flex">
                 <p className="text-xs text-neutral-400">
                   Copyright © {new Date().getFullYear()}{" "}
                   <a
@@ -51,14 +51,14 @@ export default function RootLayout({
                 </p>
               </div>
             </div>
-            <main className={"flex-1 min-h-svh"}>
+            <main className={"min-h-svh flex-1"}>
               <header
-                className={cn(
+                className={clsx(
                   "flex flex-row items-center justify-between px-4",
-                  "h-16 w-full flex-grow-1",
-                  "sticky top-0 left:0 right:0 z-10",
-                  "bg-neutral-50 backdrop-blur-md bg-opacity-80 border-b",
-                  "md:backdrop-blur-none md:bg-opacity-100 md:border-none"
+                  "flex-grow-1 h-16 w-full",
+                  "left:0 right:0 sticky top-0 z-10",
+                  "border-b bg-neutral-50 bg-opacity-80 backdrop-blur-md",
+                  "md:border-none md:bg-opacity-100 md:backdrop-blur-none"
                 )}
               >
                 <div className="w-full">
@@ -68,7 +68,7 @@ export default function RootLayout({
               </header>
               <div
                 className={
-                  "lg:m-auto lg:mx-4 min-h-[calc(100vh-4rem)] z-0 relative pb-16 sm:pb-0 sm:shadow-sm bg-white"
+                  "relative z-0 min-h-[calc(100vh-4rem)] bg-white pb-16 sm:pb-0 sm:shadow-sm lg:m-auto lg:mx-4"
                 }
               >
                 {children}
@@ -86,23 +86,23 @@ const RoundedCorners = () => {
     <>
       <div
         className={
-          "hidden md:inline absolute top-16 -mt-4 -ml-8 lg:-ml-4 h-8 w-8 z-10 overflow-hidden bg-neutral-50"
+          "absolute top-16 z-10 -ml-8 -mt-4 hidden h-8 w-8 overflow-hidden bg-neutral-50 md:inline lg:-ml-4"
         }
       >
         <div
           className={
-            "absolute h-12 w-12 -bottom-8 -right-8 rounded-xl shadow-sm bg-white"
+            "absolute -bottom-8 -right-8 h-12 w-12 rounded-xl bg-white shadow-sm"
           }
         ></div>
       </div>
       <div
         className={
-          "hidden md:inline absolute top-16 -mt-4 -right-4 lg:right-0 h-8 w-8 z-10 overflow-hidden bg-neutral-50"
+          "absolute -right-4 top-16 z-10 -mt-4 hidden h-8 w-8 overflow-hidden bg-neutral-50 md:inline lg:right-0"
         }
       >
         <div
           className={
-            "absolute h-12 w-12 -bottom-8 -left-8 rounded-xl shadow-sm bg-white"
+            "absolute -bottom-8 -left-8 h-12 w-12 rounded-xl bg-white shadow-sm"
           }
         ></div>
       </div>

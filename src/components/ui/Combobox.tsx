@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import cn from "classnames";
+import clsx from "clsx";
 import {
   Combobox as HeadlessCombobox,
   ComboboxButton,
@@ -66,7 +66,7 @@ function Combobox<T>({
         <HeadlessCombobox value={selected} onChange={setSelected}>
           <div className="relative">
             <ComboboxInput
-              className={cn(
+              className={clsx(
                 "input",
                 Icon && "input-with-icon",
                 error ? "input-error" : "input-default",
@@ -79,17 +79,17 @@ function Combobox<T>({
               autoFocus={autoFocus}
             />
             {Icon && (
-              <Icon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+              <Icon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
             )}
             <ComboboxButton className="absolute inset-y-0 right-3 flex items-center">
-              <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+              <ChevronDownIcon className="h-5 w-5 text-gray-500" />
             </ComboboxButton>
           </div>
 
           <ComboboxOptions
-            className={cn(
-              "absolute mt-2 w-full max-h-60 overflow-auto rounded-xl bg-white",
-              "shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+            className={clsx(
+              "absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white",
+              "z-10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
             )}
           >
             {filteredOptions.map((option, index) => (
@@ -97,8 +97,8 @@ function Combobox<T>({
                 key={index}
                 value={option}
                 className={({ active, selected }) =>
-                  cn(
-                    "cursor-default select-none relative py-2 pl-10 pr-4",
+                  clsx(
+                    "relative cursor-default select-none py-2 pl-10 pr-4",
                     active && "bg-neutral-200",
                     selected && "font-medium"
                   )
@@ -107,7 +107,7 @@ function Combobox<T>({
                 {({ selected }) => (
                   <>
                     <span
-                      className={cn(
+                      className={clsx(
                         "block truncate",
                         selected && "font-semibold"
                       )}
@@ -116,7 +116,7 @@ function Combobox<T>({
                     </span>
                     {selected && (
                       <span className="absolute inset-y-0 left-3 flex items-center text-black">
-                        <CheckIcon className="w-5 h-5" />
+                        <CheckIcon className="h-5 w-5" />
                       </span>
                     )}
                   </>

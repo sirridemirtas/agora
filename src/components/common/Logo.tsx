@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { Origami } from "lucide-react";
 
 interface LogoProps {
@@ -8,11 +8,11 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ className }) => {
   return (
     <div
-      className={cn(
-        "w-12 h-12 rounded-full flex items-center justify-center",
+      className={clsx(
+        "flex h-12 w-12 items-center justify-center rounded-full",
         "transition-colors duration-300",
-        "hidden lg:flex cursor-pointer",
-        //"text-blue-700 bg-blue-50",
+        "hidden cursor-pointer lg:flex",
+        "dark:text-white",
         className
       )}
     >

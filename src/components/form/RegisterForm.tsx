@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import cn from "classnames";
+import clsx from "clsx";
 import { AtSign, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { Button, Checkbox, Combobox, Input } from "@/components/ui";
@@ -60,7 +60,7 @@ export function RegisterForm() {
         Kayıt Ol
       </Button>
 
-      <div className={cn("text-center text-sm text-gray-600")}>
+      <div className={clsx("text-center text-sm text-gray-600")}>
         Zaten hesabınız var mı?{" "}
         <Link href="/login" className={"underline"}>
           Giriş yap

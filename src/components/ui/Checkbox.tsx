@@ -1,9 +1,9 @@
 "use client";
 
 import { forwardRef } from "react";
-import cn from "classnames";
+import clsx from "clsx";
 import { Checkbox as HeadlessCheckbox } from "@headlessui/react";
-import { Check } from 'lucide-react';
+import { Check } from "lucide-react";
 
 interface CheckboxProps {
   label?: string | React.ReactNode;
@@ -33,7 +33,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
     ref
   ) => {
     return (
-      <div className={cn("relative", className)}>
+      <div className={clsx("relative", className)}>
         <HeadlessCheckbox
           ref={ref}
           checked={checked}
@@ -46,24 +46,27 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
           {({ checked }) => (
             <>
               <div
-                className={cn(
-                  "w-5 h-5 flex items-center justify-center rounded",
+                className={clsx(
+                  "flex h-5 w-5 items-center justify-center rounded",
                   "border border-gray-300",
                   "transition-colors duration-200",
-                  checked ? "bg-black border-transparent" : "bg-neutral-50",
-                  disabled && "opacity-50 cursor-not-allowed"
+                  checked ? "border-transparent bg-black" : "bg-neutral-50",
+                  disabled && "cursor-not-allowed opacity-50"
                 )}
               >
                 {checked && (
-                  <Check className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+                  <Check
+                    className="h-3.5 w-3.5 text-white"
+                    aria-hidden="true"
+                  />
                 )}
                 {!checked && indeterminate && (
-                  <div className="w-2 h-2 bg-black rounded-sm" />
+                  <div className="h-2 w-2 rounded-sm bg-black" />
                 )}
               </div>
               {label && (
                 <span
-                  className={cn(
+                  className={clsx(
                     "ml-2 text-sm text-gray-700",
                     disabled && "opacity-50"
                   )}

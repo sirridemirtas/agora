@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 import { Field, Label, Select } from "@headlessui/react";
 import { LucideIcon, ChevronDownIcon } from "lucide-react";
 
@@ -28,14 +28,14 @@ const SelectComponent: React.FC<SelectProps> = ({
       <div className="relative">
         {Icon && (
           <Icon
-            className={cn(
-              "absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500",
+            className={clsx(
+              "absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500",
               disabled && "opacity-50"
             )}
           />
         )}
         <Select
-          className={cn(
+          className={clsx(
             "input",
             Icon && "input-with-icon",
             error ? "input-error" : "input-default",
@@ -49,7 +49,7 @@ const SelectComponent: React.FC<SelectProps> = ({
             </option>
           ))}
         </Select>
-        <ChevronDownIcon className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+        <ChevronDownIcon className="absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
       </div>
       {error && (
         <p className="text-sm text-red-500" role="alert">

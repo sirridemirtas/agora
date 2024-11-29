@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import cn from "classnames";
+import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -23,13 +23,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="relative">
           {Icon && (
             <Icon
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500"
+              className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500"
               aria-hidden="true"
             />
           )}
           <input
             ref={ref}
-            className={cn(
+            className={clsx(
               "input",
               Icon && "input-with-icon",
               error ? "input-error" : "input-default",

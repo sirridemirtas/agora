@@ -1,4 +1,4 @@
-import cn from "classnames";
+import clsx from "clsx";
 
 interface CardProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ children, className, props }) => {
   return (
     <div
-      className={cn("bg-white sm:shadow-sm sm:rounded-xl p-4", className)}
+      className={clsx("bg-white p-4 sm:rounded-xl sm:shadow-sm", className)}
       {...props}
     >
       {children}

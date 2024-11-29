@@ -1,5 +1,5 @@
 "use client";
-import cn from "classnames";
+import clsx from "clsx";
 import { Sun, Moon, Monitor, LucideIcon } from "lucide-react";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -23,8 +23,8 @@ const ThemeButton: React.FC<ThemeButtonProps> = ({
   return (
     <button
       onClick={() => setTheme(themeName)}
-      className={cn(
-        "p-2 rounded-md transition-all",
+      className={clsx(
+        "rounded-md p-2 transition-all",
         currentTheme === themeName
           ? "bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white"
           : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
@@ -41,7 +41,7 @@ const ThemeToggleButton: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="inline-flex items-center gap-1 bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg border border-transparent dark:border-inherit">
+    <div className="inline-flex items-center gap-1 rounded-lg border border-transparent bg-zinc-100 p-1 dark:border-inherit dark:bg-zinc-800">
       <ThemeButton
         themeName="system"
         currentTheme={theme}

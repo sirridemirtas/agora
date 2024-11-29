@@ -68,7 +68,7 @@ const Post = ({
       )}
       onClick={onDetail}
     >
-      <div className="border-t border-neutral-200 px-6 pb-2 pt-4 sm:px-0">
+      <div className="border-t border-neutral-200 px-6 pb-2 pt-4 sm:px-0 dark:border-neutral-800">
         <div className="mb-2 flex items-center justify-between">
           <div>
             {!isPrivate && username ? (
@@ -96,7 +96,7 @@ const Post = ({
           </time>
         </div>
 
-        <p className="mb-4 text-neutral-800">{content}</p>
+        <p className="mb-4">{content}</p>
 
         <div className="flex justify-between">
           <button

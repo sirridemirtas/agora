@@ -2,8 +2,8 @@ import { ThemeToggleButton } from "@/components/common";
 
 export default function SettingsPage() {
   return (
-    <div className="lg:flex-1 p-6">
-      <div className="flex flex-row justify-between items-center border-b p-2">
+    <div className="p-6 lg:flex-1">
+      <div className="flex flex-row items-center justify-between border-b p-2 dark:border-neutral-800">
         <label>Tema</label>
         <ThemeToggleButton />
       </div>

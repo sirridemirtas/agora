@@ -10,7 +10,7 @@
 
 .input {
   /* Base styles */
-  @apply w-full px-4 py-2 bg-neutral-50 border rounded-xl;
+  @apply w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2;
 
   /* Focus states */
   @apply focus:outline-none;
@@ -24,6 +24,9 @@
 
   /* Transitions */
   @apply transition-all;
+
+  /* Dark Mode */
+  @apply dark:border-neutral-800 dark:bg-neutral-900;
 }
 
 .input-with-icon {
@@ -43,5 +46,5 @@ select.input {
 }
 
 .form {
-  @apply flex flex-col gap-4 max-w-sm mx-auto py-16;
+  @apply mx-auto flex max-w-sm flex-col gap-4 py-16;
 }

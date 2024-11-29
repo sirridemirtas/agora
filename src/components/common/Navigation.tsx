@@ -72,7 +72,7 @@ export const navItems: NavItem[] = [
     href: "/settings",
     icon: Settings,
     text: "Ayarlar",
-    onlyLargeScreen: false,
+    onlyLargeScreen: true,
     loginRequired: false,
   },
   {
@@ -104,17 +104,18 @@ const NavItem: React.FC<NavItem> = ({
     <Link
       href={href}
       className={clsx(
-        "flex flex-col items-center gap-1 rounded-full",
-        "px-4 py-2 transition-all sm:hover:bg-neutral-100",
+        "flex flex-col items-center gap-1 rounded-full px-4 py-2 transition-all",
+        "sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 sm:dark:hover:text-white",
         "sm:flex-row sm:justify-start sm:gap-2 lg:gap-3 lg:py-3 lg:pr-6",
         "outline-none focus-visible:ring-2 focus-visible:ring-neutral-600",
         "sm:active:bg-neutral-200",
         onlyLargeScreen && "hidden lg:flex",
-        pathname === href && "sm:bg-neutral-100"
+        pathname === href &&
+          "sm:bg-neutral-100 dark:text-white sm:dark:bg-neutral-800"
       )}
     >
       <Icon size={24} />
-      <span className={"truncate text-xs lg:text-base"}>{text}</span>
+      <span className="truncate text-xs lg:text-base">{text}</span>
     </Link>
   );
 };
@@ -129,19 +130,12 @@ const Navigation = () => {
   return (
     <nav
       className={clsx(
-        "fixed bottom-0 left-0 right-0",
-        "z-10 flex h-16 items-center justify-around px-4",
-
-        "border-t bg-neutral-50 bg-opacity-80 backdrop-blur-md",
-        "md:border-none md:bg-opacity-100 md:backdrop-blur-none",
-
-        // Large screen styles
-        "lg:bg-white lg:shadow-sm",
-        "lg:rounded-xl lg:border-none",
-        "text-neutral-800 lg:font-semibold",
-        "lg:relative lg:h-auto lg:w-64",
-        "lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:p-4 lg:pt-6",
-        "dark:bg-neutral-950 dark:shadow-none dark:lg:border dark:lg:border-neutral-100"
+        "fixed bottom-0 left-0 right-0 z-10 flex h-16 items-center justify-around border-t bg-neutral-50 bg-opacity-80 px-4 backdrop-blur-md",
+        "md:bg-opacity-100 md:backdrop-blur-none",
+        "lg:relative lg:h-auto lg:w-64 lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:rounded-xl lg:bg-white lg:p-4 lg:pt-6 lg:font-semibold lg:shadow-sm",
+        "lg:border lg:border-transparent",
+        "dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:shadow-none",
+        "dark:lg:border dark:lg:border-neutral-800"
       )}
     >
       {/* <Logo className="hidden lg:block ml-1 mb-4" /> */}
@@ -155,10 +149,10 @@ const Navigation = () => {
           <button
             onClick={handleShare}
             className={clsx(
-              "mt-4 w-full py-3 font-extrabold",
-              "rounded-full bg-gray-100 text-black outline-none",
-              "text-center text-base transition-colors duration-300",
-              "hover:bg-gray-200 focus-visible:ring-2 focus-visible:ring-gray-600 focus-visible:ring-offset-2 active:bg-gray-300"
+              "mt-4 w-full rounded-full py-3 text-center text-base font-extrabold outline-none transition-colors duration-300",
+              "bg-gray-100 text-black hover:bg-gray-200 active:bg-gray-300",
+              "dark:bg-neutral-800 dark:text-white dark:hover:bg-neutral-700 dark:active:bg-neutral-600",
+              "focus-visible:ring-2 focus-visible:ring-gray-600 focus-visible:ring-offset-2 dark:focus-visible:ring-neutral-400"
             )}
           >
             Paylaş

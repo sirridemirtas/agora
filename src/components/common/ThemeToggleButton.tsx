@@ -41,7 +41,7 @@ const ThemeToggleButton: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="inline-flex items-center gap-1 rounded-lg border border-transparent bg-zinc-100 p-1 dark:border-inherit dark:bg-zinc-800">
+    <div className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-neutral-800">
       <ThemeButton
         themeName="system"
         currentTheme={theme}

@@ -12,7 +12,7 @@ const PageTitle = () => {
     setTitle(currentItem ? currentItem.text : "Microblog");
   }, [pathname]);
 
-  return <h1 className="text-center text-md font-semibold">{title}</h1>;
+  return <h1 className="text-md text-center font-semibold">{title}</h1>;
 };
 
 export default PageTitle;

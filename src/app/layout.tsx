@@ -38,6 +38,18 @@ export default function RootLayout({
                 <Logo className="ml-5 mt-2" />
               </div>
               <Navigation />
+              <div className="hidden lg:flex pt-4 justify-start">
+                <p className="text-xs text-neutral-400">
+                  Copyright © {new Date().getFullYear()}{" "}
+                  <a
+                    href="https://github.com/sirridemirtas"
+                    target="_blank"
+                    className="hover:underline"
+                  >
+                    Sırrı Demirtaş
+                  </a>
+                </p>
+              </div>
             </div>
             <main className={"flex-1 min-h-svh"}>
               <header

@@ -3,6 +3,7 @@ export { default as Card } from './Card';
 export { default as Checkbox } from './Checkbox';
 export { default as Combobox } from './Combobox';
 export { default as Dialog } from './Dialog';
+export { default as Switch } from './Switch';
 export { default as Input } from './Input';
 export { default as Modal } from './Modal';
 export { default as Select } from './Select';

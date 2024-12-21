@@ -6,5 +6,6 @@ export { default as Dialog } from './Dialog';
 export { default as Switch } from './Switch';
 export { default as Input } from './Input';
 export { default as Modal } from './Modal';
+export { default as Pagination } from './Pagination';
 export { default as Select } from './Select';
 export { default as Textarea } from './Textarea';

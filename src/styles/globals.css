@@ -10,7 +10,8 @@
 
 .input {
   /* Base styles */
-  @apply w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2;
+  @apply w-full rounded-xl bg-neutral-50 px-4 py-2;
+  @apply border border-neutral-300 focus:border-neutral-400;
 
   /* Focus states */
   @apply focus:outline-none;
@@ -26,7 +27,8 @@
   @apply transition-all;
 
   /* Dark Mode */
-  @apply dark:border-neutral-800 dark:bg-neutral-900;
+  @apply dark:border dark:border-neutral-800 dark:bg-neutral-900;
+  @apply dark:focus:border-neutral-400 dark:focus:ring-neutral-400 dark:focus:ring-offset-neutral-900;
 }
 
 .input-with-icon {
@@ -38,7 +40,7 @@
 }
 
 .input-default {
-  @apply border-gray-300;
+  /* @apply border-gray-300; */
 }
 
 select.input {

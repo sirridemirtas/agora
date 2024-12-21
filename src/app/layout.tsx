@@ -22,7 +22,7 @@ export default function RootLayout({
       <body
         className={clsx(
           inter.className,
-          "border-red-500 bg-neutral-50 text-neutral-950 dark:bg-black dark:text-neutral-100"
+          "bg-neutral-50 text-neutral-950 dark:bg-black dark:text-neutral-100"
         )}
       >
         <GlobalProvider>
@@ -36,7 +36,7 @@ export default function RootLayout({
             <div
               className={clsx(
                 "lg:sticky lg:top-0 lg:h-screen",
-                "gap-0 lg:flex lg:flex-col lg:overflow-y-auto"
+                "_lg:overflow-y-auto gap-0 lg:flex lg:flex-col"
               )}
             >
               <div className="hidden h-16 lg:inline">
@@ -73,7 +73,7 @@ export default function RootLayout({
               </header>
               <div
                 className={
-                  "relative z-0 min-h-[calc(100vh-4rem)] bg-white pb-16 sm:pb-0 sm:shadow-sm lg:m-auto lg:mx-4 dark:border-x dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
+                  "_pb-0 relative z-0 min-h-[calc(100vh-4rem)] bg-white pb-16 sm:shadow-sm lg:m-auto lg:mx-4 dark:border-x dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
                 }
               >
                 {children}

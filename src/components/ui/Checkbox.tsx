@@ -48,9 +48,11 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
               <div
                 className={clsx(
                   "flex h-5 w-5 items-center justify-center rounded",
-                  "border border-gray-300",
+                  "border border-gray-300 dark:border-neutral-600",
                   "transition-colors duration-200",
-                  checked ? "border-transparent bg-black" : "bg-neutral-50",
+                  checked
+                    ? "border-transparent bg-black dark:bg-neutral-700"
+                    : "bg-neutral-50 dark:bg-neutral-800",
                   disabled && "cursor-not-allowed opacity-50"
                 )}
               >
@@ -67,7 +69,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
               {label && (
                 <span
                   className={clsx(
-                    "ml-2 text-sm text-gray-700",
+                    "ml-2 text-sm text-gray-700 dark:text-neutral-300",
                     disabled && "opacity-50"
                   )}
                   onClick={(e) => {

@@ -5,43 +5,43 @@ import { AuthModal } from "@/components/common";
 
 const Home = () => {
   const searchParams = useSearchParams();
-  const mode = searchParams.get("mode") || "login";
+  const mode = searchParams?.get("mode") ?? "login";
   return (
     <main className="w-full">
       <AuthModal mode={mode as "login" | "register"} />
-      <section className="px-4 pt-20 pb-16 text-center">
-        <div className="w-full max-w-md mx-auto">
-          <h1 className="text-4xl font-bold tracking-tight text-neutral-900 mb-4">
+      <section className="px-4 pb-16 pt-20 text-center">
+        <div className="mx-auto w-full max-w-md">
+          <h1 className="mb-4 text-4xl font-bold tracking-tight text-neutral-900">
             Özgürce Paylaş, Anonim Kal
           </h1>
-          <p className="text-lg text-neutral-600 mb-8">
+          <p className="mb-8 text-lg text-neutral-600">
             Üniversite öğrencileri için güvenli ve anonim mikroblog platformu
           </p>
         </div>
       </section>
-      <section className="px-4 py-16 bg-white sm:rounded-xl sm:shadow-sm">
-        <div className="max-w-md mx-auto ">
-          <h2 className="text-2xl font-bold text-center text-neutral-900 mb-12">
+      <section className="bg-white px-4 py-16 sm:rounded-xl sm:shadow-sm">
+        <div className="mx-auto max-w-md">
+          <h2 className="mb-12 text-center text-2xl font-bold text-neutral-900">
             Özellikler
           </h2>
           <div className="grid gap-8">
             <Feature
-              icon={<Shield className="w-6 h-6 text-blue-700" />}
+              icon={<Shield className="h-6 w-6 text-blue-700" />}
               title="Tam Anonimlik"
               description="Kimliğinizi gizli tutarak düşüncelerinizi özgürce paylaşın"
             />
             <Feature
-              icon={<School className="w-6 h-6 text-blue-700" />}
+              icon={<School className="h-6 w-6 text-blue-700" />}
               title="Üniversite Toplulukları"
               description="Kendi üniversitenizin özel sayfasında paylaşım yapın"
             />
             <Feature
-              icon={<MessageCircle className="w-6 h-6 text-blue-700" />}
+              icon={<MessageCircle className="h-6 w-6 text-blue-700" />}
               title="Mesajlaşma"
               description="Diğer kullanıcılarla özel mesajlar üzerinden iletişim kurun"
             />
             <Feature
-              icon={<Lock className="w-6 h-6 text-blue-700" />}
+              icon={<Lock className="h-6 w-6 text-blue-700" />}
               title="Gizlilik Kontrolü"
               description="Açık veya gizli mod arasında dilediğiniz zaman geçiş yapın"
             />
@@ -49,8 +49,8 @@ const Home = () => {
         </div>
       </section>
       <section className="px-4 py-16">
-        <div className="max-w-md mx-auto">
-          <h2 className="text-2xl font-bold text-center text-neutral-900 mb-12">
+        <div className="mx-auto max-w-md">
+          <h2 className="mb-12 text-center text-2xl font-bold text-neutral-900">
             Nasıl Çalışır?
           </h2>
           <div className="space-y-8">
@@ -72,8 +72,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <footer className="px-4 py-8 text-sm text-center">
-        <div className="max-w-md mx-auto">
+      <footer className="px-4 py-8 text-center text-sm">
+        <div className="mx-auto max-w-md">
           <p className="text-gray-500">© 2024 Tüm hakları saklıdır</p>
         </div>
       </footer>
@@ -92,10 +92,10 @@ function Feature({
 }) {
   return (
     <div className="flex items-start space-x-4">
-      <div className="flex-shrink-0 p-3 bg-blue-100 rounded-lg">{icon}</div>
+      <div className="flex-shrink-0 rounded-lg bg-blue-100 p-3">{icon}</div>
       <div>
-        <h3 className="font-semibold text-neutral-900 mb-1">{title}</h3>
-        <p className="text-neutral-600 text-sm">{description}</p>
+        <h3 className="mb-1 font-semibold text-neutral-900">{title}</h3>
+        <p className="text-sm text-neutral-600">{description}</p>
       </div>
     </div>
   );
@@ -112,12 +112,12 @@ function Step({
 }) {
   return (
     <div className="flex items-start space-x-4">
-      <div className="flex-shrink-0 w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-semibold">
+      <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-700 font-semibold text-white">
         {number}
       </div>
       <div>
-        <h3 className="font-semibold text-neutral-900 mb-1">{title}</h3>
-        <p className="text-neutral-600 text-sm">{description}</p>
+        <h3 className="mb-1 font-semibold text-neutral-900">{title}</h3>
+        <p className="text-sm text-neutral-600">{description}</p>
       </div>
     </div>
   );

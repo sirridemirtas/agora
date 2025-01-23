@@ -14,6 +14,10 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { Post as PostType } from "@/types";
 
+interface PostProps extends PostType {
+  bordered?: boolean;
+}
+
 const Post = ({
   id,
   content,
@@ -25,7 +29,8 @@ const Post = ({
   downvotes,
   commentsCount,
   isPrivate,
-}: PostType) => {
+  bordered = true,
+}: PostProps) => {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
 
@@ -55,7 +60,7 @@ const Post = ({
 
   const onDetail = () => {
     if (!id) return;
-    router.push(`/post/${id}`);
+    router.push(`/post?id=${id}`);
   };
 
   return (
@@ -68,7 +73,12 @@ const Post = ({
       )}
       onClick={onDetail}
     >
-      <div className="border-t border-neutral-200 px-6 pb-2 pt-4 sm:px-0 dark:border-neutral-800">
+      <div
+        className={clsx(
+          bordered && "border-t border-neutral-200 dark:border-neutral-800",
+          "px-6 pb-2 pt-4 sm:px-0"
+        )}
+      >
         <div className="mb-2 flex items-center justify-between">
           <div>
             {!isPrivate && username ? (
@@ -87,7 +97,7 @@ const Post = ({
             </span>
           </div>
           <time className="text-sm text-neutral-400 hover:underline">
-            <Link href={`/post/${id}`}>
+            <Link href={`/post?id=${id}`}>
               {formatDistanceToNow(new Date(timestamp), {
                 locale: tr,
                 addSuffix: true,

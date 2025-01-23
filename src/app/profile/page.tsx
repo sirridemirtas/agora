@@ -11,7 +11,7 @@ export default function ProfilePage() {
   return (
     <div className="lg:flex-1">
       <div className="p-6 sm:mb-4">
-        <div className="flex items-center justify-between mb-4">
+        <div className="mb-4 flex items-center justify-between">
           <h1 className="text-xl font-semibold">johndoe</h1>
           <Link
             href="/settings"
@@ -20,9 +20,9 @@ export default function ProfilePage() {
             <Settings size={20} />
           </Link>
         </div>
-        <div className="flex items-center gap-4 text-sm text-neutral-500 justify-between ">
+        <div className="flex items-center justify-between gap-4 text-sm text-neutral-500">
           <span>İstanbul Üniversitesi</span>
-          <LogOutButton asLink />
+          <LogOutButton /* asLink */ />
         </div>
       </div>
 

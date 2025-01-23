@@ -30,7 +30,7 @@ const FeedButton = ({ href, icon, label, isActive }: FeedButtonProps) => {
 
 export default function FeedFilters({ className }: { className?: string }) {
   const searchParams = useSearchParams();
-  const currentFilter = searchParams.get("filter");
+  const currentFilter = searchParams?.get("filter") ?? null;
 
   return (
     <div

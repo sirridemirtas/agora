@@ -5,8 +5,10 @@ import { MOCK_POSTS } from "@/constants/posts";
 import { FeedFilters, Post } from "@/components/common";
 
 export default function UniversityFeed() {
-  const { slug } = useParams();
-  const universityId = String(slug);
+  const params = useParams();
+  const slug = params?.slug;
+  const universityId =
+    typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
 
   const university = universities.find((u) => u.id === universityId);
 

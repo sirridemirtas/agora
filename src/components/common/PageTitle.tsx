@@ -1,15 +1,29 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import path from "path";
 import { usePathname } from "next/navigation";
 import { navItems } from "./Navigation";
+import { usePageTitle } from "@/hooks/usePageTitle";
+import { universities } from "@/constants/universities";
 
 const PageTitle = () => {
-  const [title, setTitle] = useState("Microblog");
   const pathname = usePathname();
+  const { title, setTitle } = usePageTitle();
 
   useEffect(() => {
-    const currentItem = navItems.find((item) => item.href === pathname);
-    setTitle(currentItem ? currentItem.text : "Microblog");
+    setTitle(navItems.find((item) => item.href === pathname)?.text || "404");
+
+    if (pathname === "/post") {
+      setTitle("Gönderi Detayı");
+    } else if (pathname.startsWith("/university/")) {
+      const universityId = path.basename(pathname);
+      console.log(universityId);
+
+      setTitle(
+        universities.find((item) => item.id === universityId)?.name ||
+          "Üniversite"
+      );
+    }
   }, [pathname]);
 
   return <h1 className="text-md text-center font-semibold">{title}</h1>;

@@ -12,7 +12,7 @@ export default function PostPage() {
 
   return (
     <div className="lg:flex-1">
-      {postId ? (
+      {postId && MOCK_POSTS.find((post) => post.id === postId) ? (
         <Post
           bordered={false}
           {...(MOCK_POSTS.find((post) => post.id === postId) as PostType)}

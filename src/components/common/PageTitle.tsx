@@ -24,7 +24,7 @@ const PageTitle = () => {
           "Üniversite"
       );
     }
-  }, [pathname]);
+  }, [pathname, setTitle]);
 
   return <h1 className="text-md text-center font-semibold">{title}</h1>;
 };

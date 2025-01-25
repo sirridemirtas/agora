@@ -89,7 +89,8 @@ function Combobox<T>({
           <ComboboxOptions
             className={clsx(
               "absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white",
-              "z-10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              "z-10 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none",
+              "dark:bg-neutral-800"
             )}
           >
             {filteredOptions.map((option, index) => (
@@ -99,7 +100,7 @@ function Combobox<T>({
                 className={({ active, selected }) =>
                   clsx(
                     "relative cursor-default select-none py-2 pl-10 pr-4",
-                    active && "bg-neutral-200",
+                    active && "bg-neutral-200 dark:bg-neutral-700",
                     selected && "font-medium"
                   )
                 }
@@ -115,7 +116,7 @@ function Combobox<T>({
                       {displayValue(option)}
                     </span>
                     {selected && (
-                      <span className="absolute inset-y-0 left-3 flex items-center text-black">
+                      <span className="absolute inset-y-0 left-3 flex items-center text-black dark:text-white">
                         <CheckIcon className="h-5 w-5" />
                       </span>
                     )}

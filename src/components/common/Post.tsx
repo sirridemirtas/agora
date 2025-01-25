@@ -16,6 +16,7 @@ import { Post as PostType } from "@/types";
 
 interface PostProps extends PostType {
   bordered?: boolean;
+  detailed?: boolean;
 }
 
 const Post = ({
@@ -29,7 +30,7 @@ const Post = ({
   downvotes,
   commentsCount,
   isPrivate,
-  bordered = true,
+  detailed = false,
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
@@ -66,23 +67,22 @@ const Post = ({
   return (
     <article
       className={clsx(
-        "text-sm sm:px-6 sm:text-base",
+        "rounded-xl text-sm sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
-        //"border-b border-neutral-200",
-        "_hover:bg-neutral-50 cursor-pointer rounded-xl"
+        detailed || "cursor-pointer"
       )}
-      onClick={onDetail}
+      onClick={!detailed ? onDetail : () => {}}
     >
       <div
         className={clsx(
-          bordered && "border-t border-neutral-200 dark:border-neutral-800",
+          detailed || "border-t border-neutral-200 dark:border-neutral-800",
           "px-6 pb-2 pt-4 sm:px-0"
         )}
       >
         <div className="mb-2 flex items-center justify-between">
           <div>
             {!isPrivate && username ? (
-              <span className="font-medium">{username}</span>
+              <span className="font-medium">@{username}</span>
             ) : (
               <span className="text-neutral-500">Anonim</span>
             )}
@@ -96,19 +96,27 @@ const Post = ({
               </Link>
             </span>
           </div>
-          <time className="text-sm text-neutral-400 hover:underline">
-            <Link href={`/post?id=${id}`}>
-              {formatDistanceToNow(new Date(timestamp), {
-                locale: tr,
-                addSuffix: true,
-              })}
-            </Link>
-          </time>
+          {detailed || (
+            <time className="text-sm text-neutral-400 hover:underline">
+              <Link href={`/post?id=${id}`}>
+                {formatDistanceToNow(new Date(timestamp), {
+                  locale: tr,
+                  addSuffix: true,
+                })}
+              </Link>
+            </time>
+          )}
         </div>
 
         <p className="mb-4">{content}</p>
 
-        <div className="flex justify-between">
+        <div
+          className={clsx(
+            "flex justify-between",
+            detailed &&
+              "border-y border-neutral-200 py-1 dark:border-neutral-800"
+          )}
+        >
           <button
             className="flex items-center text-neutral-500"
             onClick={onUpvote}

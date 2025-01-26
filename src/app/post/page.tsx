@@ -30,15 +30,21 @@ export default function PostPage() {
       )}
 
       {post && (
-        <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">
-          <span className="cursor-default text-sm text-neutral-500">
-            <span className="text-gray-600 dark:text-neutral-400">
-              @{post.username}
-            </span>{" "}
-            isimli kullanıcıya yanıt olarak
-          </span>
-          <Reply />
-        </div>
+        <>
+          <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">
+            <span className="cursor-default text-sm text-neutral-500">
+              <span className="text-gray-600 dark:text-neutral-400">
+                @{post.username}
+              </span>{" "}
+              isimli kullanıcıya yanıt olarak
+            </span>
+            <Reply />
+          </div>
+          <h2 className="mx-6 mb-4 mt-6 text-lg font-semibold">Cevaplar</h2>
+          <div className="">
+            <Post bordered={false} {...(MOCK_POSTS[1] as PostType)} />
+          </div>
+        </>
       )}
     </div>
   );

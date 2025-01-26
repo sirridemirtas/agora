@@ -7,12 +7,14 @@ import { Button, Input } from "@/components/ui";
 import { AuthService, LoginCredentials } from "@/services/AuthService";
 import { useApi } from "@/hooks/useApi";
 import { useAuth } from "@/hooks/useAuth";
+import { useSnackbar } from "@/hooks/useSnackbar";
 
 const authService = new AuthService();
 
 const LoginForm = () => {
   const { login: setAppStateToLoggedIn } = useAuth();
   const router = useRouter();
+  const { addSnackbar } = useSnackbar();
   const [credentials, setCredentials] = useState<LoginCredentials>({
     username: "",
     password: "",
@@ -35,8 +37,16 @@ const LoginForm = () => {
 
     const result = await login(credentials);
     if (result.data) {
+      addSnackbar({
+        message: "Giriş başarılı!",
+      });
       router.push("/");
       setAppStateToLoggedIn();
+    } else if (error) {
+      addSnackbar({
+        message: error.message,
+        type: "error",
+      });
     }
   };
 
@@ -50,10 +60,6 @@ const LoginForm = () => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      {error && (
-        <div className="mb-4 text-sm text-red-500">{error.message}</div>
-      )}
-
       <Input
         icon={AtSign}
         name="username"

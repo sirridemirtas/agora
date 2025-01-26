@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { AuthProvider } from "./AuthProvider";
 import { ThemeProvider } from "./ThemeProvider";
 import { PageTitleProvider } from "./PageTitleProvider";
+import { SnackbarProvider } from "./SnackbarProvider";
 
 export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -9,7 +10,9 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <AuthProvider>
       <ThemeProvider>
-        <PageTitleProvider>{children}</PageTitleProvider>
+        <SnackbarProvider>
+          <PageTitleProvider>{children}</PageTitleProvider>
+        </SnackbarProvider>
       </ThemeProvider>
     </AuthProvider>
   );

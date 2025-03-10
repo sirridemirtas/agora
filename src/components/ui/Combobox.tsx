@@ -14,6 +14,7 @@ interface ComboboxProps<T> {
   label?: string;
   placeholder?: string;
   options: T[];
+  name: string;
   displayValue: (option: T) => string;
   error?: string;
   required?: boolean;
@@ -26,6 +27,7 @@ function Combobox<T>({
   label,
   placeholder,
   options,
+  name,
   displayValue,
   error,
   required,
@@ -59,7 +61,6 @@ function Combobox<T>({
         <label className="text-sm font-medium text-gray-700">
           {label}
           {required && <span className="text-red-500">*</span>}{" "}
-          {/* required yıldızını ekliyoruz */}
         </label>
       )}
       <div className="relative">
@@ -77,6 +78,7 @@ function Combobox<T>({
               onChange={(e) => setQuery(e.target.value)}
               required={required}
               autoFocus={autoFocus}
+              name={name}
             />
             {Icon && (
               <Icon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />

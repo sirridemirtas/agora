@@ -1,34 +1,90 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
+import { AuthService, RegisterCredentials } from "@/services/AuthService";
+import { useApi } from "@/hooks/useApi";
+import { useSnackbar } from "@/hooks/useSnackbar";
 import { AtSign, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { Button, Checkbox, Combobox, Input } from "@/components/ui";
 
 export function RegisterForm() {
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
+  const { addSnackbar } = useSnackbar();
+  const router = useRouter();
+
+  const authService = new AuthService();
+  const {
+    loading,
+    error,
+    execute: register,
+  } = useApi(authService.register.bind(authService));
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!privacyPolicyAccepted) {
+      return;
+    }
+
+    if (
+      e.currentTarget.password.value !== e.currentTarget.passwordRepeat.value
+    ) {
+      addSnackbar({
+        message: "Şifreler uyuşmuyor!",
+        type: "error",
+      });
+      return;
+    }
+
+    const credentials: RegisterCredentials = {
+      username: e.currentTarget.username.value,
+      password: e.currentTarget.password.value,
+      universityId: universities.filter(
+        (university) => university.name === e.currentTarget.universityId.value
+      )[0].id,
+    };
+
+    const result = await register(credentials);
+    if (result.data) {
+      addSnackbar({
+        message: "Kayıt başarılı!",
+      });
+      router.push("/login?username=" + credentials.username);
+    } else if (error) {
+      addSnackbar({
+        message: error.message,
+        type: "error",
+      });
+    }
+  };
 
   return (
-    <form className={"form"}>
+    <form className={"form"} onSubmit={handleSubmit}>
       <Combobox
+        name="universityId"
         icon={School}
         placeholder="Üniversitenizi seçin"
         options={universities}
-        displayValue={(person: { id: string; name: string }) => person.name}
+        displayValue={(u: { id: string; name: string }) => u.name}
         autoFocus
         required
       />
 
       <Input
+        name="username"
         icon={AtSign}
         type="text"
         pattern="[A-Za-z]+"
         placeholder="Kullanıcı adınızı seçin"
+        helperText="En az 3 haneli, sadece harf ve rakam içerebilir"
         required
       />
 
       <Input
+        name="password"
         icon={Lock}
         type="password"
         placeholder="Şifrenizi girin"
@@ -36,6 +92,7 @@ export function RegisterForm() {
       />
 
       <Input
+        name="passwordRepeat"
         icon={Lock}
         type="password"
         placeholder="Şifrenizi tekrar girin"
@@ -56,7 +113,7 @@ export function RegisterForm() {
         required={true}
       />
 
-      <Button fullWidth type="submit">
+      <Button fullWidth type="submit" disabled={loading}>
         Kayıt Ol
       </Button>
 

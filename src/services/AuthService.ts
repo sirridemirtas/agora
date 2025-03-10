@@ -6,6 +6,12 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface RegisterCredentials {
+  username: string;
+  password: string;
+  universityId: string;
+}
+
 export interface User {
   id: string;
   username: string;
@@ -23,6 +29,13 @@ export class AuthService extends BaseService {
   async logout(): Promise<ApiResponse<void>> {
     return this.fetchApi<void>('/auth/logout', {
       method: 'POST',
+    });
+  }
+
+  async register(credentials: RegisterCredentials): Promise<ApiResponse<User>> {
+    return this.fetchApi<User>('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
     });
   }
 }

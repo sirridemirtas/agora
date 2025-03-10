@@ -20,6 +20,19 @@ const LoginForm = () => {
     password: "",
   });
 
+  // ?username=john
+  const query = new URLSearchParams(window.location.search);
+  const usernameQP = query.get("username");
+  if (usernameQP) {
+    // remove query param from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+
+    setCredentials((prev) => ({
+      ...prev,
+      username: usernameQP,
+    }));
+  }
+
   const {
     loading,
     error,

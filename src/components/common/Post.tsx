@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
@@ -34,6 +34,7 @@ const Post = ({
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   function requireLogin(func: (...args: unknown[]) => void) {
     return (e: React.MouseEvent<HTMLElement>) => {
@@ -86,15 +87,19 @@ const Post = ({
             ) : (
               <span className="text-neutral-500">Anonim</span>
             )}
-            <span className="mx-2 text-neutral-400">·</span>
-            <span className="text-neutral-500 hover:underline">
-              <Link
-                href={`/university/${universityId}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {university}
-              </Link>
-            </span>
+            {pathname.startsWith("/university") || (
+              <>
+                <span className="mx-2 text-neutral-400">·</span>
+                <span className="text-neutral-500 hover:underline">
+                  <Link
+                    href={`/university/${universityId}`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {university}
+                  </Link>
+                </span>
+              </>
+            )}
           </div>
           {detailed || (
             <time className="text-sm text-neutral-400 hover:underline">

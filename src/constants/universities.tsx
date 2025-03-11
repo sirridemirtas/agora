@@ -213,3 +213,11 @@ export const universities: University[] = [
   { id: "206792", name: "Yüksek İhtisas Üniversitesi" },
   { id: "365890", name: "Zonguldak Bülent Ecevit Üniversitesi" },
 ];
+
+export function getUniversityById(id: string | number) {
+  return universities.find((u) => u.id === String(id));
+}
+
+export function getUniversityByName(name: string) {
+  return universities.find((u) => u.name === name);
+}

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
 import {
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Post as PostType } from "@/types";
+import { getUniversityById } from "@/constants/universities";
 
 interface PostProps extends PostType {
   bordered?: boolean;
@@ -22,7 +23,7 @@ interface PostProps extends PostType {
 const Post = ({
   id,
   content,
-  timestamp,
+  createdAt,
   university,
   universityId,
   username,
@@ -70,6 +71,7 @@ const Post = ({
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
+        //"hover:bg-neutral-100 dark:hover:bg-neutral-900",
         detailed || "cursor-pointer"
       )}
       onClick={!detailed ? onDetail : () => {}}
@@ -95,7 +97,8 @@ const Post = ({
                     href={`/university/${universityId}`}
                     onClick={(e) => e.stopPropagation()}
                   >
-                    {university}
+                    {university ||
+                      (universityId && getUniversityById(universityId)?.name)}
                   </Link>
                 </span>
               </>
@@ -104,7 +107,7 @@ const Post = ({
           {detailed || (
             <time className="text-sm text-neutral-400 hover:underline">
               <Link href={`/post?id=${id}`}>
-                {formatDistanceToNow(new Date(timestamp), {
+                {formatDistanceToNow(new Date(createdAt), {
                   locale: tr,
                   addSuffix: true,
                 })}
@@ -114,6 +117,16 @@ const Post = ({
         </div>
 
         <p className="mb-4">{content}</p>
+
+        {detailed && (
+          <div className="mb-4">
+            <time className="text-sm text-neutral-500">
+              {format(new Date(createdAt), "h:mm a · d MMM yyyy", {
+                locale: tr,
+              })}
+            </time>
+          </div>
+        )}
 
         <div
           className={clsx(

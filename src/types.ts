@@ -1,7 +1,7 @@
 export interface Post {
   id: string;
   content: string;
-  timestamp: string;
+  createdAt: string;
   university: string;
   universityId: string;
   upvotes: number;

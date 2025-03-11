@@ -5,7 +5,7 @@ export const MOCK_POSTS: Post[] = [
     id: "1",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    timestamp: "2024-03-10T14:30:00Z",
+    createdAt: "2024-03-10T14:30:00Z",
     university: "İstanbul Teknik Üniversitesi",
     universityId: "115069",
     username: "user123",
@@ -18,7 +18,7 @@ export const MOCK_POSTS: Post[] = [
     id: "2",
     content:
       "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
-    timestamp: "2024-02-15T09:20:00Z",
+    createdAt: "2024-02-15T09:20:00Z",
     university: "Boğaziçi Üniversitesi",
     universityId: "105322",
     username: "campusLife",
@@ -31,7 +31,7 @@ export const MOCK_POSTS: Post[] = [
     id: "3",
     content:
       "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.",
-    timestamp: "2024-01-05T16:45:00Z",
+    createdAt: "2024-01-05T16:45:00Z",
     university: "Orta Doğu Teknik Üniversitesi",
     universityId: "122571",
     username: "techStudent",
@@ -44,7 +44,7 @@ export const MOCK_POSTS: Post[] = [
     id: "4",
     content:
       "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
-    timestamp: "2024-02-28T11:15:00Z",
+    createdAt: "2024-02-28T11:15:00Z",
     university: "Hacettepe Üniversitesi",
     universityId: "113082",
     username: "medStudent",
@@ -57,7 +57,7 @@ export const MOCK_POSTS: Post[] = [
     id: "5",
     content:
       "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.",
-    timestamp: "2023-11-20T10:30:00Z",
+    createdAt: "2023-11-20T10:30:00Z",
     university: "Ankara Üniversitesi",
     universityId: "102738",
     username: "scholar22",
@@ -70,7 +70,7 @@ export const MOCK_POSTS: Post[] = [
     id: "6",
     content:
       "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.",
-    timestamp: "2024-01-25T13:40:00Z",
+    createdAt: "2024-01-25T13:40:00Z",
     university: "Ege Üniversitesi",
     universityId: "109290",
     username: "izmir35",
@@ -83,7 +83,7 @@ export const MOCK_POSTS: Post[] = [
     id: "7",
     content:
       "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
-    timestamp: "2024-02-10T17:20:00Z",
+    createdAt: "2024-02-10T17:20:00Z",
     university: "Yıldız Teknik Üniversitesi",
     universityId: "126982",
     username: "engineerX",
@@ -96,7 +96,7 @@ export const MOCK_POSTS: Post[] = [
     id: "8",
     content:
       "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.",
-    timestamp: "2024-03-05T08:50:00Z",
+    createdAt: "2024-03-05T08:50:00Z",
     university: "Sabancı Üniversitesi",
     universityId: "123400",
     username: "privateCampus",
@@ -109,7 +109,7 @@ export const MOCK_POSTS: Post[] = [
     id: "9",
     content:
       "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat.",
-    timestamp: "2024-01-15T19:10:00Z",
+    createdAt: "2024-01-15T19:10:00Z",
     university: "Koç Üniversitesi",
     universityId: "118853",
     username: "student99",
@@ -122,7 +122,7 @@ export const MOCK_POSTS: Post[] = [
     id: "10",
     content:
       "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.",
-    timestamp: "2024-02-20T12:25:00Z",
+    createdAt: "2024-02-20T12:25:00Z",
     university: "Galatasaray Üniversitesi",
     universityId: "111395",
     username: "gsStudent",

@@ -1,3 +1,4 @@
+"use client";
 import { UniversityFeed } from "@/components/feed";
 //import { universities } from "@/constants/universities";
 

@@ -103,12 +103,11 @@ const NavItem: React.FC<NavItem> = ({
   return (
     <Link
       href={
-        href +
-        (href === "/university"
-          ? `?universityId=${universityId}`
+        href === "/university"
+          ? href + `/${universityId}`
           : href === "/user"
-            ? "?username=" + username
-            : "")
+            ? "/@" + username
+            : href
       }
       className={clsx(
         "flex flex-col items-center gap-1 rounded-full px-4 py-2 transition-all",

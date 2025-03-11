@@ -13,11 +13,10 @@ const PageTitle = () => {
   useEffect(() => {
     setTitle(navItems.find((item) => item.href === pathname)?.text || "404");
 
-    if (pathname === "/post") {
+    if (pathname.startsWith("/post/")) {
       setTitle("Gönderi Detayı");
     } else if (pathname.startsWith("/university/")) {
       const universityId = path.basename(pathname);
-      console.log(universityId);
 
       setTitle(
         universities.find((item) => item.id === universityId)?.name ||

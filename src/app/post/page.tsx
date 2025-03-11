@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks/useApi";
@@ -72,8 +72,8 @@ const RenderPost = ({ post }: { post: PostType }) => {
 };
 
 export default function PostPage() {
-  const params = useSearchParams();
-  const postId = params.get("id");
+  const pathname = usePathname();
+  const postId = pathname.split("/")[2];
 
   const [post, setPost] = useState<PostType | null>(null);
 

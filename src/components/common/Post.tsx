@@ -63,7 +63,7 @@ const Post = ({
 
   const onDetail = () => {
     if (!id) return;
-    router.push(`/post?id=${id}`);
+    router.push(`/post/${id}`);
   };
 
   return (
@@ -85,7 +85,7 @@ const Post = ({
         <div className="mb-2 flex items-center justify-between">
           <div>
             {!isPrivate && username ? (
-              <Link href={"/user?username=" + username} className="font-medium">
+              <Link href={"/@" + username} className="font-medium">
                 <span className="text-neutral-500">@</span>
                 <span className="hover:underline">{username}</span>
               </Link>
@@ -97,7 +97,7 @@ const Post = ({
                 <span className="mx-2 text-neutral-400">·</span>
                 <span className="text-neutral-500 hover:underline">
                   <Link
-                    href={`/university?universityId=${universityId}`}
+                    href={`/university/${universityId}`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     {university ||
@@ -109,7 +109,7 @@ const Post = ({
           </div>
           {detailed || (
             <time className="text-sm text-neutral-400 hover:underline">
-              <Link href={`/post?id=${id}`}>
+              <Link href={`/post/${id}`}>
                 {formatDistanceToNow(new Date(createdAt), {
                   locale: tr,
                   addSuffix: true,

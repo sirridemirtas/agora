@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { usePathname /* , useSearchParams */ } from "next/navigation";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { MOCK_POSTS } from "@/constants/posts";
@@ -24,8 +24,11 @@ export default function UniversityFeed() {
   //const slug = params?.slug;
   //const universityId =typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
   // ?universityId=1
-  const params = useSearchParams();
-  const universityId = params.get("universityId");
+
+  //const params = useSearchParams();
+  //const universityId = params.get("universityId");
+  const pathname = usePathname();
+  const universityId = pathname.split("/")[2];
 
   const university = universities.find((u) => u.id === universityId);
 

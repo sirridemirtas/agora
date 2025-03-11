@@ -50,9 +50,9 @@ const LoginForm = () => {
 
     const result = await login(credentials);
     if (result.data) {
-      addSnackbar({
+      /* addSnackbar({
         message: "Giriş başarılı!",
-      });
+      }); */
       router.push("/");
       setAppStateToLoggedIn();
     } else if (error) {

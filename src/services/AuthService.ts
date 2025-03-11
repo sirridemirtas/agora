@@ -4,6 +4,7 @@ import { ApiResponse } from './types';
 export interface LoginCredentials {
   username: string;
   password: string;
+  universityId: string;
 }
 
 export interface RegisterCredentials {
@@ -16,6 +17,7 @@ export interface User {
   id: string;
   username: string;
   name: string;
+  universityId: string;
 }
 
 export class AuthService extends BaseService {

@@ -18,6 +18,7 @@ const LoginForm = () => {
   const [credentials, setCredentials] = useState<LoginCredentials>({
     username: "",
     password: "",
+    universityId: "",
   });
 
   // ?username=john
@@ -50,11 +51,12 @@ const LoginForm = () => {
 
     const result = await login(credentials);
     if (result.data) {
+      const { username, universityId } = result.data;
+      setAppStateToLoggedIn({ username, universityId });
+      router.push("/");
       /* addSnackbar({
         message: "Giriş başarılı!",
       }); */
-      router.push("/");
-      setAppStateToLoggedIn();
     } else if (error) {
       addSnackbar({
         message: error.message,

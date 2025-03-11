@@ -85,7 +85,10 @@ const Post = ({
         <div className="mb-2 flex items-center justify-between">
           <div>
             {!isPrivate && username ? (
-              <span className="font-medium">@{username}</span>
+              <Link href={"/user?username=" + username} className="font-medium">
+                <span className="text-neutral-500">@</span>
+                <span className="hover:underline">{username}</span>
+              </Link>
             ) : (
               <span className="text-neutral-500">Anonim</span>
             )}

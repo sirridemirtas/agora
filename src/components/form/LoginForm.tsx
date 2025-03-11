@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AtSign, SquareAsterisk } from "lucide-react";
@@ -12,7 +12,7 @@ import { useSnackbar } from "@/hooks/useSnackbar";
 const authService = new AuthService();
 
 const LoginForm = () => {
-  const { login: setAppStateToLoggedIn } = useAuth();
+  const { login: setAppStateToLoggedIn, isLoggedIn } = useAuth();
   const router = useRouter();
   const { addSnackbar } = useSnackbar();
   const [credentials, setCredentials] = useState<LoginCredentials>({
@@ -20,6 +20,12 @@ const LoginForm = () => {
     password: "",
     universityId: "",
   });
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
 
   // ?username=john
   const query = new URLSearchParams(window.location.search);

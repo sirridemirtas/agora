@@ -1,10 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { AuthService, RegisterCredentials } from "@/services/AuthService";
 import { useApi } from "@/hooks/useApi";
+import { useAuth } from "@/hooks/useAuth";
 import { useSnackbar } from "@/hooks/useSnackbar";
 import { AtSign, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
@@ -14,6 +15,13 @@ export function RegisterForm() {
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
   const { addSnackbar } = useSnackbar();
   const router = useRouter();
+
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  }, [isLoggedIn]);
 
   const authService = new AuthService();
   const {

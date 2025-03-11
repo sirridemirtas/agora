@@ -105,7 +105,7 @@ const NavItem: React.FC<NavItem> = ({
       href={
         href +
         (href === "/university"
-          ? `/${universityId}`
+          ? `?universityId=${universityId}`
           : href === "/user"
             ? "?username=" + username
             : "")

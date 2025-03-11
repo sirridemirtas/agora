@@ -97,7 +97,7 @@ const Post = ({
                 <span className="mx-2 text-neutral-400">·</span>
                 <span className="text-neutral-500 hover:underline">
                   <Link
-                    href={`/university/${universityId}`}
+                    href={`/university?universityId=${universityId}`}
                     onClick={(e) => e.stopPropagation()}
                   >
                     {university ||

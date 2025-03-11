@@ -130,17 +130,12 @@ const Navigation = () => {
   return (
     <nav
       className={clsx(
-        "items-cente justify-aroundr fixed bottom-0 left-0 right-0 z-10 flex h-16",
-        "border-t bg-neutral-50 bg-opacity-80 px-4 backdrop-blur-md",
-
+        "fixed bottom-0 left-0 right-0 z-10 flex h-16 items-center justify-around border-t bg-neutral-50 bg-opacity-80 px-4 backdrop-blur-md",
         "md:bg-opacity-100 md:backdrop-blur-none",
-
-        "lg:relative lg:h-auto lg:w-64 lg:flex-col lg:items-start lg:justify-start lg:gap-1",
-        "lg:rounded-xl lg:bg-white lg:p-4 lg:pt-6 lg:font-semibold",
-        "lg:border lg:border-transparent lg:shadow-sm",
-
-        "dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300",
-        "dark:shadow-none dark:lg:border dark:lg:border-neutral-800"
+        "lg:relative lg:h-auto lg:w-64 lg:flex-col lg:items-start lg:justify-start lg:gap-1 lg:rounded-xl lg:bg-white lg:p-4 lg:pt-6 lg:font-semibold lg:shadow-sm",
+        "lg:border lg:border-transparent",
+        "dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:shadow-none",
+        "dark:lg:border dark:lg:border-neutral-800"
       )}
     >
       {/* <Logo className="hidden lg:block ml-1 mb-4" /> */}

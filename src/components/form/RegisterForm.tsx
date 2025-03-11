@@ -79,7 +79,7 @@ export function RegisterForm() {
         type="text"
         pattern="[A-Za-z]+"
         placeholder="Kullanıcı adınızı seçin"
-        helperText="En az 3 haneli, sadece harf ve rakam içerebilir"
+        title="En az 3 haneli olabilir, sadece harf ve rakam içerebilir"
         required
       />
 

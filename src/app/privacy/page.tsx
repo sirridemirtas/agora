@@ -1,11 +1,19 @@
-import { Card } from "@/components/ui";
+"use client";
+import { useEffect } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function PrivacyPage() {
+  const { setTitle } = usePageTitle();
+
+  useEffect(() => {
+    setTitle("Gizlilik Politikası");
+  }, [setTitle]);
+
   return (
     <div className="lg:flex-1">
-      <Card className="font-serif p-8">
+      <div className="p-8 font-sans">
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">1. Genel Bilgiler</h2>
+          <h2 className="mb-2 text-xl font-semibold">1. Genel Bilgiler</h2>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
             ultricies velit sit amet est aliquet, vel facilisis erat sodales.
@@ -16,7 +24,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">2. Toplanan Veriler</h2>
+          <h2 className="mb-2 text-xl font-semibold">2. Toplanan Veriler</h2>
           <p className="">
             Integer vel sapien at ligula facilisis tincidunt non non urna.
             Curabitur non libero vel eros aliquam laoreet. Cras gravida urna
@@ -27,7 +35,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">3. Verilerin Kullanımı</h2>
+          <h2 className="mb-2 text-xl font-semibold">3. Verilerin Kullanımı</h2>
           <p className="">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -39,7 +47,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">4. Çerezler (Cookies)</h2>
+          <h2 className="mb-2 text-xl font-semibold">4. Çerezler (Cookies)</h2>
           <p className="">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -49,7 +57,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">
+          <h2 className="mb-2 text-xl font-semibold">
             5. Üçüncü Taraf Bağlantıları
           </h2>
           <p className="">
@@ -61,7 +69,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">6. Veri Güvenliği</h2>
+          <h2 className="mb-2 text-xl font-semibold">6. Veri Güvenliği</h2>
           <p className="">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
@@ -73,7 +81,7 @@ export default function PrivacyPage() {
         </section>
 
         <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-2">7. İletişim</h2>
+          <h2 className="mb-2 text-xl font-semibold">7. İletişim</h2>
           <p className="">
             Eğer bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa,
             bizimle iletişime geçmekten çekinmeyin: E-posta:{" "}
@@ -85,7 +93,7 @@ export default function PrivacyPage() {
             </a>
           </p>
         </section>
-      </Card>
+      </div>
     </div>
   );
 }

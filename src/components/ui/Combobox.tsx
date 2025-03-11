@@ -14,7 +14,7 @@ interface ComboboxProps<T> {
   label?: string;
   placeholder?: string;
   options: T[];
-  name: string;
+  name?: string;
   displayValue: (option: T) => string;
   error?: string;
   required?: boolean;

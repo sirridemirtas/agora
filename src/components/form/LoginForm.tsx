@@ -3,18 +3,21 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AtSign, SquareAsterisk } from "lucide-react";
-import { Button, Input } from "@/components/ui";
+import { Alert, Button, Input } from "@/components/ui";
 import { AuthService, LoginCredentials } from "@/services/AuthService";
 import { useApi } from "@/hooks/useApi";
 import { useAuth } from "@/hooks/useAuth";
-import { useSnackbar } from "@/hooks/useSnackbar";
 
 const authService = new AuthService();
 
 const LoginForm = () => {
   const { login: setAppStateToLoggedIn, isLoggedIn } = useAuth();
   const router = useRouter();
-  const { addSnackbar } = useSnackbar();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertProps, setAlertProps] = useState({
+    type: "success" as "success" | "error",
+    message: "",
+  });
   const [credentials, setCredentials] = useState<LoginCredentials>({
     username: "",
     password: "",
@@ -31,18 +34,13 @@ const LoginForm = () => {
   const query = new URLSearchParams(window.location.search);
   const usernameQP = query.get("username");
   if (usernameQP) {
-    // remove query param from URL
     window.history.replaceState({}, document.title, window.location.pathname);
-
-    setCredentials((prev) => ({
-      ...prev,
-      username: usernameQP,
-    }));
+    setCredentials((prev) => ({ ...prev, username: usernameQP }));
   }
 
   const {
     loading,
-    error,
+    //error,
     execute: login,
   } = useApi(authService.login.bind(authService));
 
@@ -54,14 +52,12 @@ const LoginForm = () => {
       const { username, universityId } = result.data;
       setAppStateToLoggedIn({ username, universityId });
       router.push("/");
-      /* addSnackbar({
-        message: "Giriş başarılı!",
-      }); */
-    } else if (error) {
-      addSnackbar({
-        message: error.message,
+    } else if (result.error) {
+      setAlertProps({
         type: "error",
+        message: result.error.message,
       });
+      setShowAlert(true);
     }
   };
 
@@ -104,6 +100,15 @@ const LoginForm = () => {
           Kaydol
         </Link>
       </div>
+
+      {showAlert && (
+        <Alert
+          type={alertProps.type}
+          message={alertProps.message}
+          show={showAlert}
+          onClose={() => setShowAlert(false)}
+        />
+      )}
     </form>
   );
 };

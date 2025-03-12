@@ -5,6 +5,7 @@ import { API_CONFIG } from "@/config/api.config";
 const axiosInstance: AxiosInstance = axios.create({
   headers: API_CONFIG.headers,
   timeout: 30000, // 30 seconds
+  withCredentials: true, //process.env.NODE_ENV === "production" ? true : false,
 });
 
 // Request interceptor

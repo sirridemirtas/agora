@@ -8,7 +8,6 @@ export interface CreatePostDto {
 
 export class PostService extends BaseService {
   async getPosts(): Promise<ApiResponse<Post[]>> {
-    console.log('getPosts');
     return this.fetchApi<Post[]>('/posts', {
       method: 'GET',
     });

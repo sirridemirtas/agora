@@ -49,12 +49,6 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (process.env.NEXT_PUBLIC_IS_BACKEND_ACTIVE === "false") {
-      setAppStateToLoggedIn();
-      router.push("/");
-      return;
-    }
-
     const result = await login(credentials);
     if (result.data) {
       const { username, universityId } = result.data;

@@ -106,10 +106,5 @@ export default function PostPage() {
     );
   if (error) return <PostNotFound />;
 
-  if (process.env.NEXT_PUBLIC_IS_BACKEND_ACTIVE === "false") {
-    const post = MOCK_POSTS.find((post) => post.id === postId);
-    return <RenderPost post={post as PostType} />;
-  }
-
   return <RenderPost post={post as PostType} />;
 }

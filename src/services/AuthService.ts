@@ -20,6 +20,14 @@ export interface User {
   universityId: string;
 }
 
+export interface TokenInfo {
+  expiresAt: string;
+  role: number;
+  universityId: string;
+  userId: string;
+  username: string;
+}
+
 export class AuthService extends BaseService {
   async login(credentials: LoginCredentials): Promise<ApiResponse<User>> {
     return this.fetchApi<User>('/auth/login', {
@@ -38,6 +46,12 @@ export class AuthService extends BaseService {
     return this.fetchApi<User>('/auth/register', {
       method: 'POST',
       data: credentials,
+    });
+  }
+
+  async getTokenInfo(): Promise<ApiResponse<TokenInfo>> {
+    return this.fetchApi<TokenInfo>('/auth/token-info', {
+      method: 'GET',
     });
   }
 }

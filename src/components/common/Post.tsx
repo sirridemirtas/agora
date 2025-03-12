@@ -14,11 +14,18 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { Post as PostType } from "@/types";
 import { getUniversityById } from "@/constants/universities";
+import Avatar from "./Avatar";
 
 interface PostProps extends PostType {
   bordered?: boolean;
   detailed?: boolean;
 }
+
+export const detailedTimeFormat = (date: Date) =>
+  format(date, "h:mm a · d MMM yyyy", { locale: tr });
+
+export const relativeTimeFormat = (date: Date) =>
+  formatDistanceToNow(date, { locale: tr, addSuffix: true });
 
 const Post = ({
   id,
@@ -71,7 +78,7 @@ const Post = ({
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
-        //"hover:bg-neutral-100 dark:hover:bg-neutral-900",
+        detailed || "hover:bg-neutral-100 dark:hover:bg-neutral-900",
         detailed || "cursor-pointer"
       )}
       onClick={!detailed ? onDetail : () => {}}
@@ -82,38 +89,42 @@ const Post = ({
           "px-6 pb-2 pt-4 sm:px-0"
         )}
       >
-        <div className="mb-2 flex items-center justify-between">
-          <div>
-            {!isPrivate && username ? (
-              <Link href={"/@" + username} className="font-medium">
-                <span className="text-neutral-500">@</span>
-                <span className="hover:underline">{username}</span>
-              </Link>
-            ) : (
-              <span className="text-neutral-500">Anonim</span>
-            )}
-            {pathname.startsWith("/university") || (
-              <>
-                <span className="mx-2 text-neutral-400">·</span>
-                <span className="text-neutral-500 hover:underline">
-                  <Link
-                    href={`/university/${universityId}`}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {university ||
-                      (universityId && getUniversityById(universityId)?.name)}
-                  </Link>
-                </span>
-              </>
-            )}
+        <div className="mb-4 flex items-start justify-between">
+          <div className="flex flex-row items-center">
+            <Link className="h-12 w-12" href={"/@" + username}>
+              <Avatar username={username} size={12} />
+            </Link>
+            <div className="ml-2 flex flex-col">
+              {!isPrivate && username ? (
+                <Link href={"/@" + username}>
+                  <span className="text-neutral-500">@</span>
+                  <span className="hover:underline">{username}</span>
+                </Link>
+              ) : (
+                <span className="text-neutral-500">Anonim</span>
+              )}
+              {pathname.startsWith("/university") || (
+                <>
+                  <span className="text-neutral-500 hover:underline">
+                    <Link
+                      href={`/university/${universityId}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {university ||
+                        (universityId && getUniversityById(universityId)?.name)}
+                    </Link>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
           {detailed || (
-            <time className="text-sm text-neutral-400 hover:underline">
-              <Link href={`/post/${id}`}>
-                {formatDistanceToNow(new Date(createdAt), {
-                  locale: tr,
-                  addSuffix: true,
-                })}
+            <time className="mr-0 text-sm text-neutral-400 hover:underline">
+              <Link
+                href={`/post/${id}`}
+                title={detailedTimeFormat(new Date(createdAt))}
+              >
+                {relativeTimeFormat(new Date(createdAt))}
               </Link>
             </time>
           )}
@@ -124,9 +135,7 @@ const Post = ({
         {detailed && (
           <div className="mb-4">
             <time className="text-sm text-neutral-500">
-              {format(new Date(createdAt), "h:mm a · d MMM yyyy", {
-                locale: tr,
-              })}
+              {detailedTimeFormat(new Date(createdAt))}
             </time>
           </div>
         )}

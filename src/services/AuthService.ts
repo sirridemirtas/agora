@@ -24,7 +24,7 @@ export class AuthService extends BaseService {
   async login(credentials: LoginCredentials): Promise<ApiResponse<User>> {
     return this.fetchApi<User>('/auth/login', {
       method: 'POST',
-      body: JSON.stringify(credentials),
+      data: credentials,
     });
   }
 
@@ -37,7 +37,7 @@ export class AuthService extends BaseService {
   async register(credentials: RegisterCredentials): Promise<ApiResponse<User>> {
     return this.fetchApi<User>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify(credentials),
+      data: credentials,
     });
   }
 }

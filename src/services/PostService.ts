@@ -8,13 +8,13 @@ export interface CreatePostDto {
 
 export class PostService extends BaseService {
   async getPosts(): Promise<ApiResponse<Post[]>> {
+    console.log('getPosts');
     return this.fetchApi<Post[]>('/posts', {
       method: 'GET',
     });
   }
 
   async getPost(id: string): Promise<ApiResponse<Post>> {
-    console.log('id', id);
     return this.fetchApi<Post>(`/posts/${id}`, {
       method: 'GET',
     });
@@ -23,7 +23,7 @@ export class PostService extends BaseService {
   async createPost(data: CreatePostDto): Promise<ApiResponse<Post>> {
     return this.fetchApi<Post>('/posts', {
       method: 'POST',
-      body: JSON.stringify(data),
+      data: JSON.stringify(data),
     });
   }
 

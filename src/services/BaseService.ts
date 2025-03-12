@@ -1,5 +1,7 @@
 import { API_CONFIG, getApiUrl } from '@/config/api.config';
 import { ApiError, ApiRequestConfig, ApiResponse } from './types';
+import axiosInstance from '@/lib/fetcher';
+import { AxiosRequestConfig, AxiosError } from 'axios';
 
 export class BaseService {
   protected config: ApiRequestConfig;
@@ -13,41 +15,31 @@ export class BaseService {
 
   protected async fetchApi<T>(
     path: string,
-    options?: RequestInit
+    options?: AxiosRequestConfig
   ): Promise<ApiResponse<T>> {
     const url = getApiUrl(path);
-    const defaultOptions: RequestInit = {
-      headers: {
-        ...this.config.headers,
-      },
-    };
-
+    
     try {
-      const response = await fetch(url, {
-        ...defaultOptions,
+      const response = await axiosInstance({
+        url,
         ...options,
       });
-
-      if (!response.ok) {
-        const error: ApiError = await response.json();
-        return {
-          data: null,
-          error,
-          loading: false,
-        };
-      }
-
-      const data: T = await response.json();
+      
       return {
-        data,
+        data: response.data,
         error: null,
         loading: false,
       };
     } catch (error) {
+      const axiosError = error as AxiosError<ApiError>;
+      
       return {
         data: null,
         error: {
-          message: error instanceof Error ? error.message : 'Bir hata oluştu',
+          message: axiosError.response?.data?.message || 
+                   axiosError.message || 
+                   'Bir hata oluştu',
+          code: axiosError.response?.data?.code || 'UNKNOWN_ERROR'
         },
         loading: false,
       };

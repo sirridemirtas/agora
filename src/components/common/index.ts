@@ -8,5 +8,6 @@ export {default as LogOutButton} from './LogOutButton';
 export {default as Navigation, navItems} from './Navigation';
 export {default as PageTitle} from './PageTitle';
 export {default as Post} from './Post';
+export {default as PostList} from './PostList';
 export {default as SplashScreen} from './SplashScreen';
 export {default as ThemeToggleButton} from './ThemeToggleButton';

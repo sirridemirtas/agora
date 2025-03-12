@@ -1,9 +1,9 @@
 "use client";
-import { usePathname /* , useSearchParams */ } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { MOCK_POSTS } from "@/constants/posts";
-import { FeedFilters, Post } from "@/components/common";
+import { FeedFilters, PostList } from "@/components/common";
 
 const UniversityNotFound = () => {
   return (
@@ -20,13 +20,6 @@ const UniversityNotFound = () => {
 };
 
 export default function UniversityFeed() {
-  //const params = useParams();
-  //const slug = params?.slug;
-  //const universityId =typeof slug === "string" ? slug : Array.isArray(slug) ? slug[0] : "";
-  // ?universityId=1
-
-  //const params = useSearchParams();
-  //const universityId = params.get("universityId");
   const pathname = usePathname();
   const universityId = pathname.split("/")[2];
 
@@ -36,20 +29,10 @@ export default function UniversityFeed() {
     return <UniversityNotFound />;
   }
 
-  const filteredPosts = MOCK_POSTS.filter(
-    (post) => post.universityId === universityId
-  );
-
   return (
     <div>
-      <div className="sm:space-y-4">
-        <FeedFilters />
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => <Post key={post.id} {...post} />)
-        ) : (
-          <p>{university.name} için henüz gönderi bulunmuyor.</p>
-        )}
-      </div>
+      <FeedFilters className="mb-4" />
+      <PostList posts={MOCK_POSTS} />
     </div>
   );
 }

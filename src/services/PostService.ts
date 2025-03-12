@@ -32,4 +32,16 @@ export class PostService extends BaseService {
       method: 'DELETE',
     });
   }
+
+  async getUniversityPosts(universityId: string): Promise<ApiResponse<Post[]>> {
+    return this.fetchApi<Post[]>(`/posts/university/${universityId}`, {
+      method: 'GET',
+    });
+  }
+
+  async getUserPosts(username: string): Promise<ApiResponse<Post[]>> {
+    return this.fetchApi<Post[]>(`/users/${username}/posts`, {
+      method: 'GET',
+    });
+  }
 }

@@ -1,9 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { MOCK_POSTS } from "@/constants/posts";
 import { FeedFilters, PostList } from "@/components/common";
+import { Alert, Loader } from "@/components/ui";
+import { PostService } from "@/services/PostService";
+import { useApi } from "@/hooks/useApi";
 
 const UniversityNotFound = () => {
   return (
@@ -22,6 +25,20 @@ const UniversityNotFound = () => {
 export default function UniversityFeed() {
   const pathname = usePathname();
   const universityId = pathname.split("/")[2];
+  const postService = new PostService();
+
+  const {
+    data: posts,
+    loading,
+    error,
+    execute: fetchUniversityPosts,
+  } = useApi(() => postService.getUniversityPosts(universityId));
+
+  useEffect(() => {
+    if (universityId) {
+      fetchUniversityPosts();
+    }
+  }, [universityId]);
 
   const university = universities.find((u) => u.id === universityId);
 
@@ -29,10 +46,40 @@ export default function UniversityFeed() {
     return <UniversityNotFound />;
   }
 
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return (
+      <div className="pt-6">
+        <Alert
+          type="error"
+          title="Gönderiler alınırken bir hata oluştu!"
+          message={error.message}
+          className="mx-6"
+        />
+      </div>
+    );
+  }
+
+  if (!posts?.length) {
+    return (
+      <div className="pt-6">
+        <Alert
+          type="info"
+          title={`${university.name} için henüz gönderi paylaşılmamış`}
+          message={"Kullanıcılar gönderi paylaşınca burada görünecek."}
+          className="mx-6"
+        />
+      </div>
+    );
+  }
+
   return (
     <div>
       <FeedFilters className="mb-4" />
-      <PostList posts={MOCK_POSTS} />
+      <PostList posts={posts} />
     </div>
   );
 }

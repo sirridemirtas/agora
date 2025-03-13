@@ -7,10 +7,10 @@ import { useApi } from "@/hooks/useApi";
 import { Post as PostType } from "@/types";
 
 import { LoaderCircle, SearchX } from "lucide-react";
-import { Post } from "@/components/common";
+import { Post, PostList } from "@/components/common";
 
-import { MOCK_POSTS } from "@/constants/posts";
-import { Reply } from "@/components/form";
+import { Reply as ReplyForm } from "@/components/form";
+import { Alert } from "@/components/ui";
 
 const PostNotFound = () => {
   return (
@@ -38,7 +38,21 @@ const PostLoading = () => {
   );
 };
 
-const PostComments = ({ poster }: { poster: string }) => {
+const Replies = ({ poster, postId }: { poster: string; postId: string }) => {
+  const postService = new PostService();
+  const { loading, data, execute } = useApi(
+    postService.getPostReplies.bind(postService, postId)
+  );
+
+  useEffect(() => {
+    if (postId) {
+      execute();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId]);
+
+  const replies = data || [];
+
   return (
     <>
       <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">
@@ -48,11 +62,26 @@ const PostComments = ({ poster }: { poster: string }) => {
           </span>{" "}
           {poster && "isimli "}kullanıcıya yanıt olarak
         </span>
-        <Reply />
+        <ReplyForm />
       </div>
       <h2 className="mx-6 mb-4 mt-6 text-lg font-semibold">Cevaplar</h2>
       <div className="">
-        <Post bordered={false} {...(MOCK_POSTS[1] as PostType)} />
+        {loading ? (
+          <div className="p-4 text-center">
+            <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-neutral-300" />
+          </div>
+        ) : replies.length > 0 ? (
+          <PostList posts={replies} />
+        ) : (
+          <div className="px-6">
+            {" "}
+            <Alert
+              type="info"
+              title="Bu gönderiye henüz cevap yazılmamış"
+              message="Tüm cevaplar burada görünecek."
+            />
+          </div>
+        )}
       </div>
     </>
   );
@@ -66,7 +95,7 @@ const RenderPost = ({ post }: { post: PostType }) => {
   return (
     <div className="lg:flex-1">
       <Post bordered={false} detailed={true} {...(post as PostType)} />
-      <PostComments poster={post.username || ""} />
+      <Replies poster={post.username || ""} postId={post.id} />
     </div>
   );
 };

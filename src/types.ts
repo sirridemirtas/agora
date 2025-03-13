@@ -12,12 +12,8 @@ export interface Post {
   commentsCount: number;
 }
 
-export interface Comment {
-  id: string;
-  content: string;
-  timestamp: string;
-  username?: string;
-  isPrivate: boolean;
+export interface Reply extends Post {
+  replyTo: string;
 }
 
 export interface User {

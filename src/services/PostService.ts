@@ -4,6 +4,7 @@ import { Post } from '@/types';
 
 export interface CreatePostDto {
   content: string;
+  replyTo?: string; // Optional field for replies
 }
 
 export class PostService extends BaseService {
@@ -40,6 +41,12 @@ export class PostService extends BaseService {
 
   async getUserPosts(username: string): Promise<ApiResponse<Post[]>> {
     return this.fetchApi<Post[]>(`/users/${username}/posts`, {
+      method: 'GET',
+    });
+  }
+
+  async getPostReplies(postId: string): Promise<ApiResponse<Post[]>> {
+    return this.fetchApi<Post[]>(`/posts/${postId}/replies`, {
       method: 'GET',
     });
   }

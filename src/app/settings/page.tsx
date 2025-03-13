@@ -20,10 +20,15 @@ export default function SettingsPage() {
         <ThemeToggleButton />
       </Setting>
       {isLoggedIn && (
-        <Setting>
-          <label>Oturum</label>
-          <LogOutButton /* asLink */ />
-        </Setting>
+        <>
+          <Setting>
+            <label>Oturum</label>
+            <LogOutButton /* asLink */ />
+          </Setting>
+          <Setting>
+            <label>Profil gizliliği</label>
+          </Setting>
+        </>
       )}
     </div>
   );

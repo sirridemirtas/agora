@@ -1,69 +1,28 @@
 "use client";
-import clsx from "clsx";
-import { Sun, Moon, Monitor, LucideIcon } from "lucide-react";
+import { Sun, Moon, Monitor } from "lucide-react";
+import { RadioGroup } from "@/components/ui";
 import { useTheme } from "@/hooks/useTheme";
-
-type Theme = "system" | "dark" | "light";
-
-interface ThemeButtonProps {
-  themeName: Theme;
-  currentTheme: Theme;
-  setTheme: (theme: Theme) => void;
-  Icon: LucideIcon;
-  label: string;
-}
-
-const ThemeButton: React.FC<ThemeButtonProps> = ({
-  themeName,
-  currentTheme,
-  setTheme,
-  Icon,
-  label,
-}) => {
-  return (
-    <button
-      onClick={() => setTheme(themeName)}
-      className={clsx(
-        "rounded-md p-2 transition-all",
-        currentTheme === themeName
-          ? "bg-white text-black shadow-sm dark:bg-zinc-700 dark:text-white"
-          : "text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
-      )}
-      aria-label={label}
-      aria-pressed={currentTheme === themeName}
-    >
-      <Icon size={18} />
-    </button>
-  );
-};
 
 const ThemeToggleButton: React.FC = () => {
   const { theme, setTheme } = useTheme();
 
+  const options = [
+    {
+      value: "system" as const,
+      icon: <Monitor size={18} />,
+      ariaLabel: "Sistem Teması",
+    },
+    { value: "dark" as const, icon: <Moon size={18} />, ariaLabel: "Koyu Mod" },
+    { value: "light" as const, icon: <Sun size={18} />, ariaLabel: "Açık Mod" },
+  ];
+
   return (
-    <div className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-neutral-800">
-      <ThemeButton
-        themeName="system"
-        currentTheme={theme}
-        setTheme={setTheme}
-        Icon={Monitor}
-        label="Sistem Teması"
-      />
-      <ThemeButton
-        themeName="dark"
-        currentTheme={theme}
-        setTheme={setTheme}
-        Icon={Moon}
-        label="Koyu Mod"
-      />
-      <ThemeButton
-        themeName="light"
-        currentTheme={theme}
-        setTheme={setTheme}
-        Icon={Sun}
-        label="Açık Mod"
-      />
-    </div>
+    <RadioGroup
+      value={theme}
+      onChange={setTheme}
+      options={options}
+      variant="icon"
+    />
   );
 };
 

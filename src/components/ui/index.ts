@@ -9,5 +9,6 @@ export { default as Input } from './Input';
 export { default as Loader } from './Loader';
 export { default as Modal } from './Modal';
 export { default as Pagination } from './Pagination';
+export { default as RadioGroup } from './RadioGroup';
 export { default as Select } from './Select';
 export { default as Textarea } from './Textarea';

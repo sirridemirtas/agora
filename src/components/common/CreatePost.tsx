@@ -40,9 +40,11 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
         setTimeout(() => setSuccess(false), 3000);
 
         // Reset textarea height safely
-        const textarea = e.currentTarget.querySelector("textarea");
-        if (textarea) {
-          textarea.style.height = "auto";
+        if (e.currentTarget) {
+          const textarea = e.currentTarget.querySelector("textarea");
+          if (textarea) {
+            textarea.style.height = "auto";
+          }
         }
 
         // Callback to refresh feed or perform other actions after post creation
@@ -68,7 +70,6 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
       {success && (
         <Alert
           type="success"
-          //title="Gönderi başarıyla paylaşıldı"
           message="Gönderinizi başarıyla paylaştınız."
           className="mb-4"
         />
@@ -104,12 +105,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
           <span className="text-sm text-neutral-500">
             {content.length}/{maxLength}
           </span>
-          <Button
-            icon={Send}
-            type="submit"
-            //loading={loading}
-            disabled={loading}
-          >
+          <Button icon={Send} type="submit" disabled={loading}>
             Paylaş
           </Button>
         </div>

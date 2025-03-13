@@ -32,8 +32,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
     try {
       const response = await createPost({ content: trimmedContent });
 
-      // Only consider it successful if we have a valid response and no error
-      if (response && !error) {
+      if (response.data && !response.error) {
         // Reset form content
         setContent("");
         setSuccess(true);
@@ -51,10 +50,12 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
         if (onPostCreated) {
           onPostCreated();
         }
+      } else {
+        setSuccess(false);
       }
     } catch (err) {
       console.error("Failed to create post:", err);
-      // Make sure success is false if there's an error
+      // Hata durumunda success kesinlikle false olmalı
       setSuccess(false);
     }
   };

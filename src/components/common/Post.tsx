@@ -91,12 +91,19 @@ const Post = ({
       >
         <div className="mb-4 flex items-start justify-between">
           <div className="flex flex-row items-center">
-            <Link className="h-12 w-12" href={"/@" + username}>
+            <Link
+              className="h-12 w-12"
+              href={"/@" + username}
+              onClick={(e) => e.stopPropagation()}
+            >
               <Avatar username={username} size={12} />
             </Link>
             <div className="ml-2 flex flex-col">
               {!isPrivate && username ? (
-                <Link href={"/@" + username}>
+                <Link
+                  href={"/@" + username}
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <span className="text-neutral-500">@</span>
                   <span className="hover:underline">{username}</span>
                 </Link>
@@ -123,6 +130,7 @@ const Post = ({
               <Link
                 href={`/post/${id}`}
                 title={detailedTimeFormat(new Date(createdAt))}
+                onClick={(e) => e.stopPropagation()}
               >
                 {relativeTimeFormat(new Date(createdAt))}
               </Link>

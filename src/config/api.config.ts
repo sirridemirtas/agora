@@ -1,11 +1,10 @@
 export const API_CONFIG = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || (window.location.origin + '/api/v1'),
-  timeout: 10000,
+  baseUrl: '/api/v1',  // Use relative path instead of 'http://localhost:8080/api/v1'
   headers: {
     'Content-Type': 'application/json',
   },
-} as const;
+};
 
 export const getApiUrl = (path: string): string => {
-  return `${API_CONFIG.baseURL}${path}`;
+  return `${API_CONFIG.baseUrl}${path}`;
 };

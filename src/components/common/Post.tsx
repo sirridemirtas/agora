@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { formatDistanceToNow } from "date-fns";
+import { usePathname, useRouter } from "next/navigation";
+import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
 import {
@@ -13,16 +13,24 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { Post as PostType } from "@/types";
+import { getUniversityById } from "@/constants/universities";
+import Avatar from "./Avatar";
 
 interface PostProps extends PostType {
   bordered?: boolean;
   detailed?: boolean;
 }
 
+export const detailedTimeFormat = (date: Date) =>
+  format(date, "h:mm a · d MMM yyyy", { locale: tr });
+
+export const relativeTimeFormat = (date: Date) =>
+  formatDistanceToNow(date, { locale: tr, addSuffix: true });
+
 const Post = ({
   id,
   content,
-  timestamp,
+  createdAt,
   university,
   universityId,
   username,
@@ -34,6 +42,7 @@ const Post = ({
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   function requireLogin(func: (...args: unknown[]) => void) {
     return (e: React.MouseEvent<HTMLElement>) => {
@@ -61,7 +70,7 @@ const Post = ({
 
   const onDetail = () => {
     if (!id) return;
-    router.push(`/post?id=${id}`);
+    router.push(`/post/${id}`);
   };
 
   return (
@@ -69,6 +78,7 @@ const Post = ({
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
+        detailed || "hover:bg-neutral-100 dark:hover:bg-neutral-900",
         detailed || "cursor-pointer"
       )}
       onClick={!detailed ? onDetail : () => {}}
@@ -79,36 +89,64 @@ const Post = ({
           "px-6 pb-2 pt-4 sm:px-0"
         )}
       >
-        <div className="mb-2 flex items-center justify-between">
-          <div>
-            {!isPrivate && username ? (
-              <span className="font-medium">@{username}</span>
-            ) : (
-              <span className="text-neutral-500">Anonim</span>
-            )}
-            <span className="mx-2 text-neutral-400">·</span>
-            <span className="text-neutral-500 hover:underline">
-              <Link
-                href={`/university/${universityId}`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {university}
-              </Link>
-            </span>
+        <div className="mb-4 flex items-start justify-between">
+          <div className="flex flex-row items-center">
+            <Link
+              className="h-12 w-12"
+              href={"/@" + username}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Avatar username={username} size={12} />
+            </Link>
+            <div className="ml-2 flex flex-col">
+              {!isPrivate && username ? (
+                <Link
+                  href={"/@" + username}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span className="text-neutral-500">@</span>
+                  <span className="hover:underline">{username}</span>
+                </Link>
+              ) : (
+                <span className="text-neutral-500">Anonim</span>
+              )}
+              {pathname.startsWith("/university") || (
+                <>
+                  <span className="text-neutral-500 hover:underline">
+                    <Link
+                      href={`/university/${universityId}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {university ||
+                        (universityId && getUniversityById(universityId)?.name)}
+                    </Link>
+                  </span>
+                </>
+              )}
+            </div>
           </div>
           {detailed || (
-            <time className="text-sm text-neutral-400 hover:underline">
-              <Link href={`/post?id=${id}`}>
-                {formatDistanceToNow(new Date(timestamp), {
-                  locale: tr,
-                  addSuffix: true,
-                })}
+            <time className="mr-0 text-sm text-neutral-400 hover:underline">
+              <Link
+                href={`/post/${id}`}
+                title={detailedTimeFormat(new Date(createdAt))}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {relativeTimeFormat(new Date(createdAt))}
               </Link>
             </time>
           )}
         </div>
 
         <p className="mb-4">{content}</p>
+
+        {detailed && (
+          <div className="mb-4">
+            <time className="text-sm text-neutral-500">
+              {detailedTimeFormat(new Date(createdAt))}
+            </time>
+          </div>
+        )}
 
         <div
           className={clsx(

@@ -45,7 +45,7 @@ export const navItems: NavItem[] = [
     hideOnLogin: true,
   },
   {
-    href: "/university/115069",
+    href: "/university",
     icon: School,
     text: "Üniversite",
     loginRequired: true,
@@ -63,7 +63,7 @@ export const navItems: NavItem[] = [
     loginRequired: true,
   },
   {
-    href: "/profile",
+    href: "/user",
     icon: User,
     text: "Profil",
     loginRequired: true,
@@ -92,7 +92,7 @@ const NavItem: React.FC<NavItem> = ({
   onlyLargeScreen,
 }) => {
   const pathname = usePathname();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, universityId, username } = useAuth();
 
   // Hide item if it should be hidden for logged-in users
   // or requires login but user isn't logged in
@@ -102,7 +102,13 @@ const NavItem: React.FC<NavItem> = ({
 
   return (
     <Link
-      href={href}
+      href={
+        href === "/university"
+          ? href + `/${universityId}`
+          : href === "/user"
+            ? "/@" + username
+            : href
+      }
       className={clsx(
         "flex flex-col items-center gap-1 rounded-full px-4 py-2 transition-all",
         "sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 sm:dark:hover:text-white",

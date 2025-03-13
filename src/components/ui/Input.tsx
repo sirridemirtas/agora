@@ -5,11 +5,16 @@ import { LucideIcon } from "lucide-react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   icon?: LucideIcon;
   label?: string;
+  helperText?: string;
   error?: string;
+  success?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ icon: Icon, label, error, className, ...props }, ref) => {
+  (
+    { icon: Icon, label, helperText, error, success, className, ...props },
+    ref
+  ) => {
     return (
       <div className="flex flex-col space-y-1">
         {label && (
@@ -33,15 +38,22 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               "input",
               Icon && "input-with-icon",
               error ? "input-error" : "input-default",
+              success && "input-success",
               className
             )}
             aria-invalid={error ? "true" : "false"}
             {...props}
           />
         </div>
+
         {error && (
           <p className="text-sm text-red-500" role="alert">
             {error}
+          </p>
+        )}
+        {helperText && (
+          <p className="text-sm text-gray-500" role="alert">
+            {helperText}
           </p>
         )}
       </div>

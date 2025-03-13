@@ -30,14 +30,14 @@ export default function Switch({
         <div className="flex flex-grow flex-col">
           {label && (
             <Label
-              className="text-sm font-medium leading-6 text-gray-900 data-[disabled]:opacity-50"
+              className="text-sm font-medium leading-6 text-gray-900 data-[disabled]:opacity-50 dark:text-gray-100"
               passive
             >
               {label}
             </Label>
           )}
           {description && (
-            <Description className="text-sm text-gray-500 data-[disabled]:opacity-50">
+            <Description className="text-sm text-gray-500 data-[disabled]:opacity-50 dark:text-gray-400">
               {description}
             </Description>
           )}
@@ -47,7 +47,7 @@ export default function Switch({
           onChange={onChange}
           name={name}
           value={value}
-          className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-gray-900 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50"
+          className="group inline-flex h-6 w-11 items-center rounded-full bg-neutral-200 transition data-[disabled]:cursor-not-allowed data-[checked]:bg-green-600 data-[disabled]:opacity-50 dark:bg-neutral-700 dark:data-[checked]:bg-green-700"
         >
           <span
             className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6"

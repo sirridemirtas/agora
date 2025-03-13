@@ -1,11 +1,12 @@
+"use client";
 import { UniversityFeed } from "@/components/feed";
-import { universities } from "@/constants/universities";
+//import { universities } from "@/constants/universities";
 
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
   return universities.map((university) => ({
     slug: university.id,
   }));
-}
+} */
 
 export default function UniversityPage() {
   return (

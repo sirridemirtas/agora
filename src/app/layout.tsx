@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import clsx from "clsx";
-import { Inter } from "next/font/google";
+import { Libre_Franklin } from "next/font/google";
 import "@/styles/globals.css";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
 import { Logo, Navigation, PageTitle, SplashScreen } from "@/components/common";
+import OnAppMount from "./OnAppMount";
 
-const inter = Inter({ subsets: ["latin"] });
+const font = Libre_Franklin({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Microblog",
@@ -21,11 +26,12 @@ export default function RootLayout({
     <html lang="tr">
       <body
         className={clsx(
-          inter.className,
+          font.className,
           "bg-neutral-50 text-neutral-950 dark:bg-black dark:text-neutral-100"
         )}
       >
         <GlobalProvider>
+          <OnAppMount />
           <SplashScreen visible={false} />
           <div
             className={clsx(
@@ -35,13 +41,20 @@ export default function RootLayout({
           >
             <div
               className={clsx(
-                "lg:sticky lg:top-0 lg:h-screen",
-                "_lg:overflow-y-auto gap-0 lg:flex lg:flex-col"
+                "lg:sticky lg:top-0 lg:h-auto",
+                "gap-0 lg:flex lg:flex-col lg:overflow-y-auto"
               )}
             >
-              <div className="hidden h-16 lg:inline">
-                <Logo className="ml-5 mt-2" />
+              <div className="hidden h-16 lg:block">
+                <Link
+                  href="/"
+                  className="lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
+                >
+                  <Logo className="ml-5 mt-2" />
+                  <h1 className="mt-2 text-xl">Agora</h1>
+                </Link>
               </div>
+
               <Navigation />
               <div className="hidden justify-start pt-4 lg:flex">
                 <p className="w-full text-center text-xs text-neutral-400">

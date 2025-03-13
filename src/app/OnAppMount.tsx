@@ -25,7 +25,7 @@ export default function OnAppMount() {
     };
 
     checkAuthStatus();
-  }, []);
+  }, [logout, setAppStateToLoggedIn]);
 
   return null;
 }

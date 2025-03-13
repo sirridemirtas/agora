@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AtSign, SquareAsterisk } from "lucide-react";
 import { Alert, Button, Input } from "@/components/ui";
 import { AuthService, LoginCredentials } from "@/services/AuthService";
@@ -24,11 +24,12 @@ const LoginForm = () => {
     universityId: "",
   });
 
+  const pathname = usePathname();
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && pathname === "/login") {
       router.push("/");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, pathname, router]);
 
   // ?username=john
   const query = new URLSearchParams(window.location.search);
@@ -51,7 +52,7 @@ const LoginForm = () => {
     if (result.data) {
       const { username, universityId } = result.data;
       setAppStateToLoggedIn({ username, universityId });
-      router.push("/");
+      if (pathname === "/login") router.push("/");
     } else if (result.error) {
       setAlertProps({
         type: "error",

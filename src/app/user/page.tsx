@@ -4,7 +4,6 @@ import Link from "next/link";
 import { School, Settings } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { usePageTitle } from "@/hooks/usePageTitle";
-//import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
 import { universities } from "@/constants/universities";
@@ -22,12 +21,6 @@ export default function ProfilePage() {
 
   const { setTitle } = usePageTitle();
 
-  /* useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, [isLoggedIn, router]); */
-
   useEffect(() => {
     setTitle("@" + username);
   }, [username, setTitle]);
@@ -36,10 +29,9 @@ export default function ProfilePage() {
     <div className="lg:flex-1">
       <div className="p-6 sm:mb-4">
         <div className="flex items-start gap-4">
-          <Avatar username={username} />
-
+          <Avatar username={username} size={16} />
           <div className="flex-1">
-            <div className="mb-2 flex items-center justify-between">
+            <div className="flex items-center justify-between">
               <h1 className="text-xl font-semibold">
                 <span className="font-normal text-neutral-500">@</span>
                 {username}

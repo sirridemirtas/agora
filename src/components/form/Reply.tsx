@@ -15,6 +15,7 @@ interface ReplyProps {
 const Reply = ({ className, onReplyCreated }: ReplyProps) => {
   const [content, setContent] = useState("");
   const [success, setSuccess] = useState(false);
+  const [commentActionsVisible, setCommentActionsVisible] = useState(false);
   const maxLength = 500;
   const postService = new PostService();
   const pathname = usePathname();
@@ -69,6 +70,7 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
     e.target.scrollTop = 0;
     e.target.style.height = "auto";
     e.target.style.height = e.target.scrollHeight + 2 + "px";
+    setCommentActionsVisible(true);
   };
 
   return (
@@ -93,8 +95,9 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
         <Textarea
           name="content"
           onInput={resize}
+          onFocus={resize}
           placeholder="Cevabını yaz"
-          rows={3}
+          rows={2}
           maxLength={maxLength}
           minLength={3}
           value={content}
@@ -105,7 +108,8 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
         <div
           className={clsx(
             "flex items-center justify-end gap-4 bg-white dark:bg-neutral-950",
-            content && "sticky sm:bottom-16 lg:bottom-0"
+            content && "sticky sm:bottom-16 lg:bottom-0",
+            commentActionsVisible || "hidden"
           )}
         >
           <span className="text-sm text-neutral-500">

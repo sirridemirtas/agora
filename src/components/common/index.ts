@@ -12,3 +12,4 @@ export {default as Post} from './Post';
 export {default as PostList} from './PostList';
 export {default as SplashScreen} from './SplashScreen';
 export {default as ThemeToggleButton} from './ThemeToggleButton';
+export {default as ToggleProfilePrivacy} from './ToggleProfilePrivacy';

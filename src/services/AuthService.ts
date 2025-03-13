@@ -28,6 +28,12 @@ export interface TokenInfo {
   username: string;
 }
 
+export interface UsernameCheckResponse {
+  available: boolean;
+  message: string;
+  valid: boolean;
+}
+
 export class AuthService extends BaseService {
   async login(credentials: LoginCredentials): Promise<ApiResponse<User>> {
     return this.fetchApi<User>('/auth/login', {
@@ -51,6 +57,12 @@ export class AuthService extends BaseService {
 
   async getTokenInfo(): Promise<ApiResponse<TokenInfo>> {
     return this.fetchApi<TokenInfo>('/auth/token-info', {
+      method: 'GET',
+    });
+  }
+
+  async checkUsername(username: string): Promise<ApiResponse<UsernameCheckResponse>> {
+    return this.fetchApi<UsernameCheckResponse>(`/users/check-username/${username}`, {
       method: 'GET',
     });
   }

@@ -7,10 +7,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   helperText?: string;
   error?: string;
+  success?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ icon: Icon, label, helperText, error, className, ...props }, ref) => {
+  (
+    { icon: Icon, label, helperText, error, success, className, ...props },
+    ref
+  ) => {
     return (
       <div className="flex flex-col space-y-1">
         {label && (
@@ -34,6 +38,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               "input",
               Icon && "input-with-icon",
               error ? "input-error" : "input-default",
+              success && "input-success",
               className
             )}
             aria-invalid={error ? "true" : "false"}

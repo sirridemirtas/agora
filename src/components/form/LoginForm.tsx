@@ -29,7 +29,7 @@ const LoginForm = () => {
     if (isLoggedIn && pathname === "/login") {
       router.push("/");
     }
-  }, [isLoggedIn, pathname, router]);
+  }, []);
 
   // ?username=john
   const query = new URLSearchParams(window.location.search);

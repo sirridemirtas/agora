@@ -1,20 +1,27 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { AuthService, RegisterCredentials } from "@/services/AuthService";
 import { useApi } from "@/hooks/useApi";
 import { useAuth } from "@/hooks/useAuth";
-import { useSnackbar } from "@/hooks/useSnackbar";
-import { AtSign, Lock, School } from "lucide-react";
+import { AtSign, Check, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { Button, Checkbox, Combobox, Input } from "@/components/ui";
+import { Alert, Button, Checkbox, Combobox, Input } from "@/components/ui";
 
 export function RegisterForm() {
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
-  const { addSnackbar } = useSnackbar();
   const router = useRouter();
+
+  const [username, setUsername] = useState("");
+  const [usernameAvailable, setUsernameAvailable] = useState(false);
+  const [usernameError, setUsernameError] = useState<string | undefined>(
+    undefined
+  );
+  const [alert, setAlert] = useState<{ type: string; message: string } | null>(
+    null
+  );
 
   const { isLoggedIn } = useAuth();
   useEffect(() => {
@@ -23,12 +30,39 @@ export function RegisterForm() {
     }
   }, [isLoggedIn]);
 
-  const authService = new AuthService();
+  const authService = useMemo(() => new AuthService(), []);
   const {
     loading,
     error,
     execute: register,
   } = useApi(authService.register.bind(authService));
+
+  // Debounced username check
+  const checkUsernameAvailability = useCallback(async () => {
+    if (username) {
+      const result = await authService.checkUsername(username);
+      if (result.data) {
+        setUsernameAvailable(result.data.available);
+        setUsernameError(
+          result.data.available ? undefined : result.data.message
+        );
+      } else if (result.error) {
+        setUsernameError(result.error.message);
+      }
+    }
+  }, [username, authService]);
+
+  useEffect(() => {
+    // Clear any existing timeouts
+    const timeoutId = setTimeout(() => {
+      checkUsernameAvailability();
+    }, 2000); // 2 seconds after last keystroke
+
+    // Cleanup timeout on component unmount or when username changes again
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [username, checkUsernameAvailability]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -40,7 +74,7 @@ export function RegisterForm() {
     if (
       e.currentTarget.password.value !== e.currentTarget.passwordRepeat.value
     ) {
-      addSnackbar({
+      setAlert({
         message: "Şifreler uyuşmuyor!",
         type: "error",
       });
@@ -57,16 +91,24 @@ export function RegisterForm() {
 
     const result = await register(credentials);
     if (result.data) {
-      addSnackbar({
+      setAlert({
         message: "Kayıt başarılı!",
+        type: "success",
       });
       router.push("/login?username=" + credentials.username);
     } else if (error) {
-      addSnackbar({
+      setAlert({
         message: error.message,
         type: "error",
       });
     }
+  };
+
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+    // Reset the availability state while typing
+    if (usernameAvailable) setUsernameAvailable(false);
+    if (usernameError) setUsernameError(undefined);
   };
 
   return (
@@ -83,12 +125,14 @@ export function RegisterForm() {
 
       <Input
         name="username"
-        icon={AtSign}
+        icon={usernameAvailable ? Check : AtSign}
         type="text"
         pattern="[A-Za-z]+"
         placeholder="Kullanıcı adınızı seçin"
         title="En az 3 haneli olabilir, sadece harf ve rakam içerebilir"
         required
+        error={usernameError}
+        onChange={handleUsernameChange}
       />
 
       <Input
@@ -131,6 +175,14 @@ export function RegisterForm() {
           Giriş yap
         </Link>
       </div>
+      {alert && (
+        <Alert
+          type={alert.type as "success" | "error" | "info" | "warning" | "dark"}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+          autoClose
+        />
+      )}
     </form>
   );
 }

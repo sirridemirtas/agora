@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import path from "path";
 import { usePathname } from "next/navigation";
 import { navItems } from "./Navigation";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { usePageTitle } from "@/hooks";
 import { universities } from "@/constants/universities";
 
 const PageTitle = () => {

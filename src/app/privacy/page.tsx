@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { usePageTitle } from "@/hooks";
 
 export default function PrivacyPage() {
   const { setTitle } = usePageTitle();

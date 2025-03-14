@@ -2,9 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { School, Settings, UserRoundSearch } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
-import { useUser } from "@/hooks/useUser";
-import { usePageTitle } from "@/hooks/usePageTitle";
+import { useAuth, useUserService, usePageTitle } from "@/hooks";
 import { useEffect, useState } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
 import { universities } from "@/constants/universities";
@@ -36,7 +34,7 @@ export default function ProfilePage() {
     : pathname.split("/")[1].substring(1);
 
   const { setTitle } = usePageTitle();
-  const { userProfile, userProfileLoading, getUserProfile } = useUser();
+  const { userProfile, userProfileLoading, getUserProfile } = useUserService();
 
   useEffect(() => {
     setTitle("@" + username);

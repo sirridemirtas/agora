@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { Switch } from "@/components/ui";
-import { useAuth } from "@/hooks/useAuth";
-import { useUser } from "@/hooks/useUser";
+import { useAuth, useUserService } from "@/hooks";
 
 export default function ToggleProfilePrivacy() {
   const { username } = useAuth();
@@ -12,7 +11,7 @@ export default function ToggleProfilePrivacy() {
     getUserProfile,
     privacyUpdateLoading,
     updatePrivacySetting,
-  } = useUser();
+  } = useUserService();
 
   const [isPrivate, setIsPrivate] = useState<boolean | null>(null);
   const [hasInitialized, setHasInitialized] = useState(false);

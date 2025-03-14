@@ -2,9 +2,8 @@
 import { LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
+import { useApi, useAuth } from "@/hooks";
 import { AuthService } from "@/services/AuthService";
-import { useApi } from "@/hooks/useApi";
 
 interface LogOutButtonProps {
   showIcon?: boolean;

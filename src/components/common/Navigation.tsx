@@ -14,7 +14,7 @@ import {
   LogIn,
   SquarePen,
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 //import { Logo } from "@/components/common";
 
 interface NavItem {

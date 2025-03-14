@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 import { PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 

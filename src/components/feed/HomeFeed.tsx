@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 import { PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 

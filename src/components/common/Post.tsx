@@ -11,7 +11,7 @@ import {
   ThumbsDown,
   ThumbsUp,
 } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 import { Post as PostType } from "@/types";
 import { getUniversityById } from "@/constants/universities";
 import Avatar from "./Avatar";

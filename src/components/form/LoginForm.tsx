@@ -5,8 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AtSign, SquareAsterisk } from "lucide-react";
 import { Alert, Button, Input } from "@/components/ui";
 import { AuthService, LoginCredentials } from "@/services/AuthService";
-import { useApi } from "@/hooks/useApi";
-import { useAuth } from "@/hooks/useAuth";
+import { useApi, useAuth } from "@/hooks";
 
 const authService = new AuthService();
 
@@ -29,7 +28,7 @@ const LoginForm = () => {
     if (isLoggedIn && pathname === "/login") {
       router.push("/");
     }
-  }, []);
+  }, [isLoggedIn, pathname, router]);
 
   // ?username=john
   const query = new URLSearchParams(window.location.search);

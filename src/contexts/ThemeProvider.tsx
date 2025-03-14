@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useEffect, ReactNode } from "react";
-import { useSharedState } from "@/hooks/useSharedState";
+import { useSharedState } from "@/hooks";
 
 export type Theme = "light" | "dark" | "system";
 

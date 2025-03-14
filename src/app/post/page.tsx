@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 import { Post as PostType } from "@/types";
 
 import { LoaderCircle, SearchX } from "lucide-react";

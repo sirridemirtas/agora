@@ -1,8 +1,8 @@
-import { useApi } from './useApi';
+import { useApi } from '@/hooks';
 import { useCallback, useMemo } from 'react';
 import { UserService, UserProfile, PrivacyUpdateResponse } from '@/services/UserService';
 
-export const useUser = () => {
+export const useUserService = () => {
   // Create userService instance once with useMemo
   const userService = useMemo(() => new UserService(), []);
   

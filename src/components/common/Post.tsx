@@ -138,7 +138,7 @@ const Post = ({
           )}
         </div>
 
-        <p className="mb-4">{content}</p>
+        <p className="mb-4 whitespace-pre-wrap">{content}</p>
 
         {detailed && (
           <div className="mb-4">

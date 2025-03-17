@@ -78,7 +78,7 @@ const Post = ({
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
-        detailed || "hover:bg-neutral-100 dark:hover:bg-neutral-900",
+        //detailed || "hover:bg-neutral-100 dark:hover:bg-neutral-900",
         detailed || "cursor-pointer"
       )}
       onClick={!detailed ? onDetail : () => {}}

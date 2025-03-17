@@ -4,20 +4,25 @@ import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
 import { FeedPaginator, PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
+import { useSearchParams } from "next/navigation";
 
 const HomeFeed = () => {
   const postService = new PostService();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
 
   const {
     data: posts,
     loading,
     error,
     execute: fetchPosts,
-  } = useApi(postService.getPosts.bind(postService));
+  } = useApi((page?: number) => postService.getPosts(page));
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    fetchPosts(page);
+  }, [page]);
 
   if (loading) {
     return <div className="text-center">Yükleniyor...</div>;
@@ -48,7 +53,7 @@ const HomeFeed = () => {
   return (
     <>
       <PostList posts={posts} />
-      <FeedPaginator />
+      <FeedPaginator nextDisabled={posts.length !== 50} />
     </>
   );
 };

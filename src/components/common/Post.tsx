@@ -29,6 +29,7 @@ export const relativeTimeFormat = (date: Date) =>
 
 const Post = ({
   id,
+  bordered = false,
   content,
   createdAt,
   university,
@@ -86,6 +87,7 @@ const Post = ({
       <div
         className={clsx(
           detailed || "border-t border-neutral-200 dark:border-neutral-800",
+          bordered && "border-b",
           "px-6 pb-2 pt-4 sm:px-0"
         )}
       >

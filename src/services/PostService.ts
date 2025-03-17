@@ -8,8 +8,9 @@ export interface CreatePostDto {
 }
 
 export class PostService extends BaseService {
-  async getPosts(): Promise<ApiResponse<Post[]>> {
-    return this.fetchApi<Post[]>('/posts', {
+  async getPosts(page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined ? `/posts?page=${page}` : '/posts';
+    return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }

@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
-import { PostList } from "@/components/common";
+import { FeedPaginator, PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 
 const HomeFeed = () => {
@@ -45,7 +45,12 @@ const HomeFeed = () => {
     );
   }
 
-  return <PostList posts={posts} />;
+  return (
+    <>
+      <PostList posts={posts} />
+      <FeedPaginator />
+    </>
+  );
 };
 
 export default HomeFeed;

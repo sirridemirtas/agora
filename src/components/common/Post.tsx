@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname /* , useRouter */ } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
@@ -42,7 +42,7 @@ const Post = ({
   detailed = false,
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
-  const router = useRouter();
+  //const router = useRouter();
   const pathname = usePathname();
 
   function requireLogin(func: (...args: unknown[]) => void) {
@@ -69,20 +69,20 @@ const Post = ({
     console.log("Commented");
   });
 
-  const onDetail = () => {
+  /* const onDetail = () => {
     if (!id) return;
     router.push(`/post/${id}`);
   };
-
+ */
   return (
     <article
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
-        "transition-colors duration-200 ease-in-out",
+        "transition-colors duration-200 ease-in-out"
         //detailed || "hover:bg-neutral-100 dark:hover:bg-neutral-900",
-        detailed || "cursor-pointer"
+        //detailed || "cursor-pointer"
       )}
-      onClick={!detailed ? onDetail : () => {}}
+      //onClick={!detailed ? onDetail : () => {}}
     >
       <div
         className={clsx(

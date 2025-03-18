@@ -20,12 +20,6 @@ import Avatar from "./Avatar";
 interface PostProps extends PostType {
   bordered?: boolean;
   detailed?: boolean;
-  reactions?: {
-    likeCount: number;
-    dislikeCount: number;
-    liked?: boolean;
-    disliked?: boolean;
-  };
 }
 
 export const detailedTimeFormat = (date: Date) =>
@@ -44,20 +38,17 @@ const Post = ({
   username,
   upvotes,
   downvotes,
-  commentsCount,
   isPrivate,
   detailed = false,
   reactions,
 }: PostProps) => {
   const { isLoggedIn } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
-  //const router = useRouter();
   const pathname = usePathname();
 
   function requireLogin(func: (...args: unknown[]) => void) {
     return (e: React.MouseEvent<HTMLElement>) => {
-      e.stopPropagation(); // Stop event bubbling
-
+      e.stopPropagation();
       if (!isLoggedIn) {
         console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
         return;
@@ -69,24 +60,46 @@ const Post = ({
   const onUpvote = requireLogin(async () => {
     if (!id) return;
 
+    const currentLikes = reactions?.likeCount ?? upvotes ?? 0;
+    const currentDislikes = reactions?.dislikeCount ?? downvotes ?? 0;
+
     if (reactions?.liked) {
       const response = await unlikePost(id);
       console.log("Unliked the post:", response);
+      reactions.likeCount = currentLikes - 1;
+      reactions.liked = false;
     } else {
       const response = await likePost(id);
       console.log("Liked the post:", response);
+      reactions.likeCount = currentLikes + 1;
+      reactions.liked = true;
+      if (reactions?.disliked) {
+        reactions.dislikeCount = currentDislikes - 1;
+        reactions.disliked = false;
+      }
     }
   });
 
   const onDownvote = requireLogin(async () => {
     if (!id) return;
 
+    const currentLikes = reactions?.likeCount ?? upvotes ?? 0;
+    const currentDislikes = reactions?.dislikeCount ?? downvotes ?? 0;
+
     if (reactions?.disliked) {
       const response = await undislikePost(id);
       console.log("Undisliked the post:", response);
+      reactions.dislikeCount = currentDislikes - 1;
+      reactions.disliked = false;
     } else {
       const response = await dislikePost(id);
       console.log("Disliked the post:", response);
+      reactions.dislikeCount = currentDislikes + 1;
+      reactions.disliked = true;
+      if (reactions?.liked) {
+        reactions.likeCount = currentLikes - 1;
+        reactions.liked = false;
+      }
     }
   });
 
@@ -175,22 +188,42 @@ const Post = ({
           )}
         >
           <button
-            className={`flex items-center ${reactions?.liked ? "text-green-700" : "text-neutral-500"}`}
+            className={clsx(
+              "flex items-center",
+              reactions?.liked
+                ? "text-green-600 dark:text-green-400"
+                : "text-neutral-500 dark:text-neutral-400"
+            )}
             onClick={onUpvote}
           >
             <span
-              className={`rounded-3xl p-2 ${reactions?.liked ? "bg-green-50 text-green-700" : "hover:bg-green-50 hover:text-green-700"}`}
+              className={clsx(
+                "rounded-3xl p-2",
+                reactions?.liked
+                  ? "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400"
+                  : "hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-900/20 dark:hover:text-green-400"
+              )}
             >
               <ThumbsUp size={18} />
             </span>
             <span className="text-sm">{reactions?.likeCount || upvotes}</span>
           </button>
           <button
-            className={`flex items-center ${reactions?.disliked ? "text-red-700" : "text-neutral-500"}`}
+            className={clsx(
+              "flex items-center",
+              reactions?.disliked
+                ? "text-red-600 dark:text-red-400"
+                : "text-neutral-500 dark:text-neutral-400"
+            )}
             onClick={onDownvote}
           >
             <span
-              className={`rounded-3xl p-2 ${reactions?.disliked ? "bg-red-100 text-red-700" : "hover:bg-red-100 hover:text-red-700"}`}
+              className={clsx(
+                "rounded-3xl p-2",
+                reactions?.disliked
+                  ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400"
+                  : "hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400"
+              )}
             >
               <ThumbsDown size={18} />
             </span>
@@ -205,7 +238,7 @@ const Post = ({
             <span className="rounded-3xl p-2 hover:bg-slate-300 hover:text-slate-700">
               <MessageSquare size={18} />
             </span>
-            <span className="text-sm">{commentsCount}</span>
+            <span className="text-sm"></span>
           </button>
           <span className="flex flex-row">
             <button className="flex items-center text-neutral-500">

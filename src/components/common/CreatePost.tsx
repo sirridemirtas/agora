@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useApi } from "@/hooks";
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
 
 interface CreatePostProps {
   className?: string;
@@ -16,6 +17,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   const [success, setSuccess] = useState(false);
   const maxLength = 500;
   const postService = new PostService();
+  const { addPost: addNewPostToPlaceholder } = useNewPost();
 
   const {
     loading,
@@ -50,6 +52,8 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
         if (onPostCreated) {
           onPostCreated();
         }
+
+        addNewPostToPlaceholder(response.data);
       } else {
         setSuccess(false);
       }

@@ -9,6 +9,8 @@ import { useApi } from "@/hooks";
 import { PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
+
 interface RepliesProps {
   postId: string;
 }
@@ -18,6 +20,8 @@ export const Replies = ({ postId }: RepliesProps) => {
   const { loading, data, execute } = useApi(
     postService.getPostReplies.bind(postService, postId)
   );
+
+  const { posts: newPosts } = useNewPost();
 
   useEffect(() => {
     if (postId) {
@@ -35,7 +39,7 @@ export const Replies = ({ postId }: RepliesProps) => {
           <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-neutral-300" />
         </div>
       ) : replies.length > 0 ? (
-        <PostList posts={replies} />
+        <PostList posts={newPosts.concat(replies)} />
       ) : (
         <div className="px-6">
           {" "}

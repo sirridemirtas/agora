@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useApi } from "@/hooks";
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
 
 interface ReplyProps {
   className?: string;
@@ -20,6 +21,8 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
   const postService = new PostService();
   const pathname = usePathname();
   const postId = pathname.split("/")[2]; // Extract post ID from URL
+
+  const { addPost: addNewPostToPlaceholder } = useNewPost();
 
   const {
     loading,
@@ -57,6 +60,7 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
         if (onReplyCreated) {
           onReplyCreated();
         }
+        addNewPostToPlaceholder(response.data);
       } else {
         setSuccess(false);
       }

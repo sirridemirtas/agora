@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks";
 import {
   LogOutButton,
   ThemeToggleButton,
@@ -16,16 +16,16 @@ const Setting = ({
   helperText?: string;
 }) => {
   return (
-    <div className="flex min-h-16 w-full flex-col justify-center border-b p-2 dark:border-neutral-800">
-      <div className="flex flex-row items-center justify-between">
+    <div className="flex min-h-16 w-full flex-row items-center justify-between border-b p-2 dark:border-neutral-800">
+      <div className="flex flex-col justify-between">
         <label>{label}</label>
-        {children}
+        {helperText && (
+          <span className="w-full flex-1 pt-1 text-sm text-neutral-500">
+            {helperText}
+          </span>
+        )}
       </div>
-      {helperText && (
-        <span className="w-full flex-1 pt-1 text-sm text-neutral-500">
-          {helperText}
-        </span>
-      )}
+      {children}
     </div>
   );
 };
@@ -35,7 +35,7 @@ export default function SettingsPage() {
 
   return (
     <div className="p-6 lg:flex-1">
-      <Setting label="Tema">
+      <Setting label="Tema" helperText="Bu ayar cihazınızda saklanır.">
         <ThemeToggleButton />
       </Setting>
       {isLoggedIn && (

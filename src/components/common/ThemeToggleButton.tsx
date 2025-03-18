@@ -1,7 +1,7 @@
 "use client";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { RadioGroup } from "@/components/ui";
-import { useTheme } from "@/hooks/useTheme";
+import { useTheme } from "@/hooks";
 
 const ThemeToggleButton: React.FC = () => {
   const { theme, setTheme } = useTheme();

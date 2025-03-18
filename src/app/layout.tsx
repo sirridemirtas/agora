@@ -4,7 +4,13 @@ import clsx from "clsx";
 import { Libre_Franklin } from "next/font/google";
 import "@/styles/globals.css";
 import { GlobalProvider } from "@/contexts/GlobalProvider";
-import { Logo, Navigation, PageTitle, SplashScreen } from "@/components/common";
+import {
+  Logo,
+  Navigation,
+  PageTitle,
+  ScrollRestorator,
+  SplashScreen,
+} from "@/components/common";
 import OnAppMount from "./OnAppMount";
 
 const font = Libre_Franklin({
@@ -32,6 +38,7 @@ export default function RootLayout({
       >
         <GlobalProvider>
           <OnAppMount />
+          <ScrollRestorator />
           <SplashScreen visible={false} />
           <div
             className={clsx(

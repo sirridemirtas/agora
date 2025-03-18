@@ -4,7 +4,7 @@ import { Send } from "lucide-react";
 import { useState } from "react";
 import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 
 interface CreatePostProps {
   className?: string;

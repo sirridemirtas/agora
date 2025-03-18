@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 import { Post as PostType } from "@/types";
 
 import { LoaderCircle, SearchX } from "lucide-react";
-import { Post, PostList } from "@/components/common";
-
+import { Post } from "@/components/common";
+import { Replies } from "@/components/feed/Replies";
 import { Reply as ReplyForm } from "@/components/form";
-import { Alert } from "@/components/ui";
 
 const PostNotFound = () => {
   return (
@@ -38,55 +37,6 @@ const PostLoading = () => {
   );
 };
 
-const Replies = ({ poster, postId }: { poster: string; postId: string }) => {
-  const postService = new PostService();
-  const { loading, data, execute } = useApi(
-    postService.getPostReplies.bind(postService, postId)
-  );
-
-  useEffect(() => {
-    if (postId) {
-      execute();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [postId]);
-
-  const replies = data || [];
-
-  return (
-    <>
-      <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">
-        <span className="cursor-default text-sm text-neutral-500">
-          <span className="text-gray-600 dark:text-neutral-400">
-            {poster ? "@" + poster : "Anonim "}
-          </span>{" "}
-          {poster && "isimli "}kullanıcıya yanıt olarak
-        </span>
-        <ReplyForm />
-      </div>
-      <h2 className="mx-6 mb-4 mt-6 text-lg font-semibold">Cevaplar</h2>
-      <div className="">
-        {loading ? (
-          <div className="p-4 text-center">
-            <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-neutral-300" />
-          </div>
-        ) : replies.length > 0 ? (
-          <PostList posts={replies} />
-        ) : (
-          <div className="px-6">
-            {" "}
-            <Alert
-              type="info"
-              title="Bu gönderiye henüz cevap yazılmamış"
-              message="Tüm cevaplar burada görünecek."
-            />
-          </div>
-        )}
-      </div>
-    </>
-  );
-};
-
 const RenderPost = ({ post }: { post: PostType }) => {
   if (!post) {
     return <PostNotFound />;
@@ -95,7 +45,19 @@ const RenderPost = ({ post }: { post: PostType }) => {
   return (
     <div className="lg:flex-1">
       <Post bordered={false} detailed={true} {...(post as PostType)} />
-      <Replies poster={post.username || ""} postId={post.id} />
+
+      <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">
+        <span className="cursor-default text-sm text-neutral-500">
+          <span className="text-gray-600 dark:text-neutral-400">
+            {post.username ? "@" + post.username : "Anonim "}
+          </span>{" "}
+          {post.username && "isimli "}kullanıcıya yanıt olarak
+        </span>
+        <ReplyForm />
+      </div>
+      <h2 className="mx-6 mb-4 mt-6 text-lg font-semibold">Cevaplar</h2>
+
+      <Replies postId={post.id} />
     </div>
   );
 };

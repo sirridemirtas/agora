@@ -1,5 +1,5 @@
 "use client";
-import { UniversityFeed } from "@/components/feed";
+import UniversityFeed from "@/components/feed/UniversityFeed";
 //import { universities } from "@/constants/universities";
 
 /* export async function generateStaticParams() {

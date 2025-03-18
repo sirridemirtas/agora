@@ -6,7 +6,7 @@ import { universities } from "@/constants/universities";
 import { FeedFilters, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks/useApi";
+import { useApi } from "@/hooks";
 
 const UniversityNotFound = () => {
   return (

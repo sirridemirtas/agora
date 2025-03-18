@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { HomeFeed } from "@/components/feed";
+import HomeFeed from "@/components/feed/HomeFeed";
 import { CreatePost, FeedFilters } from "@/components/common";
 
 export const metadata: Metadata = {

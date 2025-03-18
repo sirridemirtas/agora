@@ -1,6 +1,6 @@
 "use client";
 import { createContext, ReactNode } from "react";
-import { useSharedState } from "@/hooks/useSharedState";
+import { useSharedState } from "@/hooks";
 
 export interface AuthContextType {
   isLoggedIn: boolean;

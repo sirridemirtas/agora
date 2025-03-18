@@ -8,8 +8,12 @@ export interface Post {
   downvotes: number;
   username?: string;
   isPrivate: boolean;
-  //comments: Comment[] | null;
-  commentsCount: number;
+  reactions: {
+    likeCount: number;
+    dislikeCount: number;
+    liked?: boolean;
+    disliked?: boolean;
+  };
 }
 
 export interface Reply extends Post {

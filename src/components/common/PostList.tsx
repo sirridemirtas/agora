@@ -10,11 +10,17 @@ export default function PostList({
   loading?: boolean;
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="mb-4 flex flex-col pb-2">
       {loading ? (
         <Loader />
       ) : (
-        posts.map((post) => <Post key={post.id} {...post} />)
+        posts.map((post) => (
+          <Post
+            key={post.id}
+            {...post}
+            bordered={posts.indexOf(post) === posts.length - 1}
+          />
+        ))
       )}
     </div>
   );

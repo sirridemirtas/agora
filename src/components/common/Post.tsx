@@ -199,12 +199,15 @@ const Post = ({
             <span
               className={clsx(
                 "rounded-3xl p-2",
-                reactions?.liked
-                  ? "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400"
-                  : "hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-900/20 dark:hover:text-green-400"
+                /* reactions?.liked
+                  ? "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400" :  */
+                "hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-900/20 dark:hover:text-green-400"
               )}
             >
-              <ThumbsUp size={18} />
+              <ThumbsUp
+                size={18}
+                fill={reactions?.liked ? "currentColor" : "none"}
+              />
             </span>
             <span className="text-sm">{reactions?.likeCount || upvotes}</span>
           </button>
@@ -220,12 +223,15 @@ const Post = ({
             <span
               className={clsx(
                 "rounded-3xl p-2",
-                reactions?.disliked
-                  ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400"
-                  : "hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400"
+                /* reactions?.disliked
+                  ? "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400" : */
+                "hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400"
               )}
             >
-              <ThumbsDown size={18} />
+              <ThumbsDown
+                size={18}
+                fill={reactions?.disliked ? "currentColor" : "none"}
+              />
             </span>
             <span className="text-sm">
               {reactions?.dislikeCount || downvotes}

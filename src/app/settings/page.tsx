@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useAuth } from "@/hooks";
 import {
   LogOutButton,
@@ -45,6 +46,14 @@ export default function SettingsPage() {
             helperText="Açık konumdayken profiliniz görüntülenemez, gönderilerde isminiz ve avatarınız gösterilmez."
           >
             <ToggleProfilePrivacy />
+          </Setting>
+          <Setting label="Avatar">
+            <Link
+              href="/settings/avatar"
+              className="flex items-center justify-center gap-2 px-4 py-2 text-gray-600 transition-colors dark:text-gray-300"
+            >
+              Değiştir
+            </Link>
           </Setting>
           <Setting label="Oturum">
             <LogOutButton /* asLink */ />

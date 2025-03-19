@@ -12,8 +12,8 @@ import {
   MessageSquare as ReplyIcon,
   Share as ShareIcon,
 } from "lucide-react";
-import { useAuth } from "@/hooks";
-import { usePostAction } from "@/hooks/usePostAction";
+import { useApi, useAuth, usePostAction } from "@/hooks";
+import { PostService } from "@/services/PostService";
 import { Post as PostType } from "@/types";
 import { getUniversityById } from "@/constants/universities";
 import { Avatar } from "@/components/common";
@@ -49,6 +49,12 @@ const Post = ({
   const pathname = usePathname();
 
   const [deleted, setDeleted] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const postService = new PostService();
+  const { execute: executeDeletePost, loading: deleteLoading } = useApi(
+    postService.deletePost.bind(postService)
+  );
 
   // reactions'ı state olarak yönetiyoruz, varsayılan değerlerle başlatıyoruz
   const [reactions, setReactions] = useState({
@@ -133,13 +139,34 @@ const Post = ({
     console.log("Shared");
   };
 
-  const onDelete = requireLogin(() => {
+  const onDelete = requireLogin(async () => {
+    if (!id) return;
+
     if (
       confirm(
         "Bu gönderiyi silmek istediğine emin misin?\n\nİçerdiği tüm cevaplar da silinecek."
       )
     ) {
-      setDeleted(true);
+      setDeleting(true);
+
+      try {
+        const response = await executeDeletePost(id);
+
+        if (response.error) {
+          console.error("Gönderi silinirken bir hata oluştu:", response.error);
+          alert(
+            "Gönderi silinirken bir hata oluştu: " + response.error.message
+          );
+        } else {
+          console.log("Gönderi başarıyla silindi");
+          setDeleted(true);
+        }
+      } catch (error) {
+        console.error("Post deletion failed:", error);
+        alert("Gönderi silinemedi. Lütfen daha sonra tekrar deneyin.");
+      } finally {
+        setDeleting(false);
+      }
     }
   });
 
@@ -331,9 +358,13 @@ const Post = ({
           {/* Delete Button */}
           {isLoggedIn && username === uname && (
             <button
-              className="flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400"
+              className={clsx(
+                "flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400",
+                deleting && "cursor-not-allowed opacity-50"
+              )}
               aria-label="Sil"
               onClick={onDelete}
+              disabled={deleting}
             >
               <span
                 className={clsx(
@@ -341,7 +372,11 @@ const Post = ({
                   detailed || "-mr-2"
                 )}
               >
-                <DeleteIcon size={18} />
+                {deleteLoading ? (
+                  <span className="inline-block animate-spin">⋯</span>
+                ) : (
+                  <DeleteIcon size={18} />
+                )}
               </span>
             </button>
           )}

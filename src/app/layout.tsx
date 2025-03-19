@@ -63,18 +63,6 @@ export default function RootLayout({
               </div>
 
               <Navigation />
-              <div className="hidden justify-start pt-4 lg:flex">
-                <p className="w-full text-center text-xs text-neutral-400">
-                  Copyright © {new Date().getFullYear()}{" "}
-                  <a
-                    href="https://github.com/sirridemirtas"
-                    target="_blank"
-                    className="hover:underline"
-                  >
-                    Sırrı Demirtaş
-                  </a>
-                </p>
-              </div>
             </div>
             <main className={"min-h-svh flex-1"}>
               <header
@@ -92,11 +80,25 @@ export default function RootLayout({
                 <RoundedCorners />
               </header>
               <div
-                className={
-                  "_pb-0 relative z-0 min-h-[calc(100vh-4rem)] bg-white pb-16 sm:shadow-sm lg:m-auto lg:mx-4 dark:border-x dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none"
-                }
+                className={clsx(
+                  "_min-h-[calc(100vh-4rem)] relative min-h-[100vh] bg-white sm:shadow-sm lg:m-auto lg:mx-4",
+                  "dark:border-x dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none",
+                  "flex flex-col justify-between"
+                )}
               >
-                {children}
+                <div>{children}</div>
+                <footer className="b-0 mb-16 flex min-h-16 flex-row items-center justify-start bg-white p-4 lg:mb-0">
+                  <p className="w-full text-center text-xs text-neutral-400">
+                    Copyright © {new Date().getFullYear()}{" "}
+                    <a
+                      href="https://github.com/sirridemirtas"
+                      target="_blank"
+                      className="hover:underline"
+                    >
+                      Sırrı Demirtaş
+                    </a>
+                  </p>
+                </footer>
               </div>
             </main>
           </div>

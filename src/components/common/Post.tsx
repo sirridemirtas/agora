@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
@@ -47,6 +48,7 @@ const Post = ({
   const { isLoggedIn, username: uname } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
   const pathname = usePathname();
+  const router = useRouter();
 
   const [deleted, setDeleted] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -135,7 +137,8 @@ const Post = ({
     console.log("Replied");
   });
 
-  const onShare = () => {
+  const onShare = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
     console.log("Shared");
   };
 
@@ -178,8 +181,17 @@ const Post = ({
     <article
       className={clsx(
         "rounded-xl text-sm sm:px-6 sm:text-base",
-        "transition-colors duration-200 ease-in-out"
+        "transition-colors duration-200 ease-in-out",
+        replyTo || detailed ? "" : "cursor-pointer"
       )}
+      onClick={
+        replyTo || detailed
+          ? () => {}
+          : (e) => {
+              e.stopPropagation();
+              router.push(`/post/${id}`);
+            }
+      }
     >
       <div
         className={clsx(
@@ -197,7 +209,7 @@ const Post = ({
             >
               <Avatar username={username} size={12} />
             </Link>
-            <div className="ml-2 flex flex-col">
+            <div className="ml-2 flex flex-col items-start">
               {!isPrivate && username ? (
                 <Link
                   href={"/@" + username}

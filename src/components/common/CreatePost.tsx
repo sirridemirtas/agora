@@ -72,13 +72,15 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
 
   return (
     <div className={clsx("p-6", className)}>
-      {success && (
+      {
+        success && <></> /* (
         <Alert
           type="success"
           message="Gönderinizi başarıyla paylaştınız."
           className="mb-4"
         />
-      )}
+      ) */
+      }
       {error && (
         <Alert
           type="error"

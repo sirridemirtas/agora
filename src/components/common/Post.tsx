@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
+//import { usePathname } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
@@ -47,7 +47,7 @@ const Post = ({
 }: PostProps) => {
   const { isLoggedIn, username: uname } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
-  const pathname = usePathname();
+  //const pathname = usePathname();
   const router = useRouter();
 
   const [deleted, setDeleted] = useState(false);
@@ -221,8 +221,8 @@ const Post = ({
               ) : (
                 <span className="text-neutral-500">Anonim</span>
               )}
-              {pathname.startsWith("/university") || (
-                <>
+              {
+                /* pathname.startsWith("/university") ||  */ <>
                   <span className="text-neutral-500 hover:underline">
                     <Link
                       href={`/university/${universityId}`}
@@ -233,7 +233,7 @@ const Post = ({
                     </Link>
                   </span>
                 </>
-              )}
+              }
             </div>
           </div>
           {detailed || (

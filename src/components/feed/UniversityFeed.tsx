@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { FeedFilters, PostList } from "@/components/common";
+import { CreatePost, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
@@ -78,7 +78,7 @@ export default function UniversityFeed() {
 
   return (
     <div>
-      <FeedFilters className="mb-4" />
+      <CreatePost />
       <PostList posts={posts} />
     </div>
   );

@@ -1,27 +1,30 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import clsx from "clsx";
 import { Clock, Star } from "lucide-react";
 import { RadioGroup } from "@/components/ui";
 
+type FilterValue = "newest" | "popular";
+
 export default function FeedFilters({ className }: { className?: string }) {
-  const searchParams = useSearchParams();
-  const currentFilter = searchParams?.get("filter") ?? "newest";
+  const [activeFilter, setActiveFilter] = useState<FilterValue>("newest");
 
   const options = [
     {
-      value: "newest",
+      value: "newest" as FilterValue,
       icon: <Clock className="h-4 w-4" />,
       label: "En Yeniler",
-      href: "?filter=newest",
     },
     {
-      value: "popular",
+      value: "popular" as FilterValue,
       icon: <Star className="h-4 w-4" />,
       label: "En Beğenilenler",
-      href: "?filter=popular",
     },
   ];
+
+  const handleFilterChange = (value: FilterValue) => {
+    setActiveFilter(value);
+  };
 
   return (
     <div
@@ -30,7 +33,12 @@ export default function FeedFilters({ className }: { className?: string }) {
         className
       )}
     >
-      <RadioGroup value={currentFilter} options={options} variant="text" />
+      <RadioGroup
+        value={activeFilter}
+        onChange={handleFilterChange}
+        options={options}
+        variant="text"
+      />
     </div>
   );
 }

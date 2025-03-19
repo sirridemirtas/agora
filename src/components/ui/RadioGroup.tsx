@@ -58,7 +58,9 @@ export default function RadioGroup<T>({
               >
                 <span className="flex items-center gap-2">
                   {option.icon && <span>{option.icon}</span>}
-                  {option.label && <span>{option.label}</span>}
+                  {option.label && (
+                    <span className="pr-1 text-sm">{option.label}</span>
+                  )}
                 </span>
               </button>
             )}
@@ -87,7 +89,9 @@ export default function RadioGroup<T>({
           >
             <span className="flex items-center gap-2">
               {option.icon && <span>{option.icon}</span>}
-              {option.label && <span className="text-sm">{option.label}</span>}
+              {option.label && (
+                <span className="pr-1 text-sm">{option.label}</span>
+              )}
             </span>
           </Link>
         ))}

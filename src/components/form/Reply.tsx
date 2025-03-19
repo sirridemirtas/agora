@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useApi } from "@/hooks";
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
 
 interface ReplyProps {
   className?: string;
@@ -15,11 +16,13 @@ interface ReplyProps {
 const Reply = ({ className, onReplyCreated }: ReplyProps) => {
   const [content, setContent] = useState("");
   const [success, setSuccess] = useState(false);
-  const [commentActionsVisible, setCommentActionsVisible] = useState(false);
+  const [replyActionsVisible, setReplyActionsVisible] = useState(false);
   const maxLength = 500;
   const postService = new PostService();
   const pathname = usePathname();
   const postId = pathname.split("/")[2]; // Extract post ID from URL
+
+  const { addPost: addNewPostToPlaceholder } = useNewPost();
 
   const {
     loading,
@@ -57,6 +60,7 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
         if (onReplyCreated) {
           onReplyCreated();
         }
+        addNewPostToPlaceholder(response.data);
       } else {
         setSuccess(false);
       }
@@ -70,18 +74,20 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
     e.target.scrollTop = 0;
     e.target.style.height = "auto";
     e.target.style.height = e.target.scrollHeight + 2 + "px";
-    setCommentActionsVisible(true);
+    setReplyActionsVisible(true);
   };
 
   return (
     <div className={clsx("py-4", className)}>
-      {success && (
+      {
+        success && <></> /*(
         <Alert
           type="success"
           message="Cevabınız başarıyla paylaşıldı."
           className="mb-4"
         />
-      )}
+      ) */
+      }
       {error && (
         <Alert
           type="error"
@@ -109,7 +115,7 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
           className={clsx(
             "flex items-center justify-end gap-4 bg-white dark:bg-neutral-950",
             content && "sticky sm:bottom-16 lg:bottom-0",
-            commentActionsVisible || "hidden"
+            replyActionsVisible || "hidden"
           )}
         >
           <span className="text-sm text-neutral-500">

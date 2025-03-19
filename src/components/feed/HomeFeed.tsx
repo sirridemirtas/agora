@@ -5,6 +5,7 @@ import { useApi } from "@/hooks";
 import { FeedPaginator, PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 import { useSearchParams } from "next/navigation";
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
 
 const HomeFeed = () => {
   const postService = new PostService();
@@ -12,6 +13,8 @@ const HomeFeed = () => {
   const page = searchParams.get("page")
     ? parseInt(searchParams.get("page")!)
     : undefined;
+
+  const { posts: newPosts } = useNewPost();
 
   const {
     data: posts,
@@ -52,7 +55,17 @@ const HomeFeed = () => {
 
   return (
     <>
-      <PostList posts={posts} />
+      <PostList
+        posts={
+          newPosts.length > 0
+            ? newPosts.concat(
+                posts.filter(
+                  (post) => !newPosts.some((newPost) => newPost.id === post.id)
+                )
+              )
+            : posts
+        }
+      />
       <FeedPaginator nextDisabled={posts.length !== 50} />
     </>
   );

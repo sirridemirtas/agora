@@ -8,6 +8,7 @@ export interface Post {
   downvotes: number;
   username?: string;
   isPrivate: boolean;
+  replyTo?: string;
   reactions: {
     likeCount: number;
     dislikeCount: number;
@@ -16,9 +17,9 @@ export interface Post {
   };
 }
 
-export interface Reply extends Post {
+/* export interface Reply extends Post {
   replyTo: string;
-}
+} */
 
 export interface User {
   username: string;

@@ -8,15 +8,11 @@
   box-sizing: border-box;
 }
 
-/* html {
-  overflow: hidden;
-  height: 100%;
-}
-
+html,
 body {
   height: 100%;
-  overflow: auto;
-} */
+  overscroll-behavior: none;
+}
 
 .input {
   /* Base styles */

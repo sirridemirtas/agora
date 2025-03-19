@@ -6,10 +6,11 @@ import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
 import {
-  MessageSquare as ReplyIcon,
-  MoreHorizontal as MoreIcon,
+  Trash2 as DeleteIcon,
   HeartOff as DislikeIcon,
   Heart as LikeIcon,
+  MessageSquare as ReplyIcon,
+  Share as ShareIcon,
 } from "lucide-react";
 import { useAuth } from "@/hooks";
 import { usePostAction } from "@/hooks/usePostAction";
@@ -40,11 +41,14 @@ const Post = ({
   downvotes,
   isPrivate,
   detailed = false,
+  replyTo,
   reactions: initialReactions,
 }: PostProps) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, username: uname } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
   const pathname = usePathname();
+
+  const [deleted, setDeleted] = useState(false);
 
   // reactions'ı state olarak yönetiyoruz, varsayılan değerlerle başlatıyoruz
   const [reactions, setReactions] = useState({
@@ -125,6 +129,24 @@ const Post = ({
     console.log("Replied");
   });
 
+  const onShare = () => {
+    console.log("Shared");
+  };
+
+  const onDelete = requireLogin(() => {
+    if (
+      confirm(
+        "Bu gönderiyi silmek istediğine emin misin?\n\nİçerdiği tüm cevaplar da silinecek."
+      )
+    ) {
+      setDeleted(true);
+    }
+  });
+
+  if (deleted) {
+    return null;
+  }
+
   return (
     <article
       className={clsx(
@@ -176,14 +198,19 @@ const Post = ({
             </div>
           </div>
           {detailed || (
-            <time className="mr-0 text-sm text-neutral-400 hover:underline">
-              <Link
-                href={`/post/${id}`}
-                title={detailedTimeFormat(new Date(createdAt))}
-                onClick={(e) => e.stopPropagation()}
-              >
-                {relativeTimeFormat(new Date(createdAt))}
-              </Link>
+            <time className="mr-0 text-sm text-neutral-400">
+              {replyTo ? (
+                relativeTimeFormat(new Date(createdAt))
+              ) : (
+                <Link
+                  className="hover:underline"
+                  href={`/post/${id}`}
+                  title={detailedTimeFormat(new Date(createdAt))}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {relativeTimeFormat(new Date(createdAt))}
+                </Link>
+              )}
             </time>
           )}
         </div>
@@ -221,7 +248,7 @@ const Post = ({
                 : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
             )}
             onClick={onUpvote}
-            aria-label="Upvote"
+            aria-label="Beğen"
           >
             <span
               className={clsx(
@@ -250,7 +277,7 @@ const Post = ({
                 : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
             )}
             onClick={onDownvote}
-            aria-label="Downvote"
+            aria-label="Beğenme"
           >
             <span
               className={clsx(
@@ -271,31 +298,53 @@ const Post = ({
           </button>
 
           {/* Reply Button */}
-          <button
-            className="flex items-center gap-1 text-neutral-500 transition-colors hover:text-slate-700 dark:hover:text-slate-300"
-            onClick={onReply}
-            aria-label="Reply"
-          >
-            <span className="rounded-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800">
-              <ReplyIcon size={18} />
-            </span>
-            <span className="text-sm"></span>
-          </button>
-
-          {/* More Options Button */}
-          <button
-            className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
-            aria-label="More options"
-          >
-            <span
-              className={clsx(
-                "rounded-full p-2 hover:bg-blue-50 dark:hover:bg-blue-900/20",
-                detailed || "-mr-2"
-              )}
+          {replyTo ? null : (
+            <button
+              className="flex items-center gap-1 text-neutral-500 transition-colors hover:text-slate-700 dark:hover:text-slate-300"
+              onClick={onReply}
+              aria-label="Cevapla"
             >
-              <MoreIcon size={18} />
-            </span>
-          </button>
+              <span className="rounded-full p-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                <ReplyIcon size={18} />
+              </span>
+              <span className="text-sm"></span>
+            </button>
+          )}
+
+          {/* Share Button */}
+          {replyTo ? null : (
+            <button
+              className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+              aria-label="Paylaş"
+              onClick={onShare}
+            >
+              <span
+                className={clsx(
+                  "rounded-full p-2 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                )}
+              >
+                <ShareIcon size={18} />
+              </span>
+            </button>
+          )}
+
+          {/* Delete Button */}
+          {isLoggedIn && username === uname && (
+            <button
+              className="flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400"
+              aria-label="Sil"
+              onClick={onDelete}
+            >
+              <span
+                className={clsx(
+                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20",
+                  detailed || "-mr-2"
+                )}
+              >
+                <DeleteIcon size={18} />
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </article>

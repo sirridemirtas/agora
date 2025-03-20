@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 export default function Avatar({
   username = "janedoe",
-  size = 20,
+  size,
 }: {
   username?: string;
   size?: number;
@@ -10,8 +10,8 @@ export default function Avatar({
   return (
     <div
       className={clsx(
-        `h-${size} w-${size}`,
-        "flex-shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+        size ? `h-${size} w-${size}` : "h-auto w-auto",
+        "pointer-events-none flex-shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
       )}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

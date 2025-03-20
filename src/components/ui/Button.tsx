@@ -32,7 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "flex items-center justify-center",
       "rounded-xl px-4 py-2",
       "transition-all focus:outline-none focus:ring-2 focus:ring-offset-2",
-      "disabled:cursor-not-allowed disabled:opacity-50",
+      "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
       "active:bg-opacity-80",
       "dark:border dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-white",
       {

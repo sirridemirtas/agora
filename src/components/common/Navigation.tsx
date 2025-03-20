@@ -95,6 +95,9 @@ const NavItem: React.FC<NavItem> = ({
   const pathname = usePathname();
   const { isLoggedIn, universityId, username } = useAuth();
 
+  const notifications = 8;
+  const messages = 4;
+
   // Hide item if it should be hidden for logged-in users
   // or requires login but user isn't logged in
   if ((hideOnLogin && isLoggedIn) || (loginRequired && !isLoggedIn)) {
@@ -103,6 +106,17 @@ const NavItem: React.FC<NavItem> = ({
 
   const activeStyles =
     "sm:bg-neutral-100 dark:text-white sm:dark:bg-neutral-800";
+
+  const Badge = ({ n }: { n: number }) => (
+    <span
+      className={clsx(
+        "absolute -mt-1 ml-4 flex items-center justify-center px-[3px] text-[0.5em] sm:-mt-4",
+        "rounded-full border border-white bg-red-500 font-light text-white dark:border-neutral-300"
+      )}
+    >
+      {n}
+    </span>
+  );
 
   return (
     <Link
@@ -169,6 +183,10 @@ const NavItem: React.FC<NavItem> = ({
           text
         )}
       </span>
+      {notifications > 0 && href === "/notifications" && (
+        <Badge n={notifications} />
+      )}
+      {messages > 0 && href === "/messages" && <Badge n={messages} />}
     </Link>
   );
 };

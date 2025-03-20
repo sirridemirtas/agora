@@ -48,8 +48,8 @@ export default function RootLayout({
           >
             <div
               className={clsx(
-                "lg:sticky lg:top-0 lg:h-auto",
-                "gap-0 lg:flex lg:flex-col lg:overflow-y-auto"
+                "lg:sticky lg:top-0 lg:h-full lg:pb-2",
+                "_lg:overflow-y-auto gap-0 lg:flex lg:flex-col"
               )}
             >
               <div className="hidden h-16 lg:block">

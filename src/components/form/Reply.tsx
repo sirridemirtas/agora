@@ -70,13 +70,6 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
     }
   };
 
-  const resize = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.scrollTop = 0;
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + 2 + "px";
-    setReplyActionsVisible(true);
-  };
-
   return (
     <div className={clsx("py-4", className)}>
       {
@@ -100,8 +93,9 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <Textarea
           name="content"
-          onInput={resize}
-          onFocus={resize}
+          onInput={() => setReplyActionsVisible(true)}
+          onFocus={() => setReplyActionsVisible(true)}
+          autosize
           placeholder="Cevabını yaz"
           rows={2}
           maxLength={maxLength}

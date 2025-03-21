@@ -1,12 +1,15 @@
+"use client";
 import clsx from "clsx";
 import { LucideIcon } from "lucide-react";
 import { Field, Label, Textarea as HeadlessTextarea } from "@headlessui/react";
+import { useRef, useEffect } from "react";
 
 interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   icon?: LucideIcon;
   label?: string;
   error?: string;
+  autosize?: boolean;
 }
 
 const Textarea: React.FC<TextareaProps> = ({
@@ -15,12 +18,44 @@ const Textarea: React.FC<TextareaProps> = ({
   error,
   className,
   disabled,
+  autosize = false,
+  value,
+  defaultValue,
+  onChange,
+  onInput,
   ...props
 }) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const adjustHeight = () => {
+    if (autosize && textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + 1 + "px";
+    }
+  };
+
+  // Değer değiştiğinde veya bileşen mount edildiğinde yüksekliği ayarla
+  useEffect(() => {
+    if (autosize) {
+      adjustHeight();
+    }
+  }, [value, defaultValue, autosize]);
+
+  const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    if (autosize) {
+      adjustHeight();
+    }
+
+    if (onInput) {
+      onInput(e as React.FormEvent<HTMLTextAreaElement>);
+    }
+  };
+
   return (
     <Field disabled={disabled} className="flex flex-col space-y-1">
       {label && (
-        <Label className="text-sm font-medium text-gray-700 data-[disabled]:opacity-50">
+        <Label className="text-sm font-medium text-gray-700 data-[disabled]:opacity-50 dark:text-gray-300">
           {label}
         </Label>
       )}
@@ -35,6 +70,7 @@ const Textarea: React.FC<TextareaProps> = ({
           />
         )}
         <HeadlessTextarea
+          ref={textareaRef}
           className={clsx(
             "input",
             "resize-none",
@@ -42,6 +78,10 @@ const Textarea: React.FC<TextareaProps> = ({
             error ? "input-error" : "input-default",
             className
           )}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={onChange}
+          onInput={handleInput}
           {...props}
         />
       </div>

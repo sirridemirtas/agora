@@ -155,7 +155,7 @@ const NavItem: React.FC<NavItem> = ({
           href === "/university" &&
           activeStyles,
 
-        href === "/user" && "sm:py-1 lg:gap-2 lg:px-3 lg:py-2"
+        href === "/user" && "sm:py-1 lg:gap-[0.5rem] lg:px-3 lg:py-[0.5rem]"
       )}
       title={
         href === "/university"
@@ -167,7 +167,7 @@ const NavItem: React.FC<NavItem> = ({
     >
       {href === "/user" ? (
         <div className="h-6 w-6 rounded-full border sm:h-8 sm:w-8 sm:border-none">
-          <Avatar username={username || ""} />
+          <Avatar username={username || "Anonim"} />
         </div>
       ) : (
         <Icon size={24} />

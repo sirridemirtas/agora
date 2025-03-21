@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks";
 import Avatar from "./Avatar";
-//import { Logo } from "@/components/common";
+import { useNotifications } from "@/hooks/useNotifications";
 
 interface NavItem {
   href: string;
@@ -94,9 +94,11 @@ const NavItem: React.FC<NavItem> = ({
 }) => {
   const pathname = usePathname();
   const { isLoggedIn, universityId, username } = useAuth();
+  const { notificationCount, unreadMessageCount } = useNotifications();
 
-  const notifications = 8;
-  const messages = 4;
+  // Update these variables to use the values from the context
+  const notifications = notificationCount;
+  const unreadCount = unreadMessageCount;
 
   // Hide item if it should be hidden for logged-in users
   // or requires login but user isn't logged in
@@ -186,7 +188,7 @@ const NavItem: React.FC<NavItem> = ({
       {notifications > 0 && href === "/notifications" && (
         <Badge n={notifications} />
       )}
-      {messages > 0 && href === "/messages" && <Badge n={messages} />}
+      {unreadCount > 0 && href === "/messages" && <Badge n={unreadCount} />}
     </Link>
   );
 };

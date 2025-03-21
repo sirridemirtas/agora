@@ -1,12 +1,11 @@
-import { Metadata } from "next";
+"use client";
 import { BellOff } from "lucide-react";
 import { NotificationList } from "@/components/common";
+import { useNotificationService } from "@/hooks/useNotificationService";
+import { useEffect } from "react";
+import { usePageTitle } from "@/hooks";
 
-export const metadata: Metadata = {
-  title: "Bildirimler",
-};
-
-const NoNotificaton = () => (
+const NoNotifications = () => (
   <div className="lg:flex-1">
     <div className="p-8 py-16 text-center">
       <div className="mb-4 flex justify-center">
@@ -18,8 +17,26 @@ const NoNotificaton = () => (
   </div>
 );
 
-// const NotificationItem = () => (
-
 export default function NotificationsPage() {
-  return <></>;
+  const { setTitle } = usePageTitle();
+  const { notifications, notificationsLoading, getNotifications } =
+    useNotificationService();
+
+  useEffect(() => {
+    setTitle("Bildirimler");
+  }, [setTitle]);
+
+  useEffect(() => {
+    getNotifications();
+  }, [getNotifications]);
+
+  return (
+    <div className="p-6">
+      {notifications && notifications.length > 0 ? (
+        <NotificationList />
+      ) : (
+        !notificationsLoading && <NoNotifications />
+      )}
+    </div>
+  );
 }

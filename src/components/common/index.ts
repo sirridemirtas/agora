@@ -9,6 +9,7 @@ export {default as LandingPagge} from './LandingPage';
 export {default as Logo} from './Logo';
 export {default as LogOutButton} from './LogOutButton';
 export {default as Navigation, navItems} from './Navigation';
+export {default as NotificationList} from './NotificationList';
 export {default as MessageList} from './MessageList';
 export {default as PageTitle} from './PageTitle';
 export {default as Post} from './Post';

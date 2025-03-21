@@ -2,8 +2,9 @@
 import { usePathname } from "next/navigation";
 import { MessageSquareOff } from "lucide-react";
 import { Chat, MessageList } from "@/components/common";
-import { usePageTitle } from "@/hooks";
+import { /* useAuth, */ usePageTitle } from "@/hooks";
 import { useEffect } from "react";
+import { useMessageService } from "@/hooks/useMessageService";
 
 const NoMessages = () => {
   return (
@@ -24,22 +25,33 @@ const NoMessages = () => {
 export default function MessagesPage() {
   const pathname = usePathname();
   const conversationWith = pathname.split("/")[2];
+  //const { username: me } = useAuth();
   const { setTitle } = usePageTitle();
+  const { conversations, getConversations, conversationsLoading } =
+    useMessageService();
 
   useEffect(() => {
-    if (conversationWith) setTitle("Mesajlar / @" + conversationWith);
-  }, [setTitle]);
+    if (conversationWith) {
+      setTitle("Mesajlar / @" + conversationWith);
+    } else {
+      setTitle("Mesajlar");
+    }
+  }, [setTitle, conversationWith]);
 
-  const messages = [{}];
+  useEffect(() => {
+    if (!conversationWith) {
+      getConversations();
+    }
+  }, [getConversations, conversationWith]);
 
   return (
     <div className="p-6">
       {conversationWith ? (
         <Chat />
-      ) : messages.length ? (
+      ) : conversations && conversations.length > 0 ? (
         <MessageList />
       ) : (
-        <NoMessages />
+        !conversationsLoading && <NoMessages />
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 "use client";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/common";
 import Link from "next/link";
@@ -11,17 +12,19 @@ import { tr } from "date-fns/locale";
 const CustomLink = ({
   href,
   children,
+  className,
   ...props
 }: {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
   };
 
   return (
-    <Link href={href} {...props} onClick={handleClick}>
+    <Link href={href} {...props} onClick={handleClick} className={className}>
       {children}
     </Link>
   );
@@ -55,13 +58,16 @@ const ListItem = ({
       </CustomLink>
       <div className="flex w-full flex-col border-b py-3 dark:border-neutral-800">
         <div className="flex w-full flex-row items-center justify-between">
-          <CustomLink href={`/@${username}`}>
+          <CustomLink
+            href={`/@${username}`}
+            className="flex items-center gap-1"
+          >
             <span className="font-semibold">
               <span className="opacity-50">@</span>
               <span className="hover:underline">{username}</span>
             </span>{" "}
             {unreadCount > 0 && (
-              <span className="ml-2 rounded-full bg-blue-500 px-2 py-0.5 text-xs text-white">
+              <span className="inline-flex items-center justify-center rounded-full border border-white bg-red-500 px-[3px] text-[0.6em] font-light text-white dark:border-neutral-300">
                 {unreadCount}
               </span>
             )}
@@ -70,7 +76,13 @@ const ListItem = ({
             {time}
           </span>
         </div>
-        <p className="text-neutral-500">{message}</p>
+        <p className={clsx("text-neutral-500", unreadCount && "font-semibold")}>
+          {message
+            ? message.length > 60
+              ? message.slice(0, 60) + "..."
+              : message
+            : "-"}
+        </p>
       </div>
     </div>
   );

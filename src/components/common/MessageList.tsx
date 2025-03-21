@@ -76,7 +76,12 @@ const ListItem = ({
             {time}
           </span>
         </div>
-        <p className={clsx("text-neutral-500", unreadCount && "font-semibold")}>
+        <p
+          className={clsx(
+            "text-sm text-neutral-500",
+            unreadCount && "font-semibold"
+          )}
+        >
           {message
             ? message.length > 60
               ? message.slice(0, 60) + "..."

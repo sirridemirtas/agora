@@ -8,7 +8,7 @@ import { Avatar } from "@/components/common";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import SendMessage from "@/components/form/SendMessage";
-import Link from "next/link";
+//import Link from "next/link";
 
 export default function Chat() {
   const pathname = usePathname();
@@ -86,7 +86,7 @@ export default function Chat() {
         </Link>
       </div> */}
 
-      <div className={clsx("flex-1 overflow-y-auto p-4")}>
+      <div className={clsx("_p-4 flex-1 overflow-y-auto")}>
         {conversation.messages.map((message, index) => {
           const isMe = message.sender === currentUser;
           const formattedTime = format(new Date(message.createdAt), "HH:mm", {
@@ -108,13 +108,13 @@ export default function Chat() {
               )}
               <div
                 className={clsx(
-                  "flex w-full max-w-[320px] flex-col border border-transparent p-2.5 leading-tight",
+                  "flex w-auto max-w-[320px] flex-col border border-transparent p-2.5 leading-tight",
                   isMe
                     ? "rounded-s-lg rounded-ee-lg bg-neutral-200 text-neutral-900 dark:border-neutral-800 dark:bg-transparent dark:text-white"
                     : "rounded-e-lg rounded-es-lg bg-neutral-100 dark:border-neutral-800 dark:bg-transparent"
                 )}
               >
-                {!isMe && (
+                {/* !isMe && (
                   <span
                     className={clsx(
                       "mb-1 text-sm font-semibold text-neutral-900 dark:text-white"
@@ -123,7 +123,7 @@ export default function Chat() {
                     <span className="opacity-50">@</span>
                     {message.sender}
                   </span>
-                )}
+                ) */}
                 <p
                   className={clsx(
                     "text-sm font-normal",
@@ -158,7 +158,7 @@ export default function Chat() {
 
       <div
         className={clsx(
-          "sticky bottom-16 border-t bg-white p-4 lg:bottom-0 dark:border-neutral-800 dark:bg-neutral-950"
+          "sticky bottom-16 border-t bg-white py-4 lg:bottom-0 dark:border-neutral-800 dark:bg-neutral-950"
         )}
       >
         <SendMessage recipientUsername={conversationWith} />

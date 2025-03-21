@@ -72,7 +72,9 @@ export default function ProfilePage() {
     <div className="lg:flex-1">
       <div className="p-6 sm:mb-4">
         <div className="flex items-start gap-4">
-          <Avatar username={username} size={16} />
+          <div className="h-16 w-16">
+            <Avatar username={username} size={16} />
+          </div>
           <div className="flex-1">
             <div className="flex items-center justify-between">
               <h1 className="text-xl font-semibold">

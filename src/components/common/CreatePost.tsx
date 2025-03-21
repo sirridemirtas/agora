@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Send, School } from "lucide-react";
 import { Textarea } from "@headlessui/react";
@@ -23,6 +24,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   const { addPost: addNewPostToPlaceholder } = useNewPost();
 
   const { universityId, username } = useAuth();
+  const pathId = usePathname().split("/")[2];
 
   const {
     loading,
@@ -74,7 +76,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   const resize = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.target.scrollTop = 0;
     e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + 2 + "px";
+    e.target.style.height = e.target.scrollHeight + 1 + "px";
   };
 
   const contentValid =
@@ -134,7 +136,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             ) : (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
-                src={`https://www.studyinturkiye.gov.tr/Content/img/logo/${universityId}.png`}
+                src={`https://www.studyinturkiye.gov.tr/Content/img/logo/${pathId || universityId}.png`}
                 alt="avatar"
                 className="pointer-events-none h-12 w-12 rounded-full object-cover"
                 onError={() => setImageError(true)}
@@ -143,8 +145,9 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             <span className="flex flex-col text-sm text-gray-500">
               <small>Burada paylaşılacak:</small>
               <span>
-                {universities.filter((u) => u.id === universityId)[0]?.name ||
-                  "Üniversite"}
+                {universities.filter(
+                  (u) => u.id === (pathId || universityId)
+                )[0]?.name || "Üniversite"}
               </span>
             </span>
           </div>

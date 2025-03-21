@@ -1,6 +1,7 @@
 export { useApi } from "./useApi";
 export { useApiLoading } from "./useApiLoading";
 export { useAuth } from "./useAuth";
+export { useMessageService } from "./useMessageService";
 export { usePageTitle } from "./usePageTitle";
 export { usePostAction } from "./usePostAction";
 export { useSharedState } from "./useSharedState";

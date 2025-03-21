@@ -48,8 +48,8 @@ export default function RootLayout({
           >
             <div
               className={clsx(
-                "lg:sticky lg:top-0 lg:h-auto",
-                "gap-0 lg:flex lg:flex-col lg:overflow-y-auto"
+                "lg:sticky lg:top-0 lg:h-full lg:pb-2",
+                "_lg:overflow-y-auto gap-0 lg:flex lg:flex-col"
               )}
             >
               <div className="hidden h-16 lg:block">
@@ -70,8 +70,8 @@ export default function RootLayout({
                   "flex flex-row items-center justify-between px-4",
                   "flex-grow-1 h-16 w-full",
                   "left:0 right:0 sticky top-0 z-10",
-                  "border-b bg-neutral-50 bg-opacity-80 backdrop-blur-md dark:bg-black",
-                  "md:border-none md:bg-opacity-100 md:backdrop-blur-none"
+                  "border-b bg-neutral-50 bg-opacity-80 backdrop-blur-md md:border-0 dark:border-x-0 dark:border-neutral-800 dark:bg-black",
+                  "md:bg-opacity-100 md:backdrop-blur-none"
                 )}
               >
                 <div className="w-full">
@@ -82,12 +82,12 @@ export default function RootLayout({
               <div
                 className={clsx(
                   "_min-h-[calc(100vh-4rem)] relative min-h-[100vh] bg-white sm:shadow-sm lg:m-auto lg:mx-4",
-                  "dark:border-x dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none",
+                  "dark:border-x-0 dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none dark:md:border-x",
                   "flex flex-col justify-between"
                 )}
               >
                 <div>{children}</div>
-                <footer className="b-0 mb-16 flex min-h-16 flex-row items-center justify-start bg-white p-4 lg:mb-0">
+                <footer className="b-0 justify-startp-4 mb-16 flex min-h-16 flex-row items-center lg:mb-0">
                   <p className="w-full text-center text-xs text-neutral-400">
                     Copyright © {new Date().getFullYear()}{" "}
                     <a
@@ -114,7 +114,7 @@ const RoundedCorners = () => {
       {/* Sol köşe */}
       <div
         className={
-          "absolute top-16 z-10 -ml-8 -mt-4 hidden h-8 w-8 overflow-hidden bg-neutral-50 md:inline lg:-ml-4 dark:bg-black"
+          "absolute top-4 z-10 -ml-8 -mt-4 hidden h-20 w-8 overflow-hidden bg-neutral-50 md:inline lg:-ml-4 dark:bg-black"
         }
       >
         <div
@@ -124,11 +124,11 @@ const RoundedCorners = () => {
         ></div>
       </div>
       {/* Orta */}
-      <div className="absolute -mb-[2px] ml-[calc(1rem)] mt-12 hidden h-4 w-[calc(100%-4rem)] dark:inline dark:border-b dark:border-neutral-800"></div>
+      <div className="absolute -mb-[2px] ml-[calc(1rem)] mt-12 hidden h-4 w-[calc(100%-4rem)] md:-ml-2 md:w-[calc(100%-1rem)] dark:inline dark:border-neutral-800 md:dark:border-b"></div>
       {/* Sağ köşe */}
       <div
         className={
-          "absolute -right-4 top-16 z-10 -mt-4 hidden h-8 w-8 overflow-hidden bg-neutral-50 md:inline lg:right-0 dark:bg-black"
+          "absolute -right-4 top-4 z-10 -mt-4 hidden h-20 w-8 overflow-hidden bg-neutral-50 md:inline lg:right-0 dark:bg-black"
         }
       >
         <div

@@ -28,16 +28,16 @@ export default function SendMessage({ recipientUsername }: SendMessageProps) {
   return (
     <form
       onSubmit={handleSendMessage}
-      className="flex flex-col items-end gap-2"
+      className="flex flex-row items-start gap-2"
     >
       <div className="w-full">
         <Textarea
-          className="w-full resize-none"
+          className="w-full resize-none overflow-hidden"
           placeholder="Mesajınızı yazın..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           maxLength={500}
-          rows={2}
+          rows={1}
           autosize
         />
       </div>

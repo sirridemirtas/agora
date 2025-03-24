@@ -8,6 +8,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { useMessageService } from "@/hooks/useMessageService";
+import { useNotificationService } from "@/hooks/useNotificationService";
 import { useAuth } from "@/hooks";
 
 interface NotificationsContextType {
@@ -26,6 +27,10 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [notificationCount, setNotificationCount] = useState(0);
   const { unreadCount, getUnreadCount } = useMessageService();
+  const {
+    unreadCount: unreadNotificationCount,
+    getUnreadCount: getUnreadNotificationCount,
+  } = useNotificationService();
   const { isLoggedIn } = useAuth();
   const pathname = usePathname();
 
@@ -35,19 +40,23 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
         // Fetch unread message count
         await getUnreadCount();
 
-        // In the future, fetch notification count here
-        // For now, we'll use a dummy value
-        setNotificationCount(0);
+        // Fetch notification count
+        await getUnreadNotificationCount();
       } catch (error) {
         console.error("Failed to refresh notification counts:", error);
       }
     }
-  }, [getUnreadCount, isLoggedIn]);
+  }, [getUnreadCount, getUnreadNotificationCount, isLoggedIn]);
 
   // Update local state when unreadCount changes
   useEffect(() => {
     setUnreadMessageCount(unreadCount);
   }, [unreadCount]);
+
+  // Update local state when notification unreadCount changes
+  useEffect(() => {
+    setNotificationCount(unreadNotificationCount);
+  }, [unreadNotificationCount]);
 
   // Refresh counts when path changes or login state changes
   useEffect(() => {

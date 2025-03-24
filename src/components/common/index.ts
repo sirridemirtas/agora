@@ -1,4 +1,5 @@
 export {default as Avatar} from './Avatar';
+export type {AvatarConfig} from './Avatar';
 export {default as AuthModal} from './AuthModal';
 export {default as AuthRedirect} from './AuthRedirect';
 export {default as Chat} from './Chat';
@@ -9,6 +10,7 @@ export {default as LandingPagge} from './LandingPage';
 export {default as Logo} from './Logo';
 export {default as LogOutButton} from './LogOutButton';
 export {default as Navigation, navItems} from './Navigation';
+export {default as NotificationList} from './NotificationList';
 export {default as MessageList} from './MessageList';
 export {default as PageTitle} from './PageTitle';
 export {default as Post} from './Post';

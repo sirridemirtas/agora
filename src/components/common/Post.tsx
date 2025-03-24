@@ -202,13 +202,18 @@ const Post = ({
       >
         <div className="mb-4 flex items-start justify-between">
           <div className="flex flex-row items-center">
-            <Link
-              className="h-12 w-12"
-              href={"/@" + username}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Avatar username={username} size={12} />
-            </Link>
+            {username ? (
+              <Link
+                className="h-12 w-12"
+                href={"/@" + username}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Avatar username={username} size={12} />
+              </Link>
+            ) : (
+              <Avatar size={12} />
+            )}
+
             <div className="ml-2 flex flex-col items-start">
               {!isPrivate && username ? (
                 <Link
@@ -281,7 +286,7 @@ const Post = ({
           <button
             className={clsx(
               "flex items-center transition-colors",
-              detailed || "-ml-2",
+              //detailed || "-ml-2",
               reactions.liked
                 ? "text-red-600 dark:text-red-400"
                 : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
@@ -380,8 +385,8 @@ const Post = ({
             >
               <span
                 className={clsx(
-                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20",
-                  detailed || "-mr-2"
+                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  //detailed || "-mr-2"
                 )}
               >
                 {deleteLoading ? (

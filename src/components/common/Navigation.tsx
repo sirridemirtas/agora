@@ -168,8 +168,8 @@ const NavItem: React.FC<NavItem> = ({
       }
     >
       {href === "/user" ? (
-        <div className="h-6 w-6 rounded-full border sm:h-8 sm:w-8 sm:border-none">
-          <Avatar username={username || "Anonim"} />
+        <div className="flex h-6 w-6 items-stretch justify-stretch rounded-full border sm:h-8 sm:w-8 sm:border-none">
+          {username ? <Avatar username={username} /> : <Avatar />}
         </div>
       ) : (
         <Icon size={24} />

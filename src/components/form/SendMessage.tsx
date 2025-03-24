@@ -32,7 +32,7 @@ export default function SendMessage({ recipientUsername }: SendMessageProps) {
     >
       <div className="w-full">
         <Textarea
-          className="w-full resize-none"
+          className="w-full resize-none overflow-hidden"
           placeholder="Mesajınızı yazın..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}

@@ -1,8 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { genConfig } from "react-nice-avatar";
 import { AvatarConfig, Avatar as AvatarPreview } from "@/components/common";
-import { Button } from "@/components/ui";
+import { Alert, Button } from "@/components/ui";
+import { useAuth, useAvatar } from "@/hooks";
 
 const skinToneColors = ["#ffe0bd", "#ffd0a6", "#c68642", "#8d5524", "#613318"];
 
@@ -68,7 +69,74 @@ const controls = [
 ];
 
 export default function AvatarEditor() {
+  const { username } = useAuth();
+  const { getUserAvatar, updateUserAvatar, avatarUpdateLoading } = useAvatar();
   const [config, setConfig] = useState<AvatarConfig>(genConfig());
+
+  // Alert state management
+  const [alertInfo, setAlertInfo] = useState<{
+    show: boolean;
+    message: string;
+    type: "success" | "error" | "info" | "warning";
+  }>({
+    show: false,
+    message: "",
+    type: "info",
+  });
+
+  useEffect(() => {
+    if (username) {
+      loadUserAvatar();
+    }
+  }, [username]);
+
+  const loadUserAvatar = async (): Promise<void> => {
+    if (!username) return;
+
+    try {
+      const response = await getUserAvatar(username);
+      if (response.data) {
+        setConfig(response.data);
+      }
+    } catch (error) {
+      console.error("Failed to load avatar:", error);
+    }
+  };
+
+  const saveAvatar = async () => {
+    if (!username) {
+      setAlertInfo({
+        show: true,
+        message: "Avatarı kaydetmek için giriş yapmalısınız",
+        type: "error",
+      });
+      return;
+    }
+
+    try {
+      const response = await updateUserAvatar(username, config);
+      if (response.data) {
+        setAlertInfo({
+          show: true,
+          message: "Avatar başarıyla kaydedildi",
+          type: "success",
+        });
+      } else if (response.error) {
+        setAlertInfo({
+          show: true,
+          message: response.error.message || "Avatar kaydedilemedi",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Avatar kaydedilemedi:", error);
+      setAlertInfo({
+        show: true,
+        message: "Avatar kaydedilemedi",
+        type: "error",
+      });
+    }
+  };
 
   const cycleOption = (key: string, options: string[]) => {
     const currentValue = config[key as keyof AvatarConfig];
@@ -131,9 +199,25 @@ export default function AvatarEditor() {
           </div>
         ))}
       </div>
-      <div className="mb-6">
+      <div className="mb-6 flex gap-4">
         <Button onClick={randomize}>Rastgele</Button>
+        <Button onClick={saveAvatar} disabled={avatarUpdateLoading}>
+          Kaydet
+        </Button>
       </div>
+
+      {/* Alert component for notifications */}
+      {alertInfo.show && (
+        <Alert
+          type={alertInfo.type}
+          message={alertInfo.message}
+          show={alertInfo.show}
+          onClose={() => setAlertInfo({ ...alertInfo, show: false })}
+          autoClose={true}
+          autoCloseTime={5000}
+        />
+      )}
+
       {/* <div className="w-full max-w-2xl">
         <pre className="overflow-auto rounded bg-neutral-100 p-4 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
           {JSON.stringify(config, null, 2)}

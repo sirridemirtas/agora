@@ -1,6 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { usePageTitle } from "@/hooks";
+import { AvatarEditor } from "@/components/form";
 
 export default function AvatarPage() {
   const { setTitle } = usePageTitle();
@@ -11,7 +12,7 @@ export default function AvatarPage() {
 
   return (
     <div className="p-6 lg:flex-1">
-      <h1>Avatar Edit</h1>
+      <AvatarEditor />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 export {default as Avatar} from './Avatar';
+export type {AvatarConfig} from './Avatar';
 export {default as AuthModal} from './AuthModal';
 export {default as AuthRedirect} from './AuthRedirect';
 export {default as Chat} from './Chat';

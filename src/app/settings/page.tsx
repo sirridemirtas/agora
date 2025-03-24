@@ -1,11 +1,15 @@
 "use client";
+import { useEffect } from "react";
+import { usePageTitle } from "@/hooks";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks";
 import {
   LogOutButton,
   ThemeToggleButton,
   ToggleProfilePrivacy,
 } from "@/components/common";
+import { AvatarEditor } from "@/components/form";
 
 const Setting = ({
   children,
@@ -31,11 +35,11 @@ const Setting = ({
   );
 };
 
-export default function SettingsPage() {
+function Settings() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className="p-6 lg:flex-1">
+    <div>
       <Setting label="Tema" helperText="Bu ayar cihazınızda saklanır.">
         <ThemeToggleButton />
       </Setting>
@@ -60,6 +64,23 @@ export default function SettingsPage() {
           </Setting>
         </>
       )}
+    </div>
+  );
+}
+
+export default function SettingsPage() {
+  const pathname = usePathname();
+  const path = pathname.split("/")[2];
+
+  const { setTitle } = usePageTitle();
+
+  useEffect(() => {
+    if (path == "avatar") setTitle("Avatarı Düzenle");
+  }, [setTitle]);
+
+  return (
+    <div className="p-6 lg:flex-1">
+      {path === "avatar" ? <AvatarEditor /> : <Settings />}
     </div>
   );
 }

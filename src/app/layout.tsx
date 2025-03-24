@@ -8,7 +8,7 @@ import {
   Logo,
   Navigation,
   PageTitle,
-  ScrollRestorator,
+  //ScrollRestorator,
   SplashScreen,
 } from "@/components/common";
 import OnAppMount from "./OnAppMount";
@@ -38,7 +38,7 @@ export default function RootLayout({
       >
         <GlobalProvider>
           <OnAppMount />
-          <ScrollRestorator />
+          {/* <ScrollRestorator /> */}
           <SplashScreen visible={false} />
           <div
             className={clsx(

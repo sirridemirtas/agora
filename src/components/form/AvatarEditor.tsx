@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { genConfig } from "react-nice-avatar";
+import { Save as SaveIcon, Shuffle as ShuffleIcon } from "lucide-react";
 import { AvatarConfig, Avatar as AvatarPreview } from "@/components/common";
 import { Alert, Button } from "@/components/ui";
 import { useAuth, useAvatar } from "@/hooks";
@@ -152,56 +153,73 @@ export default function AvatarEditor() {
       <div className="mb-6 h-32 w-32">
         <AvatarPreview config={config} />
       </div>
-      <div className="mb-6 grid w-full max-w-2xl grid-cols-2 gap-2">
-        {controls.map((control) => (
-          <div key={control.key} className="flex items-center justify-between">
-            <span className="text-neutral-700 dark:text-neutral-300">
-              {control.label}:
-            </span>
-            {control.type === "cycle" ? (
-              <button
-                className="rounded bg-neutral-200 px-3 py-1 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                onClick={() => cycleOption(control.key, control.options || [])}
-              >
-                {control.key.includes("Color") ? (
-                  <div
-                    className="h-6 w-6 rounded-full"
-                    style={{
-                      backgroundColor: config[
-                        control.key as keyof AvatarConfig
-                      ] as string,
-                    }}
-                  />
-                ) : (
-                  config[control.key as keyof AvatarConfig]
-                )}
-              </button>
-            ) : (
-              <button className="rounded bg-neutral-200 px-3 py-1 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600">
-                <input
-                  type="color"
-                  value={config[control.key as keyof AvatarConfig] as string}
-                  onChange={(e) =>
-                    setConfig({ ...config, [control.key]: e.target.value })
+      <div className="mb-6 grid w-full max-w-md grid-cols-2 gap-2">
+        {controls.map((control) => {
+          const isColorControl = control.key.includes("Color");
+          const currentValue = config[control.key as keyof AvatarConfig];
+
+          return (
+            <div
+              key={control.key}
+              className="flex items-center justify-between"
+            >
+              {control.type === "cycle" ? (
+                <button
+                  className="flex w-full items-center justify-between rounded bg-neutral-100 px-3 py-2 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                  onClick={() =>
+                    cycleOption(control.key, control.options || [])
                   }
-                  className="absolute h-6 w-6 opacity-0"
-                />
-                <div
-                  className="h-6 w-6 rounded-full"
-                  style={{
-                    backgroundColor: config[
-                      control.key as keyof AvatarConfig
-                    ] as string,
-                  }}
-                />
-              </button>
-            )}
-          </div>
-        ))}
+                  title={currentValue as string}
+                  aria-label={`${control.label}: ${currentValue}`}
+                >
+                  <span>{control.label}</span>
+                  {isColorControl && (
+                    <div
+                      className="h-5 w-5 rounded border border-neutral-400"
+                      style={{ backgroundColor: currentValue as string }}
+                    />
+                  )}
+                </button>
+              ) : (
+                <button
+                  className="relative flex w-full items-center justify-between rounded bg-neutral-100 px-3 py-2 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                  onClick={() =>
+                    document
+                      .getElementById(`color-input-${control.key}`)
+                      ?.click()
+                  }
+                  title={currentValue as string}
+                  aria-label={`${control.label}: ${currentValue}`}
+                >
+                  <span>{control.label}</span>
+                  <div
+                    className="h-5 w-5 rounded border border-neutral-400"
+                    style={{ backgroundColor: currentValue as string }}
+                  />
+                  <input
+                    id={`color-input-${control.key}`}
+                    type="color"
+                    value={currentValue as string}
+                    onChange={(e) =>
+                      setConfig({ ...config, [control.key]: e.target.value })
+                    }
+                    className="absolute h-0 w-0 opacity-0"
+                  />
+                </button>
+              )}
+            </div>
+          );
+        })}
       </div>
       <div className="mb-6 flex gap-4">
-        <Button onClick={randomize}>Rastgele</Button>
-        <Button onClick={saveAvatar} disabled={avatarUpdateLoading}>
+        <Button onClick={randomize} variant="secondary" icon={ShuffleIcon}>
+          Rastgele
+        </Button>
+        <Button
+          onClick={saveAvatar}
+          disabled={avatarUpdateLoading}
+          icon={SaveIcon}
+        >
           Kaydet
         </Button>
       </div>
@@ -215,6 +233,7 @@ export default function AvatarEditor() {
           onClose={() => setAlertInfo({ ...alertInfo, show: false })}
           autoClose={true}
           autoCloseTime={5000}
+          className="w-full max-w-md"
         />
       )}
 

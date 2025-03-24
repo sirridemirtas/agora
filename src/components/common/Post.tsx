@@ -202,13 +202,18 @@ const Post = ({
       >
         <div className="mb-4 flex items-start justify-between">
           <div className="flex flex-row items-center">
-            <Link
-              className="h-12 w-12"
-              href={"/@" + username}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Avatar username={username} size={12} />
-            </Link>
+            {username ? (
+              <Link
+                className="h-12 w-12"
+                href={"/@" + username}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Avatar username={username} size={12} />
+              </Link>
+            ) : (
+              <Avatar size={12} />
+            )}
+
             <div className="ml-2 flex flex-col items-start">
               {!isPrivate && username ? (
                 <Link

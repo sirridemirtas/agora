@@ -72,7 +72,7 @@ export default function AvatarPreview({
   return (
     <div
       className={clsx(
-        size ? `h-${size} w-${size}` : "h-auto w-auto",
+        size ? `h-${size} w-${size}` : "h-full w-full",
         "pointer-events-none flex-shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-neutral-700"
       )}
     >

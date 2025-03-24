@@ -149,8 +149,8 @@ export default function AvatarEditor() {
 
   return (
     <div className="flex min-h-screen flex-col items-center text-sm">
-      <div className="mb-6">
-        <AvatarPreview config={config} size={64} />
+      <div className="mb-6 h-32 w-32">
+        <AvatarPreview config={config} />
       </div>
       <div className="mb-6 grid w-full max-w-2xl grid-cols-2 gap-2">
         {controls.map((control) => (

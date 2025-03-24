@@ -281,7 +281,7 @@ const Post = ({
           <button
             className={clsx(
               "flex items-center transition-colors",
-              detailed || "-ml-2",
+              //detailed || "-ml-2",
               reactions.liked
                 ? "text-red-600 dark:text-red-400"
                 : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
@@ -380,8 +380,8 @@ const Post = ({
             >
               <span
                 className={clsx(
-                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20",
-                  detailed || "-mr-2"
+                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  //detailed || "-mr-2"
                 )}
               >
                 {deleteLoading ? (

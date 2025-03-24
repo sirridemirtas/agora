@@ -1,17 +1,18 @@
 "use client";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { Avatar } from "@/components/common";
-import Link from "next/link";
 import { useNotificationService } from "@/hooks/useNotificationService";
 import { useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
-import { MessageSquare, ThumbsUp, ThumbsDown } from "lucide-react";
+import {
+  MessageSquare as ReplyIcon,
+  Heart as LikeIcon,
+  HeartOff as DislikeIcon,
+} from "lucide-react";
 
 const NotificationItem = ({
   id,
-  username,
   postId,
   postSnippet,
   type,
@@ -21,7 +22,6 @@ const NotificationItem = ({
   createdAt,
 }: {
   id: string;
-  username: string;
   postId: string;
   postSnippet: string;
   type: string;
@@ -44,31 +44,25 @@ const NotificationItem = ({
   return (
     <div
       className={clsx(
-        "flex cursor-pointer items-start gap-2 border-b p-4 dark:border-neutral-800",
-        !read && "bg-blue-50 dark:bg-blue-900/10"
+        "flex cursor-pointer items-start gap-2 border-b p-3 dark:border-neutral-800",
+        !read && "bg-gray-100 dark:bg-gray-900/50"
       )}
       onClick={handleClick}
     >
-      <Link href={`/@${username}`} onClick={(e) => e.stopPropagation()}>
-        <Avatar size={12} username={username} />
-      </Link>
       <div className="flex-1">
         <div className="mb-1 flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Link
-              href={`/@${username}`}
-              onClick={(e) => e.stopPropagation()}
-              className="font-semibold hover:underline"
-            >
-              @{username}
-            </Link>
             {type === "reaction" ? (
-              <span className="text-neutral-500">gönderine tepki gösterdi</span>
+              <span className="text-neutral-500">
+                Gönderinize tepki verildi
+              </span>
             ) : (
-              <span className="text-neutral-500">gönderine yanıt verdi</span>
+              <span className="text-neutral-500">
+                Gönderinize yanıt verildi
+              </span>
             )}
           </div>
-          <span className="text-xs text-neutral-500">
+          <span className="text-sm text-neutral-500">
             {formatDistanceToNow(new Date(createdAt), {
               addSuffix: true,
               locale: tr,
@@ -83,18 +77,18 @@ const NotificationItem = ({
         {type === "reaction" && (
           <div className="flex items-center gap-3 text-xs text-neutral-500">
             <div className="flex items-center gap-1">
-              <ThumbsUp size={14} />
+              <LikeIcon size={14} />
               <span>{likeCount}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ThumbsDown size={14} />
+              <DislikeIcon size={14} />
               <span>{dislikeCount}</span>
             </div>
           </div>
         )}
         {type === "reply" && (
           <div className="flex items-center gap-1 text-xs text-neutral-500">
-            <MessageSquare size={14} />
+            <ReplyIcon size={14} />
             <span>1 yeni yanıt</span>
           </div>
         )}
@@ -125,14 +119,13 @@ export default function NotificationList() {
         <NotificationItem
           key={notification.id}
           id={notification.id}
-          username={notification.username}
           postId={notification.postId}
           postSnippet={notification.postSnippet}
           type={notification.type}
           likeCount={notification.likeCount}
           dislikeCount={notification.dislikeCount}
           read={notification.read}
-          createdAt={notification.createdAt}
+          createdAt={notification.updatedAt || notification.createdAt}
         />
       ))}
     </div>

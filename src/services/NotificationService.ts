@@ -3,7 +3,6 @@ import { ApiResponse } from './types';
 
 export type Notification = {
   id: string;
-  username: string;
   postId: string;
   postSnippet: string;
   type: 'reaction' | 'reply';

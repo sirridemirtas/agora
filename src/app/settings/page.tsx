@@ -1,8 +1,8 @@
 "use client";
 import { useEffect } from "react";
-import { usePageTitle } from "@/hooks";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePageTitle } from "@/hooks";
 import { useAuth } from "@/hooks";
 import {
   LogOutButton,
@@ -81,6 +81,14 @@ export default function SettingsPage() {
   const path = pathname.split("/")[2];
 
   const { setTitle } = usePageTitle();
+
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    if (["avatar", "password-reset"].includes(path) && !isLoggedIn) {
+      router.push("/login");
+    }
+  }, [isLoggedIn, path, router]);
 
   useEffect(() => {
     if (path == "avatar") setTitle("Avatarı Düzenle");

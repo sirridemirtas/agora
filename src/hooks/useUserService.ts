@@ -1,5 +1,5 @@
-import { useApi } from '@/hooks';
 import { useCallback, useMemo } from 'react';
+import { useApi } from './useApi';
 import { UserService, UserProfile, PrivacyUpdateResponse, PasswordResetResponse } from '@/services/UserService';
 
 export const useUserService = () => {

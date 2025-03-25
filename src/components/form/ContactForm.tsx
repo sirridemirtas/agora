@@ -1,23 +1,25 @@
 "use client";
+import { useState, FormEvent } from "react";
 import { AtSign, MessageSquareQuote, User } from "lucide-react";
 import { Alert, Button, Input, Select, Textarea } from "@/components/ui";
-import { useState, FormEvent } from "react";
+// Import directly from the file, not from the barrel import
+import { useContact } from "@/hooks/useContact";
+import { ContactSubject } from "@/services/ContactService";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "genel",
+    subject: "Genel" as ContactSubject,
     message: "",
   });
   const [alert, setAlert] = useState<{
     type: "success" | "error";
     message: string;
   } | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Google Form ID extracted from the URL
-  const FORM_ID = "1FAIpQLSdKSnGiN6BMg9dm53aB0FYhNR2hT-ZsLE1IQUxQehlON5wbYg";
+  // Use the contact hook
+  const { submitContactForm, contactLoading } = useContact();
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -30,52 +32,34 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Create a form data object for submission
-    const googleFormData = new FormData();
-
-    // Map to Google Form entry IDs
-    googleFormData.append("entry.1278516670", formData.name);
-    googleFormData.append("entry.594480513", formData.email);
-    googleFormData.append("entry.508744151", formData.subject);
-    googleFormData.append("entry.1252619669", formData.message);
 
     try {
-      // Submit to Google Form
-      const response = await fetch(
-        `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse`,
-        {
-          method: "POST",
-          body: googleFormData,
-          mode: "no-cors",
-        }
-      );
+      const response = await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject as ContactSubject,
+        message: formData.message,
+      });
 
-      // Note: When using mode: "no-cors", we can't actually read the status
-      // due to CORS restrictions. We'll handle this special case.
-
-      if (response.type === "opaque") {
-        // With mode: "no-cors", the response type is 'opaque'
-        // We can't access status, but request was sent
-        setFormData({ name: "", email: "", subject: "genel", message: "" });
+      if (response.error) {
+        // Handle API error
+        setAlert({
+          type: "error",
+          message: response.error.message,
+        });
+      } else {
+        // Success response
+        setFormData({
+          name: "",
+          email: "",
+          subject: "Genel" as ContactSubject,
+          message: "",
+        });
         setAlert({
           type: "success",
           message:
-            "Formunuz gönderildi! (Not: CORS kısıtlaması nedeniyle kesin durum alınamadı)",
-        });
-      } else if (response.ok) {
-        // This branch will execute if not using no-cors mode and response is successful
-        setFormData({ name: "", email: "", subject: "genel", message: "" });
-        setAlert({
-          type: "success",
-          message: "Formunuz başarıyla gönderildi!",
-        });
-      } else {
-        // Status code is not 2xx
-        setAlert({
-          type: "error",
-          message: `Form gönderilirken bir hata oluştu. Durum kodu: ${response.status}`,
+            response.data?.message ||
+            "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.",
         });
       }
     } catch (error) {
@@ -84,8 +68,6 @@ export default function ContactForm() {
         type: "error",
         message: "Form gönderilirken bir hata oluştu. Lütfen tekrar deneyin.",
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -138,8 +120,8 @@ export default function ContactForm() {
         onChange={handleChange}
       />
 
-      <Button type="submit" disabled={isSubmitting}>
-        Gönder
+      <Button type="submit" disabled={contactLoading}>
+        {contactLoading ? "Gönderiliyor..." : "Gönder"}
       </Button>
 
       {alert && (

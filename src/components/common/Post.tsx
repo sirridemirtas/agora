@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-//import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { formatDistanceToNow, format } from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
@@ -16,7 +16,11 @@ import {
 import { useApi, useAuth, usePostAction } from "@/hooks";
 import { PostService } from "@/services/PostService";
 import { Post as PostType } from "@/types";
-import { getUniversityById } from "@/constants/universities";
+import {
+  getUniversityById,
+  universities,
+  indeEki,
+} from "@/constants/universities";
 import { Avatar } from "@/components/common";
 
 interface PostProps extends PostType {
@@ -38,6 +42,7 @@ const Post = ({
   university,
   universityId,
   username,
+  userUniversityId,
   upvotes,
   downvotes,
   isPrivate,
@@ -47,7 +52,8 @@ const Post = ({
 }: PostProps) => {
   const { isLoggedIn, username: uname } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
-  //const pathname = usePathname();
+  const pathname = usePathname();
+  const isUniversityPage = pathname.startsWith("/university");
   const router = useRouter();
 
   const [deleted, setDeleted] = useState(false);
@@ -213,7 +219,6 @@ const Post = ({
             ) : (
               <Avatar size={12} />
             )}
-
             <div className="ml-2 flex flex-col items-start">
               {!isPrivate && username ? (
                 <Link
@@ -230,11 +235,12 @@ const Post = ({
                 /* pathname.startsWith("/university") ||  */ <>
                   <span className="text-neutral-500 hover:underline">
                     <Link
-                      href={`/university/${universityId}`}
+                      href={`/university/${userUniversityId}`}
                       onClick={(e) => e.stopPropagation()}
                     >
                       {university ||
-                        (universityId && getUniversityById(universityId)?.name)}
+                        (userUniversityId &&
+                          getUniversityById(userUniversityId)?.name)}
                     </Link>
                   </span>
                 </>
@@ -258,7 +264,6 @@ const Post = ({
             </time>
           )}
         </div>
-
         <p
           className={clsx(
             "_pl-14 mb-4 whitespace-pre-wrap" /* , detailed && "pl-0" */
@@ -266,6 +271,28 @@ const Post = ({
         >
           {content}
         </p>
+        {!isUniversityPage &&
+          userUniversityId &&
+          universityId &&
+          userUniversityId !== universityId && (
+            <div className="mb-4">
+              <span className="text-sm text-neutral-500">
+                <Link
+                  className="hover:underline"
+                  href={`/university/${universityId}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {(() => {
+                    const uni = universities.find((u) => u.id === universityId);
+                    return uni
+                      ? `${uni.name}'${indeEki(uni.name)}`
+                      : "Bilinmeyen Üniversite";
+                  })()}
+                </Link>{" "}
+                paylaşıldı
+              </span>
+            </div>
+          )}
 
         {detailed && (
           <div className="mb-4">

@@ -7,6 +7,7 @@ export interface Post {
   upvotes: number;
   downvotes: number;
   username?: string;
+  userUniversityId?: string;
   isPrivate: boolean;
   replyTo?: string;
   reactions: {

@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import { MessageSquareOff } from "lucide-react";
 import { Chat, MessageList } from "@/components/common";
-import { /* useAuth, */ usePageTitle } from "@/hooks";
+import { usePageTitle } from "@/hooks";
 import { useEffect } from "react";
 import { useMessageService } from "@/hooks/useMessageService";
 

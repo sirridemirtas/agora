@@ -11,6 +11,7 @@ export interface RegisterCredentials {
   username: string;
   password: string;
   universityId: string;
+  //turnstileToken: string;
 }
 
 export interface User {

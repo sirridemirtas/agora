@@ -14,6 +14,10 @@ export interface PrivacyUpdateResponse {
   message: string;
 }
 
+export interface PasswordResetResponse {
+  message: string;
+}
+
 export class UserService extends BaseService {
   async getUserProfile(username: string): Promise<ApiResponse<UserProfile>> {
     return this.fetchApi<UserProfile>(`/users/${username}`, {
@@ -25,6 +29,13 @@ export class UserService extends BaseService {
     return this.fetchApi<PrivacyUpdateResponse>('/users/privacy', {
       method: 'PUT',
       data: { isPrivate },
+    });
+  }
+
+  async resetPassword(currentPassword: string, newPassword: string): Promise<ApiResponse<PasswordResetResponse>> {
+    return this.fetchApi<PasswordResetResponse>('/users/password/reset', {
+      method: 'POST',
+      data: { currentPassword, newPassword },
     });
   }
 }

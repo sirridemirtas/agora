@@ -8,6 +8,7 @@ import { useApi, useAuth } from "@/hooks";
 import { AtSign, Check, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { Alert, Button, Checkbox, Combobox, Input } from "@/components/ui";
+//import { Turnstile } from "@marsidev/react-turnstile";
 
 export function RegisterForm() {
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false);
@@ -21,6 +22,7 @@ export function RegisterForm() {
   const [alert, setAlert] = useState<{ type: string; message: string } | null>(
     null
   );
+  //const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const { isLoggedIn } = useAuth();
   useEffect(() => {
@@ -70,6 +72,14 @@ export function RegisterForm() {
       return;
     }
 
+    /*     if (!turnstileToken) {
+      setAlert({
+        message: "Lütfen robot olmadığınızı doğrulayın.",
+        type: "error",
+      });
+      return;
+    } */
+
     if (
       e.currentTarget.password.value !== e.currentTarget.passwordRepeat.value
     ) {
@@ -86,6 +96,7 @@ export function RegisterForm() {
       universityId: universities.filter(
         (university) => university.name === e.currentTarget.universityId.value
       )[0].id,
+      //turnstileToken: turnstileToken, // Add token to credentials
     };
 
     const result = await register(credentials);
@@ -150,6 +161,34 @@ export function RegisterForm() {
         required
       />
 
+      {/*       <div
+        className={clsx(
+          "turnstile-wrapper overflow-hidden rounded-xl",
+          "border border-neutral-200 dark:border-neutral-800",
+          "bg-[#fafafa] dark:bg-[#232323]"
+        )}
+      >
+        <Turnstile
+          style={{ clipPath: "inset(2px)" }}
+          // Replace with your actual Cloudflare site key
+          siteKey="0x4AAAAAABCdVxGsF90FpfkB"
+          onSuccess={(token) => setTurnstileToken(token)}
+          onError={() => {
+            setTurnstileToken(null);
+            setAlert({
+              message: "Doğrulama hatası, lütfen tekrar deneyin.",
+              type: "error",
+            });
+          }}
+          onExpire={() => setTurnstileToken(null)}
+          options={{
+            theme: "auto",
+            language: "tr",
+            size: "flexible",
+          }}
+        />
+      </div> */}
+
       <Checkbox
         checked={privacyPolicyAccepted}
         onChange={() => setPrivacyPolicyAccepted(!privacyPolicyAccepted)}
@@ -164,7 +203,11 @@ export function RegisterForm() {
         required={true}
       />
 
-      <Button fullWidth type="submit" disabled={loading}>
+      <Button
+        fullWidth
+        type="submit"
+        disabled={loading /* || !turnstileToken */}
+      >
         Kayıt Ol
       </Button>
 

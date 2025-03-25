@@ -47,6 +47,29 @@ axiosInstance.interceptors.response.use(
     // Decrement counter even if request fails
     pendingRequests = Math.max(0, pendingRequests - 1);
     notifySubscribers();
+
+    // Check if the response contains an error field from the API
+    if (error.response && error.response.data && error.response.data.error) {
+      // Create a new error with the API's error message
+      const apiError = new Error(
+        typeof error.response.data.error === "string"
+          ? error.response.data.error
+          : error.response.data.error.message || "API error"
+      ) as Error & {
+        response?: import("axios").AxiosResponse;
+        request?: import("axios").AxiosRequestConfig;
+        config?: import("axios").AxiosRequestConfig;
+      };
+
+      // Preserve the original error properties
+      apiError.name = error.name;
+      apiError.response = error.response;
+      apiError.request = error.request;
+      apiError.config = error.config;
+
+      return Promise.reject(apiError);
+    }
+
     // Handle errors globally
     return Promise.reject(error);
   }

@@ -41,7 +41,10 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
     if (!trimmedContent) return;
 
     try {
-      const response = await createPost({ content: trimmedContent });
+      const response = await createPost({
+        content: trimmedContent,
+        universityId: pathId || null,
+      });
 
       if (response.data && !response.error) {
         // Reset form content
@@ -155,6 +158,9 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             <span className="text-sm text-neutral-500">
               {content.length}/{maxLength}
             </span>
+            {pathId && pathId !== universityId && (
+              <input type="hidden" name="universityId" value={pathId} />
+            )}
             <Button
               icon={Send}
               type="submit"

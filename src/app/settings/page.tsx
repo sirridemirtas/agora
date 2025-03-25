@@ -1,15 +1,15 @@
 "use client";
 import { useEffect } from "react";
-import { usePageTitle } from "@/hooks";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePageTitle } from "@/hooks";
 import { useAuth } from "@/hooks";
 import {
   LogOutButton,
   ThemeToggleButton,
   ToggleProfilePrivacy,
 } from "@/components/common";
-import { AvatarEditor } from "@/components/form";
+import { AvatarEditor, ResetPassword } from "@/components/form";
 
 const Setting = ({
   children,
@@ -59,6 +59,14 @@ function Settings() {
               Değiştir
             </Link>
           </Setting>
+          <Setting label="Şifre">
+            <Link
+              href="/settings/password-reset"
+              className="flex items-center justify-center gap-2 px-4 py-2 text-gray-600 transition-colors dark:text-gray-300"
+            >
+              Değiştir
+            </Link>
+          </Setting>
           <Setting label="Oturum">
             <LogOutButton /* asLink */ />
           </Setting>
@@ -74,13 +82,27 @@ export default function SettingsPage() {
 
   const { setTitle } = usePageTitle();
 
+  const router = useRouter();
+  const { isLoggedIn } = useAuth();
+  useEffect(() => {
+    if (["avatar", "password-reset"].includes(path) && !isLoggedIn) {
+      router.push("/login");
+    }
+  }, [isLoggedIn, path, router]);
+
   useEffect(() => {
     if (path == "avatar") setTitle("Avatarı Düzenle");
   }, [setTitle]);
 
   return (
     <div className="p-6 lg:flex-1">
-      {path === "avatar" ? <AvatarEditor /> : <Settings />}
+      {path === "avatar" ? (
+        <AvatarEditor />
+      ) : path === "password-reset" ? (
+        <ResetPassword />
+      ) : (
+        <Settings />
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { CreatePost, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
+import { useNewPost } from "@/contexts/NewPostPlaceholder";
 
 const UniversityNotFound = () => {
   return (
@@ -26,6 +27,7 @@ export default function UniversityFeed() {
   const pathname = usePathname();
   const universityId = pathname.split("/")[2];
   const postService = new PostService();
+  const { posts: newPosts } = useNewPost();
 
   const {
     data: posts,
@@ -79,7 +81,17 @@ export default function UniversityFeed() {
   return (
     <div>
       <CreatePost />
-      <PostList posts={posts} />
+      <PostList
+        posts={
+          newPosts.length > 0
+            ? newPosts.concat(
+                posts.filter(
+                  (post) => !newPosts.some((newPost) => newPost.id === post.id)
+                )
+              )
+            : posts
+        }
+      />
     </div>
   );
 }

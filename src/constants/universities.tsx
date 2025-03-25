@@ -221,3 +221,26 @@ export function getUniversityById(id: string | number) {
 export function getUniversityByName(name: string) {
   return universities.find((u) => u.name === name);
 }
+
+export function indeEki(kelime: string): string {
+  const kalinSesliler = ["a", "ı", "o", "u"];
+  const inceSesliler = ["e", "i", "ö", "ü"];
+  const sonSesli = [...kelime]
+    .reverse()
+    .find(
+      (harf) => kalinSesliler.includes(harf) || inceSesliler.includes(harf)
+    );
+  const sonHarf = kelime.slice(-1);
+  const sonHarfUnluMu =
+    kalinSesliler.includes(sonHarf) || inceSesliler.includes(sonHarf);
+
+  const ek = sonHarfUnluMu
+    ? kalinSesliler.includes(sonSesli!)
+      ? "nda"
+      : "nde"
+    : kalinSesliler.includes(sonSesli!)
+      ? "unda"
+      : "inde";
+
+  return ek;
+}

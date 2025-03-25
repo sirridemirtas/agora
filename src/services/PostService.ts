@@ -4,6 +4,7 @@ import { Post } from '@/types';
 
 export interface CreatePostDto {
   content: string;
+  universityId?: string | null; // Optional field for university posts
   replyTo?: string; // Optional field for replies
 }
 

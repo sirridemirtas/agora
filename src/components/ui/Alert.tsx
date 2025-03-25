@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import clsx from "clsx";
 
-type AlertType = "success" | "error" | "info" | "warning" | "dark";
+export type AlertType = "success" | "error" | "info" | "warning" | "dark";
 
 interface AlertProps {
   type?: AlertType;

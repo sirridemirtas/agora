@@ -1,15 +1,13 @@
 "use client";
-
 import { useEffect, useState, useCallback } from "react";
 import { LoaderCircle } from "lucide-react";
-
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
-import { PostList } from "@/components/common";
+import { FeedPaginator, PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
-
 import { Post } from "@/types";
+import { PAGE_SIZE } from "@/constants";
 
 interface RepliesProps {
   postId: string;
@@ -60,7 +58,10 @@ export const Replies = ({ postId }: RepliesProps) => {
           <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-neutral-300" />
         </div>
       ) : replies.length > 0 ? (
-        <PostList posts={replies} />
+        <>
+          <PostList posts={replies} />
+          <FeedPaginator nextDisabled={replies.length !== PAGE_SIZE} />
+        </>
       ) : (
         <div className="px-6">
           <Alert

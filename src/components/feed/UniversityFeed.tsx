@@ -3,11 +3,12 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { CreatePost, PostList } from "@/components/common";
+import { CreatePost, FeedPaginator, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
+import { PAGE_SIZE } from "@/constants";
 
 const UniversityNotFound = () => {
   return (
@@ -92,6 +93,7 @@ export default function UniversityFeed() {
             : posts
         }
       />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
     </div>
   );
 }

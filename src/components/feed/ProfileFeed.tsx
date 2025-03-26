@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
-import { PostList } from "@/components/common";
+import { FeedPaginator, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
+import { PAGE_SIZE } from "@/constants";
 
 interface ProfileFeedProps {
   username?: string;
@@ -59,7 +60,12 @@ const ProfileFeed = ({ username: propUsername }: ProfileFeedProps) => {
     );
   }
 
-  return <PostList posts={posts} />;
+  return (
+    <>
+      <PostList posts={posts} />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
+    </>
+  );
 };
 
 export default ProfileFeed;

@@ -1,7 +1,6 @@
 "use client";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useNotificationService } from "@/hooks/useNotificationService";
 import { useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
@@ -10,6 +9,8 @@ import {
   Heart as LikeIcon,
   HeartOff as DislikeIcon,
 } from "lucide-react";
+import { useNotificationService } from "@/hooks/useNotificationService";
+import { Loader } from "@/components/ui";
 
 const NotificationItem = ({
   id,
@@ -106,7 +107,12 @@ export default function NotificationList() {
   }, [getNotifications]);
 
   if (notificationsLoading) {
-    return <div className="p-4 text-center">Bildirimler yükleniyor...</div>;
+    return (
+      <div className="p-4 text-center">
+        <Loader size={24} />
+        Bildirimler yükleniyor...
+      </div>
+    );
   }
 
   if (!notifications || notifications.length === 0) {

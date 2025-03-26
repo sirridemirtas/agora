@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
@@ -26,7 +26,11 @@ const UniversityNotFound = () => {
 
 export default function UniversityFeed() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const universityId = pathname.split("/")[2];
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
   const postService = new PostService();
   const { posts: newPosts } = useNewPost();
 
@@ -35,13 +39,13 @@ export default function UniversityFeed() {
     loading,
     error,
     execute: fetchUniversityPosts,
-  } = useApi(() => postService.getUniversityPosts(universityId));
+  } = useApi(() => postService.getUniversityPosts(universityId, page));
 
   useEffect(() => {
     if (universityId) {
       fetchUniversityPosts();
     }
-  }, [universityId]);
+  }, [universityId, page]);
 
   const university = universities.find((u) => u.id === universityId);
 

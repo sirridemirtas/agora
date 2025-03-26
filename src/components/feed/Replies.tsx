@@ -8,6 +8,7 @@ import { Alert } from "@/components/ui";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
 import { Post } from "@/types";
 import { PAGE_SIZE } from "@/constants";
+import { useSearchParams } from "next/navigation";
 
 interface RepliesProps {
   postId: string;
@@ -15,10 +16,14 @@ interface RepliesProps {
 
 export const Replies = ({ postId }: RepliesProps) => {
   const postService = new PostService();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
 
   const fetchReplies = useCallback(() => {
-    return postService.getPostReplies(postId);
-  }, [postId]);
+    return postService.getPostReplies(postId, page);
+  }, [postId, page]);
 
   const { loading, data, execute } = useApi(fetchReplies);
   const { posts: newPosts } = useNewPost();
@@ -29,7 +34,7 @@ export const Replies = ({ postId }: RepliesProps) => {
     if (postId) {
       execute();
     }
-  }, [postId, execute]);
+  }, [postId, page, execute]);
 
   // API verisi geldiğinde replies'ı güncelle
   useEffect(() => {

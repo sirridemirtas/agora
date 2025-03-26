@@ -35,20 +35,29 @@ export class PostService extends BaseService {
     });
   }
 
-  async getUniversityPosts(universityId: string): Promise<ApiResponse<Post[]>> {
-    return this.fetchApi<Post[]>(`/posts/university/${universityId}`, {
+  async getUniversityPosts(universityId: string, page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined 
+      ? `/posts/university/${universityId}?page=${page}` 
+      : `/posts/university/${universityId}`;
+    return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }
 
-  async getUserPosts(username: string): Promise<ApiResponse<Post[]>> {
-    return this.fetchApi<Post[]>(`/users/${username}/posts`, {
+  async getUserPosts(username: string, page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined 
+      ? `/users/${username}/posts?page=${page}` 
+      : `/users/${username}/posts`;
+    return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }
 
-  async getPostReplies(postId: string): Promise<ApiResponse<Post[]>> {
-    return this.fetchApi<Post[]>(`/posts/${postId}/replies`, {
+  async getPostReplies(postId: string, page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined 
+      ? `/posts/${postId}/replies?page=${page}` 
+      : `/posts/${postId}/replies`;
+    return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }

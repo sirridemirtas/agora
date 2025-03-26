@@ -3,6 +3,7 @@ export { useApiLoading } from "./useApiLoading";
 export { useAuth } from "./useAuth";
 export { useAvatar } from "./useAvatar";
 export { useContact } from "./useContact";
+export {useLazyLoad} from "./useLazyLoad";
 export { useMessageService } from "./useMessageService";
 export { useNotifications } from "./useNotifications";
 export { useNotificationService } from "./useNotificationService";

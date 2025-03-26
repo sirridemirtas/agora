@@ -7,6 +7,7 @@ import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
+import { MAX_REPLY_LENGTH, MIN_REPLY_LENGTH } from "@/constants";
 
 interface ReplyProps {
   className?: string;
@@ -17,10 +18,9 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
   const [content, setContent] = useState("");
   const [success, setSuccess] = useState(false);
   const [replyActionsVisible, setReplyActionsVisible] = useState(false);
-  const maxLength = 500;
   const postService = new PostService();
   const pathname = usePathname();
-  const postId = pathname.split("/")[2]; // Extract post ID from URL
+  const postId = pathname.split("/")[2];
 
   const { addPost: addNewPostToPlaceholder } = useNewPost();
 
@@ -98,12 +98,12 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
           autosize
           placeholder="Cevabını yaz"
           rows={2}
-          maxLength={maxLength}
-          minLength={3}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          required
           disabled={loading}
+          minLength={MIN_REPLY_LENGTH}
+          maxLength={MAX_REPLY_LENGTH}
+          required
         />
         <div
           className={clsx(
@@ -113,7 +113,7 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
           )}
         >
           <span className="text-sm text-neutral-500">
-            {content.length}/{maxLength}
+            {content.length}/{MAX_REPLY_LENGTH}
           </span>
           <Button icon={Send} type="submit" disabled={loading}>
             Cevapla

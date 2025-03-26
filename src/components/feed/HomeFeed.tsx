@@ -6,6 +6,7 @@ import { FeedPaginator, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { useSearchParams } from "next/navigation";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
+import { PAGE_SIZE } from "@/constants";
 
 const HomeFeed = () => {
   const postService = new PostService();
@@ -70,7 +71,7 @@ const HomeFeed = () => {
             : posts
         }
       />
-      <FeedPaginator nextDisabled={posts.length !== 50} />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
     </>
   );
 };

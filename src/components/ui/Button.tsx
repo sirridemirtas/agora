@@ -28,9 +28,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    const isIconOnly = Icon && !children;
+
     const buttonClass = clsx(
       "flex items-center justify-center",
-      "rounded-xl px-4 py-2",
+      {
+        "rounded-xl px-4 py-2": !isIconOnly, // Normal button styles
+        "rounded-full p-2": isIconOnly, // Circular button styles when icon-only
+      },
       "transition-all focus:outline-none focus:ring-2 focus:ring-offset-2",
       "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
       "active:bg-opacity-80",
@@ -49,11 +54,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <HeadlessButton ref={ref} className={buttonClass} {...props}>
         {Icon && iconPosition === "left" && (
-          <Icon className="mr-2 h-5 w-5" aria-hidden="true" />
+          <Icon
+            className={clsx("h-5 w-5", { "mr-2": !isIconOnly })}
+            aria-hidden="true"
+          />
         )}
         {children}
         {Icon && iconPosition === "right" && (
-          <Icon className="ml-2 h-5 w-5" aria-hidden="true" />
+          <Icon
+            className={clsx("h-5 w-5", { "ml-2": !isIconOnly })}
+            aria-hidden="true"
+          />
         )}
       </HeadlessButton>
     );

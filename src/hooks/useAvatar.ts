@@ -4,8 +4,8 @@ import { AvatarService, AvatarResponse } from '@/services/AvatarService';
 import { AvatarConfig } from '@/components/common/Avatar';
 
 export const useAvatar = () => {
-  // Create avatarService instance once with useMemo
-  const avatarService = useMemo(() => new AvatarService(), []);
+  // Use the singleton instance
+  const avatarService = useMemo(() => AvatarService.getInstance(), []);
   
   // Memoize bound API functions
   const getUserAvatarFn = useMemo(() => 

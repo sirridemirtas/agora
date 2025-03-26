@@ -43,7 +43,7 @@ const RenderPost = ({ post }: { post: PostType }) => {
   }
 
   return (
-    <div className="lg:flex-1">
+    <div className="pb-6 lg:flex-1">
       <Post bordered={false} detailed={true} {...(post as PostType)} />
 
       <div className="mx-6 mt-2 border-b border-neutral-200 dark:border-neutral-800">

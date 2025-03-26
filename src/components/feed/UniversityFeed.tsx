@@ -1,13 +1,14 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { CreatePost, PostList } from "@/components/common";
+import { CreatePost, FeedPaginator, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
+import { PAGE_SIZE } from "@/constants";
 
 const UniversityNotFound = () => {
   return (
@@ -25,7 +26,11 @@ const UniversityNotFound = () => {
 
 export default function UniversityFeed() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const universityId = pathname.split("/")[2];
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
   const postService = new PostService();
   const { posts: newPosts } = useNewPost();
 
@@ -34,13 +39,13 @@ export default function UniversityFeed() {
     loading,
     error,
     execute: fetchUniversityPosts,
-  } = useApi(() => postService.getUniversityPosts(universityId));
+  } = useApi(() => postService.getUniversityPosts(universityId, page));
 
   useEffect(() => {
     if (universityId) {
       fetchUniversityPosts();
     }
-  }, [universityId]);
+  }, [universityId, page]);
 
   const university = universities.find((u) => u.id === universityId);
 
@@ -92,6 +97,7 @@ export default function UniversityFeed() {
             : posts
         }
       />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
     </div>
   );
 }

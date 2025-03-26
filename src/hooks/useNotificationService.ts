@@ -1,6 +1,12 @@
 import { useApi } from '@/hooks';
 import { useCallback, useMemo } from 'react';
-import { NotificationService, Notification, UnreadCountResponse } from '@/services/NotificationService';
+import { 
+  NotificationService, 
+  Notification, 
+  UnreadCountResponse,
+  MarkAllAsReadResponse,
+  DeleteAllResponse 
+} from '@/services/NotificationService';
 
 export const useNotificationService = () => {
   // Create notificationService instance once with useMemo
@@ -17,6 +23,14 @@ export const useNotificationService = () => {
   
   const markAsReadFn = useMemo(() => 
     notificationService.markAsRead.bind(notificationService), 
+  [notificationService]);
+
+  const markAllAsReadFn = useMemo(() => 
+    notificationService.markAllAsRead.bind(notificationService), 
+  [notificationService]);
+  
+  const deleteAllFn = useMemo(() => 
+    notificationService.deleteAll.bind(notificationService), 
   [notificationService]);
   
   // Get all notifications
@@ -42,6 +56,22 @@ export const useNotificationService = () => {
     execute: executeMarkAsRead,
   } = useApi<void, [string]>(markAsReadFn);
 
+  // Mark all as read
+  const {
+    data: markAllAsReadData,
+    error: markAllAsReadError,
+    loading: markAllAsReadLoading,
+    execute: executeMarkAllAsRead,
+  } = useApi<MarkAllAsReadResponse, []>(markAllAsReadFn);
+
+  // Delete all notifications
+  const {
+    data: deleteAllData,
+    error: deleteAllError,
+    loading: deleteAllLoading,
+    execute: executeDeleteAll,
+  } = useApi<DeleteAllResponse, []>(deleteAllFn);
+
   // Callback wrappers
   const getNotifications = useCallback(async () => {
     return executeGetNotifications();
@@ -54,6 +84,14 @@ export const useNotificationService = () => {
   const markAsRead = useCallback(async (notificationId: string) => {
     return executeMarkAsRead(notificationId);
   }, [executeMarkAsRead]);
+
+  const markAllAsRead = useCallback(async () => {
+    return executeMarkAllAsRead();
+  }, [executeMarkAllAsRead]);
+
+  const deleteAll = useCallback(async () => {
+    return executeDeleteAll();
+  }, [executeDeleteAll]);
 
   return {
     // Notifications list data and operations
@@ -72,5 +110,17 @@ export const useNotificationService = () => {
     markAsReadError,
     markAsReadLoading,
     markAsRead,
+
+    // Mark all as read operations
+    markAllAsReadData,
+    markAllAsReadError,
+    markAllAsReadLoading,
+    markAllAsRead,
+    
+    // Delete all operations
+    deleteAllData,
+    deleteAllError,
+    deleteAllLoading,
+    deleteAll,
   };
 };

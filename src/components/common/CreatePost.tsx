@@ -10,6 +10,7 @@ import { PostService, CreatePostDto } from "@/services/PostService";
 import { useAuth, useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
 import Avatar from "./Avatar";
+import { MIN_POST_LENGTH, MAX_POST_LENGTH } from "@/constants";
 
 interface CreatePostProps {
   className?: string;
@@ -19,7 +20,6 @@ interface CreatePostProps {
 const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   const [content, setContent] = useState("");
   const [success, setSuccess] = useState(false);
-  const maxLength = 500;
   const postService = new PostService();
   const { addPost: addNewPostToPlaceholder } = useNewPost();
 
@@ -83,7 +83,8 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   };
 
   const contentValid =
-    content.trim().length >= 3 && content.length <= maxLength;
+    content.trim().length >= MIN_POST_LENGTH &&
+    content.length <= MAX_POST_LENGTH;
 
   return (
     <div className={clsx("p-6", className)}>
@@ -113,8 +114,8 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             onInput={resize}
             placeholder={"Ne düşünüyorsun, @" + (username || "anonim") + "?"}
             rows={3}
-            maxLength={maxLength}
-            minLength={3}
+            maxLength={MAX_POST_LENGTH}
+            minLength={MIN_POST_LENGTH}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
@@ -156,7 +157,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-neutral-500">
-              {content.length}/{maxLength}
+              {content.length}/{MAX_POST_LENGTH}
             </span>
             {pathId && pathId !== universityId && (
               <input type="hidden" name="universityId" value={pathId} />

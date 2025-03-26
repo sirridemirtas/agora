@@ -1,13 +1,14 @@
 "use client";
-import clsx from "clsx";
-import { useRouter } from "next/navigation";
-import { Avatar } from "@/components/common";
-import Link from "next/link";
-import { useMessageService } from "@/hooks/useMessageService";
-import { useAuth } from "@/hooks";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import clsx from "clsx";
 import { formatDistanceToNow } from "date-fns";
 import { tr } from "date-fns/locale";
+import { Avatar } from "@/components/common";
+import { useMessageService } from "@/hooks/useMessageService";
+import { useAuth } from "@/hooks";
+import { Loader } from "@/components/ui";
 
 const CustomLink = ({
   href,
@@ -103,7 +104,12 @@ export default function MessageList() {
   }, [getConversations]);
 
   if (conversationsLoading) {
-    return <div className="p-4 text-center">Mesajlar yükleniyor...</div>;
+    return (
+      <div className="p-4 text-center">
+        <Loader size={24} />
+        Mesajlar yükleniyor...
+      </div>
+    );
   }
 
   if (!conversations || conversations.length === 0) {

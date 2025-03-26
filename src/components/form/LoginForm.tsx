@@ -6,6 +6,12 @@ import { AtSign, SquareAsterisk } from "lucide-react";
 import { Alert, Button, Input } from "@/components/ui";
 import { AuthService, LoginCredentials } from "@/services/AuthService";
 import { useApi, useAuth } from "@/hooks";
+import {
+  MAX_PASSWORD,
+  MAX_USERNAME,
+  MIN_PASSWORD,
+  MIN_USERNAME,
+} from "@/constants";
 
 const authService = new AuthService();
 
@@ -78,6 +84,8 @@ const LoginForm = () => {
         onChange={handleChange}
         placeholder="Kullanıcı adınızı girin"
         pattern="[A-Za-z]+"
+        minLength={MIN_USERNAME}
+        maxLength={MAX_USERNAME}
         required
         autoFocus
       />
@@ -88,6 +96,8 @@ const LoginForm = () => {
         onChange={handleChange}
         placeholder="Şifrenizi girin"
         type="password"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
       />
       <Button type="submit" disabled={loading}>

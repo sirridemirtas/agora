@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks";
@@ -8,12 +9,14 @@ import { Avatar } from "@/components/common";
 import { format } from "date-fns";
 import { tr } from "date-fns/locale";
 import SendMessage from "@/components/form/SendMessage";
+import { Alert, Loader } from "@/components/ui";
 //import Link from "next/link";
 
 export default function Chat() {
   const pathname = usePathname();
   const conversationWith = pathname.split("/")[2];
-  const { username: currentUser } = useAuth();
+  const { username } = useAuth();
+  const currentUser = username || "anonymous";
   const {
     conversation,
     conversationLoading,
@@ -22,6 +25,11 @@ export default function Chat() {
     markAsRead,
   } = useMessageService();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [localConversation, setLocalConversation] = useState(conversation);
+
+  useEffect(() => {
+    setLocalConversation(conversation);
+  }, [conversation]);
 
   useEffect(() => {
     if (conversationWith) {
@@ -39,55 +47,87 @@ export default function Chat() {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [conversation]);
+  }, [localConversation]);
+
+  const addLocalMessage = (content: string) => {
+    if (!localConversation) {
+      // If this is the first message, create a new conversation
+      setLocalConversation({
+        id: `${currentUser}-${conversationWith}`,
+        participants: [currentUser, conversationWith],
+        createdAt: new Date().toISOString(),
+        lastUpdated: new Date().toISOString(),
+        unreadCounts: { [conversationWith]: 0, [currentUser]: 0 },
+        messages: [
+          {
+            content,
+            sender: currentUser,
+            //receiver: conversationWith,
+            createdAt: new Date().toISOString(),
+            //read: false,
+          },
+        ],
+      });
+    } else {
+      // Add the message to the existing conversation
+      setLocalConversation((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          messages: [
+            ...prev.messages,
+            {
+              content,
+              sender: currentUser,
+              receiver: conversationWith,
+              createdAt: new Date().toISOString(),
+              read: false,
+            },
+          ],
+        };
+      });
+    }
+
+    // Ensure scroll happens after the state update
+    setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 50);
+  };
 
   if (conversationLoading) {
-    return (
-      <div className={clsx("flex h-full flex-col items-center justify-center")}>
-        <p>Mesajlar yükleniyor...</p>
-      </div>
-    );
+    return <Loader size={24} />;
   }
 
   if (conversationError) {
     return (
-      <div className={clsx("flex h-full flex-col items-center justify-center")}>
-        <p className={clsx("text-red-500")}>
-          {conversationError.message || "Bir hata oluştu"}
-        </p>
-      </div>
+      <Alert
+        type="error"
+        title="Bir hata oluştu"
+        message={conversationError.message || "Bir hata oluştu"}
+      />
     );
   }
 
-  if (!conversation) {
+  if (!localConversation) {
     return (
       <div className={clsx("flex h-full flex-col items-center justify-center")}>
         <p>Henüz bir mesaj yok. İlk mesajı gönder!</p>
         <div className={clsx("mt-4 w-full max-w-lg")}>
-          <SendMessage recipientUsername={conversationWith} />
+          <SendMessage
+            recipientUsername={conversationWith}
+            onMessageSent={addLocalMessage}
+          />
         </div>
       </div>
     );
   }
 
   return (
-    <div className={clsx("flex h-full min-h-[calc(100vh-5rem)] flex-col")}>
-      {/* <div className={clsx("border-b pb-4 dark:border-neutral-800")}>
-        <Link href={`/@${conversationWith}`}>
-          <div className={clsx("flex items-center gap-2")}>
-            <div>
-              <Avatar size={12} username={conversationWith} />
-            </div>
-            <span className={clsx("text-lg font-semibold")}>
-              <span className={clsx("opacity-50")}>@</span>
-              {conversationWith}
-            </span>
-          </div>
-        </Link>
-      </div> */}
-
+    <div className={clsx("flex h-full min-h-[calc(100vh-6rem)] flex-col")}>
       <div className={clsx("_p-4 flex-1 overflow-y-auto")}>
-        {conversation.messages.map((message, index) => {
+        {localConversation.messages.map((message, index) => {
           const isMe = message.sender === currentUser;
           const formattedTime = format(new Date(message.createdAt), "HH:mm", {
             locale: tr,
@@ -103,7 +143,9 @@ export default function Chat() {
             >
               {!isMe && (
                 <div className={clsx("mr-1")}>
-                  <Avatar size={8} username={message.sender} />
+                  <Link href={`/@${message.sender}`}>
+                    <Avatar size={8} username={message.sender} />
+                  </Link>
                 </div>
               )}
               <div
@@ -161,7 +203,10 @@ export default function Chat() {
           "sticky bottom-16 border-t bg-white py-4 lg:bottom-0 dark:border-neutral-800 dark:bg-neutral-950"
         )}
       >
-        <SendMessage recipientUsername={conversationWith} />
+        <SendMessage
+          recipientUsername={conversationWith}
+          onMessageSent={addLocalMessage}
+        />
       </div>
     </div>
   );

@@ -1,15 +1,14 @@
 "use client";
-
 import { useEffect, useState, useCallback } from "react";
 import { LoaderCircle } from "lucide-react";
-
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
-import { PostList } from "@/components/common";
+import { FeedPaginator, PostList } from "@/components/common";
 import { Alert } from "@/components/ui";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
-
 import { Post } from "@/types";
+import { PAGE_SIZE } from "@/constants";
+import { useSearchParams } from "next/navigation";
 
 interface RepliesProps {
   postId: string;
@@ -17,10 +16,14 @@ interface RepliesProps {
 
 export const Replies = ({ postId }: RepliesProps) => {
   const postService = new PostService();
+  const searchParams = useSearchParams();
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
 
   const fetchReplies = useCallback(() => {
-    return postService.getPostReplies(postId);
-  }, [postId]);
+    return postService.getPostReplies(postId, page);
+  }, [postId, page]);
 
   const { loading, data, execute } = useApi(fetchReplies);
   const { posts: newPosts } = useNewPost();
@@ -31,7 +34,7 @@ export const Replies = ({ postId }: RepliesProps) => {
     if (postId) {
       execute();
     }
-  }, [postId, execute]);
+  }, [postId, page, execute]);
 
   // API verisi geldiğinde replies'ı güncelle
   useEffect(() => {
@@ -60,7 +63,10 @@ export const Replies = ({ postId }: RepliesProps) => {
           <LoaderCircle className="mx-auto h-8 w-8 animate-spin text-neutral-300" />
         </div>
       ) : replies.length > 0 ? (
-        <PostList posts={replies} />
+        <>
+          <PostList posts={replies} />
+          <FeedPaginator nextDisabled={replies.length !== PAGE_SIZE} />
+        </>
       ) : (
         <div className="px-6">
           <Alert

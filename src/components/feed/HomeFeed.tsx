@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
 import { FeedPaginator, PostList } from "@/components/common";
-import { Alert } from "@/components/ui";
+import { Alert, Loader } from "@/components/ui";
 import { useSearchParams } from "next/navigation";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
+import { PAGE_SIZE } from "@/constants";
 
 const HomeFeed = () => {
   const postService = new PostService();
@@ -28,7 +29,11 @@ const HomeFeed = () => {
   }, [page]);
 
   if (loading) {
-    return <div className="text-center">Yükleniyor...</div>;
+    return (
+      <div className="text-center">
+        <Loader size={24} />
+      </div>
+    );
   }
 
   if (error) {
@@ -66,7 +71,7 @@ const HomeFeed = () => {
             : posts
         }
       />
-      <FeedPaginator nextDisabled={posts.length !== 50} />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
     </>
   );
 };

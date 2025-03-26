@@ -4,6 +4,12 @@ import { useRouter } from "next/navigation";
 import { AtSign, Lock, School } from "lucide-react";
 import { Button, Combobox, Input } from "@/components/ui";
 import { universities } from "@/constants/universities";
+import {
+  MAX_PASSWORD,
+  MIN_PASSWORD,
+  MIN_USERNAME,
+  MAX_USERNAME,
+} from "@/constants";
 
 interface AuthLandingProps {
   mode: "login" | "register";
@@ -14,9 +20,9 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
   const isLogin = mode === "login";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div className="text-center md:text-left space-y-6">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50">
+      <div className="mx-auto grid w-full max-w-5xl grid-cols-1 items-center gap-8 md:grid-cols-2">
+        <div className="space-y-6 text-center md:text-left">
           <h1 className="text-4xl font-bold text-gray-900">
             {isLogin ? "Tekrar Hoş Geldiniz!" : "Aramıza Katılın!"}
           </h1>
@@ -29,7 +35,7 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
 
         {/* Sağ Panel: Form */}
         <div className="bg-white p-6 sm:rounded-xl sm:shadow-xl">
-          <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">
+          <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">
             {isLogin ? "Giriş Yap" : "Kayıt Ol"}
           </h2>
 
@@ -75,23 +81,29 @@ const AuthModal: React.FC<AuthLandingProps> = ({ mode }) => {
               label="Kullanıcı adı"
               placeholder="Kullanıcı adınızı girin"
               required
+              minLength={MIN_USERNAME}
+              maxLength={MAX_USERNAME}
               autoFocus
             />
 
             <Input
               icon={Lock}
-              type="password"
               label="Şifre"
               placeholder="Şifrenizi girin"
+              type="password"
+              minLength={MIN_PASSWORD}
+              maxLength={MAX_PASSWORD}
               required
             />
 
             {isLogin || (
               <Input
                 icon={Lock}
-                type="password"
                 label="Şifre (Tekrar)"
                 placeholder="Şifrenizi girin"
+                type="password"
+                minLength={MIN_PASSWORD}
+                maxLength={MAX_PASSWORD}
                 required
               />
             )}

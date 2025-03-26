@@ -17,6 +17,16 @@ export type UnreadCountResponse = {
   unreadCount: number;
 };
 
+export type MarkAllAsReadResponse = {
+  message: string;
+  modifiedCount: number;
+};
+
+export type DeleteAllResponse = {
+  message: string;
+  deletedCount: number;
+};
+
 export class NotificationService extends BaseService {
   async getNotifications(): Promise<ApiResponse<Notification[]>> {
     try {
@@ -48,6 +58,36 @@ export class NotificationService extends BaseService {
     try {
       const response = await this.fetchApi<void>(`/notifications/${notificationId}`, {
         method: 'POST'
+      });
+      return response;
+    } catch (error) {
+      return {
+        data: null,
+        error: this.handleError(error),
+        loading: false,
+      };
+    }
+  }
+
+  async markAllAsRead(): Promise<ApiResponse<MarkAllAsReadResponse>> {
+    try {
+      const response = await this.fetchApi<MarkAllAsReadResponse>('/notifications/mark-all-read', {
+        method: 'POST'
+      });
+      return response;
+    } catch (error) {
+      return {
+        data: null,
+        error: this.handleError(error),
+        loading: false,
+      };
+    }
+  }
+
+  async deleteAll(): Promise<ApiResponse<DeleteAllResponse>> {
+    try {
+      const response = await this.fetchApi<DeleteAllResponse>('/notifications/delete-all', {
+        method: 'DELETE'
       });
       return response;
     } catch (error) {

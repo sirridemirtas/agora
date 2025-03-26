@@ -5,6 +5,7 @@ import { SquareAsterisk as PasswordIcon } from "lucide-react";
 import { useAuth, usePageTitle } from "@/hooks";
 import { Alert, AlertType, Button, Input } from "@/components/ui";
 import { useUserService } from "@/hooks/useUserService";
+import { MAX_PASSWORD, MIN_PASSWORD } from "@/constants";
 
 export default function ResetPassword() {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -93,6 +94,8 @@ export default function ResetPassword() {
         icon={PasswordIcon}
         placeholder="Mevcut şifrenizi girin"
         type="password"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
         autoFocus
         name="currentPassword"
@@ -103,6 +106,8 @@ export default function ResetPassword() {
         icon={PasswordIcon}
         placeholder="Yeni şifrenizi girin"
         type="password"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
         name="newPassword"
         value={newPassword}
@@ -112,6 +117,8 @@ export default function ResetPassword() {
         icon={PasswordIcon}
         placeholder="Yeni şifrenizi tekrar girin"
         type="password"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
         name="confirmPassword"
         value={confirmPassword}

@@ -1,10 +1,11 @@
 "use client";
 import { useEffect } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { PostService } from "@/services/PostService";
 import { useApi } from "@/hooks";
-import { PostList } from "@/components/common";
+import { FeedPaginator, PostList } from "@/components/common";
 import { Alert, Loader } from "@/components/ui";
+import { PAGE_SIZE } from "@/constants";
 
 interface ProfileFeedProps {
   username?: string;
@@ -12,8 +13,12 @@ interface ProfileFeedProps {
 
 const ProfileFeed = ({ username: propUsername }: ProfileFeedProps) => {
   const params = useParams();
+  const searchParams = useSearchParams();
   // Use prop username if provided, otherwise try to get it from params
   const username = propUsername || (params?.username as string);
+  const page = searchParams.get("page")
+    ? parseInt(searchParams.get("page")!)
+    : undefined;
   const postService = new PostService();
 
   const {
@@ -21,13 +26,13 @@ const ProfileFeed = ({ username: propUsername }: ProfileFeedProps) => {
     loading,
     error,
     execute: fetchUserPosts,
-  } = useApi(() => postService.getUserPosts(username));
+  } = useApi(() => postService.getUserPosts(username, page));
 
   useEffect(() => {
     if (username) {
       fetchUserPosts();
     }
-  }, [username]);
+  }, [username, page]);
 
   if (loading) {
     return <Loader />;
@@ -59,7 +64,12 @@ const ProfileFeed = ({ username: propUsername }: ProfileFeedProps) => {
     );
   }
 
-  return <PostList posts={posts} />;
+  return (
+    <>
+      <PostList posts={posts} />
+      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
+    </>
+  );
 };
 
 export default ProfileFeed;

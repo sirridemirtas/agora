@@ -81,13 +81,13 @@ export default function RootLayout({
               </header>
               <div
                 className={clsx(
-                  "_min-h-[calc(100vh-4rem)] relative min-h-[100vh] bg-white sm:shadow-sm lg:m-auto lg:mx-4",
+                  "_min-h-[100vh] relative min-h-[calc(100vh-4rem)] bg-white pb-16 sm:shadow-sm lg:m-auto lg:mx-4 lg:pb-0",
                   "dark:border-x-0 dark:border-neutral-800 dark:bg-neutral-950 dark:shadow-none dark:md:border-x",
                   "flex flex-col justify-between"
                 )}
               >
                 <div>{children}</div>
-                <footer className="b-0 justify-startp-4 mb-16 flex min-h-16 flex-row items-center lg:mb-0">
+                {/* <footer className="b-0 justify-startp-4 mb-16 flex min-h-16 flex-row items-center lg:mb-0">
                   <p className="w-full text-center text-xs text-neutral-400">
                     Copyright © {new Date().getFullYear()}{" "}
                     <a
@@ -98,7 +98,7 @@ export default function RootLayout({
                       Sırrı Demirtaş
                     </a>
                   </p>
-                </footer>
+                </footer> */}
               </div>
             </main>
           </div>

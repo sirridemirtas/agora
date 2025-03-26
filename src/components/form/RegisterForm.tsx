@@ -8,6 +8,7 @@ import { useApi, useAuth } from "@/hooks";
 import { AtSign, Check, Lock, School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { Alert, Button, Checkbox, Combobox, Input } from "@/components/ui";
+import { MIN_PASSWORD, MAX_PASSWORD } from "@/constants";
 //import { Turnstile } from "@marsidev/react-turnstile";
 
 export function RegisterForm() {
@@ -150,6 +151,8 @@ export function RegisterForm() {
         icon={Lock}
         type="password"
         placeholder="Şifrenizi girin"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
       />
 
@@ -158,6 +161,8 @@ export function RegisterForm() {
         icon={Lock}
         type="password"
         placeholder="Şifrenizi tekrar girin"
+        minLength={MIN_PASSWORD}
+        maxLength={MAX_PASSWORD}
         required
       />
 

@@ -177,9 +177,14 @@ const NavItem: React.FC<NavItem> = ({
       <span className="truncate text-xs lg:text-base">
         {href === "/user" ? (
           <>
-            <span className="opacity-60">@</span>
-            {username && username.slice(0, 8)}
-            {username && username.length > 8 && "..."}
+            {username && username.length < 10 ? (
+              <>
+                <span className="opacity-60">@</span>
+                {username && username.slice(0, 8)}
+              </>
+            ) : (
+              text
+            )}
           </>
         ) : (
           text

@@ -1,14 +1,11 @@
 "use client";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
-import { CreatePost, FeedPaginator, PostList } from "@/components/common";
-import { Alert, Loader } from "@/components/ui";
+import { CreatePost } from "@/components/common";
 import { PostService } from "@/services/PostService";
-import { useApi } from "@/hooks";
-import { useNewPost } from "@/contexts/NewPostPlaceholder";
-import { PAGE_SIZE } from "@/constants";
+import BaseFeed from "./BaseFeed";
+import { Post } from "@/types";
 
 const UniversityNotFound = () => {
   return (
@@ -26,26 +23,8 @@ const UniversityNotFound = () => {
 
 export default function UniversityFeed() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const universityId = pathname.split("/")[2];
-  const page = searchParams.get("page")
-    ? parseInt(searchParams.get("page")!)
-    : undefined;
   const postService = new PostService();
-  const { posts: newPosts } = useNewPost();
-
-  const {
-    data: posts,
-    loading,
-    error,
-    execute: fetchUniversityPosts,
-  } = useApi(() => postService.getUniversityPosts(universityId, page));
-
-  useEffect(() => {
-    if (universityId) {
-      fetchUniversityPosts();
-    }
-  }, [universityId, page]);
 
   const university = universities.find((u) => u.id === universityId);
 
@@ -53,51 +32,22 @@ export default function UniversityFeed() {
     return <UniversityNotFound />;
   }
 
-  if (loading) {
-    return <Loader />;
-  }
-
-  if (error) {
-    return (
-      <div className="pt-6">
-        <Alert
-          type="error"
-          title="Gönderiler alınırken bir hata oluştu!"
-          message={error.message}
-          className="mx-6"
-        />
-      </div>
-    );
-  }
-
-  if (!posts?.length) {
-    return (
-      <div className="pt-6">
-        <Alert
-          type="info"
-          title={`${university.name} için henüz gönderi paylaşılmamış`}
-          message={"Kullanıcılar gönderi paylaşınca burada görünecek."}
-          className="mx-6"
-        />
-      </div>
-    );
-  }
+  // Filter function to only show new posts for this university
+  const filterNewPosts = (posts: Post[]) => {
+    return posts.filter((post) => post.universityId === universityId);
+  };
 
   return (
     <div>
       <CreatePost />
-      <PostList
-        posts={
-          newPosts.length > 0
-            ? newPosts.concat(
-                posts.filter(
-                  (post) => !newPosts.some((newPost) => newPost.id === post.id)
-                )
-              )
-            : posts
+      <BaseFeed
+        fetchFunction={(page) =>
+          postService.getUniversityPosts(universityId, page)
         }
+        emptyTitle={`${university.name} için henüz gönderi paylaşılmamış`}
+        emptyMessage="Kullanıcılar gönderi paylaşınca burada görünecek."
+        filterNewPosts={filterNewPosts}
       />
-      <FeedPaginator nextDisabled={posts.length !== PAGE_SIZE} />
     </div>
   );
 }

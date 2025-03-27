@@ -1,0 +1,5 @@
+/university/:slug       /university       200
+/post/:slug             /post             200
+/@:username             /user             200
+/messages/:username     /messages         200
+/settings/:setting      /settings         200

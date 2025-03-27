@@ -53,6 +53,7 @@ export default function AvatarPreview({
     if (username && (!lazyLoad || wasVisible)) {
       fetchAvatarConfig();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username, config, lazyLoad, wasVisible]);
 
   const fetchAvatarConfig = async () => {

@@ -44,6 +44,7 @@ const BaseFeed = ({
   // Initial load
   useEffect(() => {
     fetchPosts(initialPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialPage]);
 
   // Update allPosts when posts data changes
@@ -66,6 +67,7 @@ const BaseFeed = ({
       // Check if we've reached the end
       setHasMore(posts?.length === PAGE_SIZE);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts, page, initialPage]);
 
   // Setup intersection observer for infinite scrolling

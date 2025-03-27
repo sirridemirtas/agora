@@ -89,6 +89,7 @@ export default function AvatarEditor() {
     if (username) {
       loadUserAvatar();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   const loadUserAvatar = async (): Promise<void> => {

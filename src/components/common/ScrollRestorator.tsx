@@ -31,6 +31,7 @@ const ScrollRestoration: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams]);
 
   // Sayfa yüklendiğinde ve API yüklemesi tamamlandığında scroll pozisyonunu geri yükle
@@ -61,6 +62,7 @@ const ScrollRestoration: React.FC = () => {
         window.scrollTo(0, 0);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams, isLoading]);
 
   // Geri ve ileri navigasyonlarını yakala (tarayıcı butonları için)
@@ -85,6 +87,7 @@ const ScrollRestoration: React.FC = () => {
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading]);
 
   return null;

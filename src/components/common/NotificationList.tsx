@@ -1,8 +1,14 @@
 "use client";
-import clsx from "clsx";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { formatDistanceToNow } from "date-fns";
+import { useRouter } from "next/navigation";
+import clsx from "clsx";
+import {
+  format,
+  differenceInSeconds,
+  differenceInMinutes,
+  differenceInHours,
+  isSameYear,
+} from "date-fns";
 import { tr } from "date-fns/locale";
 import {
   MessageSquare as ReplyIcon,
@@ -11,6 +17,26 @@ import {
 } from "lucide-react";
 import { useNotificationService } from "@/hooks/useNotificationService";
 import { Loader } from "@/components/ui";
+
+function formatNotificationDate(date: Date): string {
+  const now = new Date();
+
+  const secondsDiff = differenceInSeconds(now, date);
+  const minutesDiff = differenceInMinutes(now, date);
+  const hoursDiff = differenceInHours(now, date);
+
+  if (secondsDiff < 60) {
+    return `${secondsDiff}sn`; // Saniye
+  } else if (minutesDiff < 60) {
+    return `${minutesDiff}dk`; // Dakika
+  } else if (hoursDiff < 24) {
+    return `${hoursDiff}sa`; // Saat
+  } else if (isSameYear(now, date)) {
+    return format(date, "dd MMM", { locale: tr }); // Gün ve ay
+  } else {
+    return format(date, "dd MMM yyyy", { locale: tr }); // Gün, ay, yıl
+  }
+}
 
 const NotificationItem = ({
   id,
@@ -64,10 +90,7 @@ const NotificationItem = ({
             )}
           </div>
           <span className="text-sm text-neutral-500">
-            {formatDistanceToNow(new Date(createdAt), {
-              addSuffix: true,
-              locale: tr,
-            })}
+            {formatNotificationDate(new Date(createdAt))}
           </span>
         </div>
         <p className="mb-2 text-sm text-neutral-700 dark:text-neutral-300">

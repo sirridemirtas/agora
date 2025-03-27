@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: 'export', // for static export
   reactStrictMode: true,
-  rewrites: async () => {
+  async rewrites() {
     return [
       {
         // When statically exported, rewrites /university/:slug to /university
@@ -30,7 +30,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/api/:path*",
-        destination: "http://localhost:8080/api/:path*", // Proxy to Backend
+        destination: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/:path*",
       },
     ];
   }

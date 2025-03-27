@@ -1,5 +1,5 @@
 export const API_CONFIG = {
-  baseUrl: '/api/v1',  // Use relative path instead of 'http://localhost:8080/api/v1'
+  baseUrl: process.env.NEXT_PUBLIC_API_URL || '/api/v1',  // Use env variable with fallback
   headers: {
     'Content-Type': 'application/json',
   },

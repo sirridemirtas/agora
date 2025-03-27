@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AtSign, SquareAsterisk } from "lucide-react";
@@ -30,19 +30,21 @@ const LoginForm = () => {
   });
 
   const pathname = usePathname();
+  const passwordInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (isLoggedIn && pathname === "/login") {
       router.push("/");
     }
-  }, [isLoggedIn, pathname, router]);
 
-  // ?username=john
-  const query = new URLSearchParams(window.location.search);
-  const usernameQP = query.get("username");
-  if (usernameQP) {
-    window.history.replaceState({}, document.title, window.location.pathname);
-    setCredentials((prev) => ({ ...prev, username: usernameQP }));
-  }
+    // ?username=john
+    const query = new URLSearchParams(window.location.search);
+    const usernameQP = query.get("username");
+    if (usernameQP) {
+      passwordInputRef.current?.focus();
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setCredentials((prev) => ({ ...prev, username: usernameQP }));
+    }
+  }, [isLoggedIn, pathname, router]);
 
   const {
     loading,
@@ -83,13 +85,14 @@ const LoginForm = () => {
         value={credentials.username}
         onChange={handleChange}
         placeholder="Kullanıcı adınızı girin"
-        pattern="[A-Za-z]+"
+        pattern="[A-Za-z0-9]+"
         minLength={MIN_USERNAME}
         maxLength={MAX_USERNAME}
         required
         autoFocus
       />
       <Input
+        ref={passwordInputRef}
         icon={SquareAsterisk}
         name="password"
         value={credentials.password}

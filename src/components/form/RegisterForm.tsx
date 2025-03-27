@@ -139,7 +139,7 @@ export function RegisterForm() {
         name="username"
         icon={usernameAvailable ? Check : AtSign}
         type="text"
-        pattern="[A-Za-z]+"
+        pattern="[A-Za-z0-9]+"
         placeholder="Kullanıcı adınızı seçin"
         title="En az 3 haneli olabilir, sadece harf ve rakam içerebilir"
         required

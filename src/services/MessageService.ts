@@ -32,7 +32,7 @@ export class MessageService extends BaseService {
   }
 
   async getUnreadCount(): Promise<ApiResponse<UnreadCountResponse>> {
-    return this.fetchApi<UnreadCountResponse>('/messages/unread_count', {
+    return this.fetchApi<UnreadCountResponse>('/messages/unread-count', {
       method: 'GET',
     });
   }

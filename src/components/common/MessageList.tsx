@@ -3,7 +3,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
-import { formatDistanceToNow } from "date-fns";
+import {
+  format,
+  isToday,
+  isYesterday,
+  isWithinInterval,
+  subDays,
+} from "date-fns";
 import { tr } from "date-fns/locale";
 import { Avatar } from "@/components/common";
 import { useMessageService } from "@/hooks/useMessageService";
@@ -63,7 +69,7 @@ const ListItem = ({
             href={`/@${username}`}
             className="flex items-center gap-1"
           >
-            <span className="font-semibold">
+            <span className={clsx("font-semibold")}>
               <span className="opacity-50">@</span>
               <span className="hover:underline">{username}</span>
             </span>{" "}
@@ -73,7 +79,12 @@ const ListItem = ({
               </span>
             )}
           </CustomLink>
-          <span className="text-gray -500 text-sm text-neutral-500">
+          <span
+            className={clsx(
+              "text-gray -500 text-sm text-neutral-500",
+              unreadCount && "font-semibold"
+            )}
+          >
             {time}
           </span>
         </div>
@@ -131,14 +142,34 @@ export default function MessageList() {
             key={conversation.id}
             username={otherUser}
             message={lastMessage.content}
-            time={formatDistanceToNow(new Date(lastMessage.createdAt), {
-              addSuffix: true,
-              locale: tr,
-            })}
+            time={formatDate(new Date(lastMessage.createdAt))}
             unreadCount={unreadCount}
           />
         );
       })}
     </div>
   );
+}
+
+function formatDate(date: Date): string {
+  const now = new Date();
+
+  // Bugün ise sadece saat:dakika döndür
+  if (isToday(date)) {
+    return format(date, "HH:mm", { locale: tr });
+  }
+
+  // Dün ile son 7 gün arasındaysa haftanın gününü döndür
+  if (
+    isWithinInterval(date, {
+      start: subDays(now, 6),
+      end: now,
+    }) &&
+    !isYesterday(date)
+  ) {
+    return format(date, "EEEE", { locale: tr }); // Ör: "Çarşamba"
+  }
+
+  // Daha eski tarihler için GG.AA.YYYY formatı
+  return format(date, "dd.MM.yyyy", { locale: tr });
 }

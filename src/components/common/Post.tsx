@@ -3,7 +3,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { formatDistanceToNow, format } from "date-fns";
+import {
+  format,
+  differenceInSeconds,
+  differenceInMinutes,
+  differenceInHours,
+  isSameYear,
+} from "date-fns";
 import { tr } from "date-fns/locale";
 import clsx from "clsx";
 import {
@@ -31,10 +37,36 @@ interface PostProps extends PostType {
 export const detailedTimeFormat = (date: Date) =>
   format(date, "h:mm a · d MMM yyyy", { locale: tr });
 
-export const relativeTimeFormat = (date: Date) =>
-  formatDistanceToNow(date, { locale: tr, addSuffix: true });
+function relativeTimeFormat(
+  date: Date,
+  isProfileView: boolean = false
+): string {
+  const now = new Date();
 
-const Post = ({
+  if (isProfileView) {
+    return format(date, "HH:mm '·' dd MMM yyyy", { locale: tr });
+  }
+
+  // Ana sayfa (timeline) formatı
+  const secondsDiff = differenceInSeconds(now, date);
+  const minutesDiff = differenceInMinutes(now, date);
+  const hoursDiff = differenceInHours(now, date);
+  //const daysDiff = differenceInDays(now, date);
+
+  if (secondsDiff < 60) {
+    return `${secondsDiff}sn`; // Saniye
+  } else if (minutesDiff < 60) {
+    return `${minutesDiff}dk`; // Dakika
+  } else if (hoursDiff < 24) {
+    return `${hoursDiff}sa`; // Saat
+  } else if (isSameYear(now, date)) {
+    return format(date, "dd MMM", { locale: tr }); // Gün ve ay
+  } else {
+    return format(date, "dd MMM yyyy", { locale: tr }); // Gün, ay, yıl
+  }
+}
+
+export default function Post({
   id,
   bordered = false,
   content,
@@ -49,7 +81,7 @@ const Post = ({
   detailed = false,
   replyTo,
   reactions: initialReactions,
-}: PostProps) => {
+}: PostProps) {
   const { isLoggedIn, username: uname } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
   const pathname = usePathname();
@@ -428,6 +460,4 @@ const Post = ({
       </div>
     </article>
   );
-};
-
-export default Post;
+}

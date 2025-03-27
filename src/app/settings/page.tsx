@@ -92,6 +92,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     if (path == "avatar") setTitle("Avatarı Düzenle");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTitle]);
 
   return (

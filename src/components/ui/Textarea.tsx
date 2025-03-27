@@ -40,6 +40,7 @@ const Textarea: React.FC<TextareaProps> = ({
     if (autosize) {
       adjustHeight();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, defaultValue, autosize]);
 
   const handleInput = (e: React.FormEvent<HTMLTextAreaElement>) => {

@@ -29,6 +29,7 @@ export default function ToggleProfilePrivacy() {
     if (userProfile && userProfile.isPrivate !== isPrivate) {
       setIsPrivate(userProfile.isPrivate);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfile]);
 
   const handleToggle = useCallback(async () => {

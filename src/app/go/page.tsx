@@ -42,6 +42,9 @@ export default function Page() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="sticky top-0 w-full"
+          autoFocus
+          draggable={false}
+          autoComplete="off"
         />
       </div>
 
@@ -50,10 +53,11 @@ export default function Page() {
           <Link
             key={university.id || university.name}
             href={`/university/${university.id || university.name}`}
+            className={
+              "flex min-h-10 w-full flex-row items-center border-b p-2 outline-none hover:bg-neutral-100 focus:bg-neutral-100 dark:border-neutral-800 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
+            }
           >
-            <div className="flex min-h-10 w-full flex-row items-center border-b p-2 hover:bg-gray-50 dark:border-neutral-800 dark:hover:bg-neutral-800">
-              <span>{university.name}</span>
-            </div>
+            {university.name}
           </Link>
         ))}
       </div>

@@ -55,7 +55,7 @@ export default function RootLayout({
               <div className="hidden h-16 lg:block">
                 <Link
                   href="/"
-                  className="lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
+                  className="select-none outline-none lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
                 >
                   <Logo className="ml-5 mt-2" />
                   <h1 className="mt-2 text-xl">Agora</h1>

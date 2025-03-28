@@ -60,5 +60,5 @@ select.input {
 }
 
 .form {
-  @apply mx-auto flex max-w-sm flex-col gap-4 py-16;
+  @apply mx-auto flex max-w-xs flex-col gap-4 py-16 sm:max-w-sm;
 }

@@ -233,9 +233,9 @@ export default function Post({
     >
       <div
         className={clsx(
+          "px-4 pb-2 pt-4 sm:px-0",
           detailed || "border-t border-neutral-200 dark:border-neutral-800",
-          bordered && "border-b",
-          "px-6 pb-2 pt-4 sm:px-0"
+          bordered && "border-b"
         )}
       >
         <div className="mb-4 flex items-start justify-between">
@@ -296,13 +296,7 @@ export default function Post({
             </time>
           )}
         </div>
-        <p
-          className={clsx(
-            "_pl-14 mb-4 whitespace-pre-wrap" /* , detailed && "pl-0" */
-          )}
-        >
-          {content}
-        </p>
+        <p className={clsx("mb-4 whitespace-pre-wrap")}>{content}</p>
         {!isUniversityPage &&
           userUniversityId &&
           universityId &&

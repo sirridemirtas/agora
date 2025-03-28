@@ -29,7 +29,7 @@ const UserNotFound = () => {
 };
 
 export default function ProfilePage() {
-  const { username: loggedInUsername } = useAuth();
+  const { username: loggedInUsername, isLoggedIn } = useAuth();
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -75,24 +75,36 @@ export default function ProfilePage() {
 
   return (
     <div className="lg:flex-1">
-      <div className="p-6 sm:mb-4">
-        <div className="flex items-center gap-4">
-          <div className="h-16 w-16">
+      <div className="p-4 sm:p-6 sm:pb-4">
+        <div className="flex items-center">
+          <div className="mr-4 h-16 w-16">
             <Avatar username={username} size={16} />
           </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between">
+          <div className="w-full flex-1">
+            <div className="flex w-full items-center justify-between">
               <h1 className="text-xl font-semibold">
                 <span className="font-normal text-neutral-500">@</span>
                 {username}
               </h1>
+              <div className="flex items-center gap-1">
+                {!isOwnProfile && isLoggedIn && (
+                  <Link href={`/messages/${username}`} title="Mesaj Gönder">
+                    <Button variant="secondary" icon={MessageIcon} />
+                  </Link>
+                )}
+                {isOwnProfile && (
+                  <Link href="/settings" title="Ayarlar">
+                    <Button variant="secondary" icon={Settings} />
+                  </Link>
+                )}
+              </div>
             </div>
 
             <div className="flex items-center">
               {universityId && (
                 <Link
                   href={`/university/${universityId}`}
-                  className="inline-flex items-center text-sm text-neutral-500"
+                  className="inline-flex items-start text-sm text-neutral-500"
                 >
                   <div className="mr-1.5 h-4 w-4">
                     <School size={16} />
@@ -104,20 +116,7 @@ export default function ProfilePage() {
               )}
             </div>
           </div>
-          <div>
-            <div className="flex items-center gap-1">
-              {isOwnProfile || (
-                <Link href={`/messages/${username}`} title="Mesaj Gönder">
-                  <Button variant="secondary" icon={MessageIcon} />
-                </Link>
-              )}
-              {isOwnProfile && (
-                <Link href="/settings" title="Ayarlar">
-                  <Button variant="secondary" icon={Settings} />
-                </Link>
-              )}
-            </div>
-          </div>
+          <div></div>
         </div>
       </div>
 

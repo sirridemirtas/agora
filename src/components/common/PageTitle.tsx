@@ -27,7 +27,12 @@ const PageTitle = () => {
   }, [pathname, setTitle]);
 
   return (
-    <h1 className={clsx("text-center text-sm font-semibold sm:text-base")}>
+    <h1
+      className={clsx(
+        "text-center font-semibold",
+        title.length > 40 && "text-sm sm:text-base"
+      )}
+    >
       {title}
     </h1>
   );

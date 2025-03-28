@@ -1,11 +1,13 @@
 "use client";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { School } from "lucide-react";
 import { universities } from "@/constants/universities";
 import { CreatePost } from "@/components/common";
 import { PostService } from "@/services/PostService";
 import BaseFeed from "./BaseFeed";
 import { Post } from "@/types";
+import { useAuth } from "@/hooks";
 
 const UniversityNotFound = () => {
   return (
@@ -25,6 +27,7 @@ export default function UniversityFeed() {
   const pathname = usePathname();
   const universityId = pathname.split("/")[2];
   const postService = new PostService();
+  const { isLoggedIn } = useAuth();
 
   const university = universities.find((u) => u.id === universityId);
 
@@ -40,6 +43,18 @@ export default function UniversityFeed() {
   return (
     <div>
       <CreatePost />
+      {isLoggedIn && (
+        <div className="flex justify-end">
+          <Link
+            className={
+              "mb-2 flex px-4 text-right text-sm text-neutral-500 hover:underline sm:px-6"
+            }
+            href={`/go`}
+          >
+            Diğer üniversitelere göz at
+          </Link>
+        </div>
+      )}
       <BaseFeed
         fetchFunction={(page) =>
           postService.getUniversityPosts(universityId, page)

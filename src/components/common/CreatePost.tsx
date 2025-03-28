@@ -192,7 +192,7 @@ const NotLoggedIn = () => {
       ) : (
         "Üniversite sayfalarında"
       )}{" "}
-      gönderi paylaşmak için{" "}
+      paylaşım yapmak ve cevaplamak için{" "}
       <Link href={"/login"} className="font-semibold hover:underline">
         giriş yap
       </Link>{" "}

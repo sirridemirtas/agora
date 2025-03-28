@@ -50,7 +50,6 @@ export const navItems: NavItem[] = [
     href: "/university",
     icon: School,
     text: "Üniversite",
-    loginRequired: true,
   },
   {
     href: "/notifications",
@@ -126,7 +125,7 @@ const NavItem: React.FC<NavItem> = ({
     <Link
       href={
         href === "/university"
-          ? href + `/${universityId}`
+          ? href + (universityId ? `/${universityId}` : "")
           : href === "/user"
             ? "/@" + username
             : href

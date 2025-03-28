@@ -4,13 +4,14 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Send, School } from "lucide-react";
 import { Textarea } from "@headlessui/react";
-import { universities } from "@/constants/universities";
+import { universities, indeEki } from "@/constants/universities";
 import { Button, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useAuth, useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
 import Avatar from "./Avatar";
 import { MIN_POST_LENGTH, MAX_POST_LENGTH } from "@/constants";
+import Link from "next/link";
 
 interface CreatePostProps {
   className?: string;
@@ -176,4 +177,42 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
   );
 };
 
-export default CreatePost;
+const NotLoggedIn = () => {
+  const pathname = usePathname();
+  const universityId = pathname.split("/")[2];
+  const universityName = universities.find((u) => u.id === universityId)?.name;
+
+  return (
+    <div className="m-4 rounded-lg bg-neutral-100 p-4 md:m-6 dark:bg-neutral-800">
+      {universityName ? (
+        <>
+          <span>{universityName}</span>
+          &apos;{indeEki(universityName)}
+        </>
+      ) : (
+        "Üniversite sayfalarında"
+      )}{" "}
+      gönderi paylaşmak için{" "}
+      <Link href={"/login"} className="font-semibold hover:underline">
+        giriş yap
+      </Link>{" "}
+      veya{" "}
+      <Link href={"/register"} className="font-semibold hover:underline">
+        kaydol
+      </Link>
+      .
+    </div>
+  );
+};
+
+const CreatePostWrapper = (props: CreatePostProps) => {
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn) {
+    return <NotLoggedIn />;
+  }
+
+  return <CreatePost {...props} />;
+};
+
+export default CreatePostWrapper;

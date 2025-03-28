@@ -218,7 +218,7 @@ export default function Post({
   return (
     <article
       className={clsx(
-        "rounded-xl text-sm sm:px-6 sm:text-base",
+        "_text-sm rounded-xl sm:px-6 sm:text-base",
         "transition-colors duration-200 ease-in-out",
         replyTo || detailed ? "" : "cursor-pointer"
       )}
@@ -239,7 +239,7 @@ export default function Post({
         )}
       >
         <div className="mb-4 flex items-start justify-between">
-          <div className="flex flex-row items-center">
+          <div className="flex w-full flex-row items-start">
             {username ? (
               <Link
                 className="h-12 w-12"
@@ -251,50 +251,48 @@ export default function Post({
             ) : (
               <Avatar size={12} />
             )}
-            <div className="ml-2 flex flex-col items-start">
-              {!isPrivate && username ? (
+            <div className="ml-2 flex w-full flex-col items-start">
+              <div className="flex w-full flex-row items-center justify-between gap-1">
+                {!isPrivate && username ? (
+                  <Link
+                    href={"/@" + username}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <span className="text-neutral-500">@</span>
+                    <span className="hover:underline">{username}</span>
+                  </Link>
+                ) : (
+                  <span className="text-neutral-500">Anonim</span>
+                )}
+                {detailed || (
+                  <time className="mr-0 text-sm text-neutral-400">
+                    {replyTo ? (
+                      relativeTimeFormat(new Date(createdAt))
+                    ) : (
+                      <Link
+                        className="hover:underline"
+                        href={`/post/${id}`}
+                        title={detailedTimeFormat(new Date(createdAt))}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {relativeTimeFormat(new Date(createdAt))}
+                      </Link>
+                    )}
+                  </time>
+                )}
+              </div>
+              <div className="text-neutral-500 hover:underline">
                 <Link
-                  href={"/@" + username}
+                  href={`/university/${userUniversityId}`}
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <span className="text-neutral-500">@</span>
-                  <span className="hover:underline">{username}</span>
+                  {university ||
+                    (userUniversityId &&
+                      getUniversityById(userUniversityId)?.name)}
                 </Link>
-              ) : (
-                <span className="text-neutral-500">Anonim</span>
-              )}
-              {
-                /* pathname.startsWith("/university") ||  */ <>
-                  <span className="text-neutral-500 hover:underline">
-                    <Link
-                      href={`/university/${userUniversityId}`}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {university ||
-                        (userUniversityId &&
-                          getUniversityById(userUniversityId)?.name)}
-                    </Link>
-                  </span>
-                </>
-              }
+              </div>
             </div>
           </div>
-          {detailed || (
-            <time className="mr-0 text-sm text-neutral-400">
-              {replyTo ? (
-                relativeTimeFormat(new Date(createdAt))
-              ) : (
-                <Link
-                  className="hover:underline"
-                  href={`/post/${id}`}
-                  title={detailedTimeFormat(new Date(createdAt))}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {relativeTimeFormat(new Date(createdAt))}
-                </Link>
-              )}
-            </time>
-          )}
         </div>
         <p className={clsx("mb-4 whitespace-pre-wrap")}>{content}</p>
         {!isUniversityPage &&

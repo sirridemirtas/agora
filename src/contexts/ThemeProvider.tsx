@@ -20,21 +20,37 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+    const updateThemeAndFavicon = () => {
+      document.body.classList.remove("light", "dark");
+      if (theme === "system") {
+        document.body.classList.add(mediaQuery.matches ? "dark" : "light");
+      } else {
+        document.body.classList.add(theme);
+      }
+
+      let faviconUrl = "/favicon.ico";
+      if (theme === "dark" || (theme === "system" && mediaQuery.matches)) {
+        faviconUrl = "/favicon-dark.ico";
+      }
+
+      let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+      link.href = faviconUrl;
+    };
+
+    updateThemeAndFavicon();
+
     const handleThemeChange = () => {
       if (theme === "system") {
-        document.body.classList.remove("light", "dark");
-        document.body.classList.add(mediaQuery.matches ? "dark" : "light");
+        updateThemeAndFavicon();
       }
     };
 
     mediaQuery.addEventListener("change", handleThemeChange);
-
-    document.body.classList.remove("light", "dark");
-    if (theme === "system") {
-      document.body.classList.add(mediaQuery.matches ? "dark" : "light");
-    } else {
-      document.body.classList.add(theme);
-    }
 
     return () => mediaQuery.removeEventListener("change", handleThemeChange);
   }, [theme]);

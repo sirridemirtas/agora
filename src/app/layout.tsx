@@ -19,8 +19,42 @@ const font = Libre_Franklin({
 });
 
 export const metadata: Metadata = {
-  title: "Microblog",
-  description: "A simple microblogging application",
+  title: "Agora",
+  description: "Üniversite bazlı anonim sosyal medya platformu",
+  keywords: [
+    "Agora",
+    "Sosyal Medya",
+    "Üniversite",
+    "Anonim",
+    "Platform",
+    "İletişim",
+    "Paylaşım",
+  ],
+  authors: [{ name: "Sirri Demirtas" }],
+  viewport:
+    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-256x256.png", sizes: "256x256", type: "image/png" },
+      { url: "/icons/icon-384x384.png", sizes: "384x384", type: "image/png" },
+      { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icons/icon-256x256.png", sizes: "256x256", type: "image/png" },
+    ],
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
@@ -55,7 +89,7 @@ export default function RootLayout({
               <div className="hidden h-16 lg:block">
                 <Link
                   href="/"
-                  className="lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
+                  className="select-none outline-none lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
                 >
                   <Logo className="ml-5 mt-2" />
                   <h1 className="mt-2 text-xl">Agora</h1>

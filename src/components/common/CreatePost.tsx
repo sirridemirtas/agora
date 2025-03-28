@@ -87,7 +87,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
     content.length <= MAX_POST_LENGTH;
 
   return (
-    <div className={clsx("p-6", className)}>
+    <div className={clsx("p-4 sm:p-6", className)}>
       {
         success && <></> /* (
         <Alert
@@ -106,7 +106,7 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
         />
       )}
 
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-2 sm:gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-row items-start justify-start gap-2">
           <Avatar size={12} username={username || ""} />
           <Textarea
@@ -122,17 +122,17 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             disabled={loading}
             className={clsx(
               "focus:shadow-none focus:outline-none focus:ring-0 focus:ring-offset-0",
-              "box-border flex-1 resize-none border-b border-neutral-200 bg-transparent pt-3 text-lg dark:border-neutral-800"
+              "box-border flex-1 resize-none rounded-none border-b border-neutral-200 bg-transparent pt-3 text-lg dark:border-neutral-800"
             )}
           />
         </div>
         <div
           className={clsx(
-            "flex items-center justify-between gap-2 bg-white pl-14 dark:bg-neutral-950",
+            "flex flex-col items-center justify-between gap-2 bg-white sm:flex-row md:pl-14 dark:bg-neutral-950",
             content && "sticky sm:bottom-16 lg:bottom-0"
           )}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex w-full items-center justify-start gap-2 sm:items-start">
             {imageError ? (
               <div className="flex min-h-12 min-w-12 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-800">
                 <School className="text-neutral-600 dark:text-neutral-300" />
@@ -146,16 +146,16 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
                 onError={() => setImageError(true)}
               />
             )}{" "}
-            <span className="flex flex-col text-sm text-gray-500">
+            <div className="flex flex-col text-sm text-gray-500">
               <small>Burada paylaşılacak:</small>
               <span>
                 {universities.filter(
                   (u) => u.id === (pathId || universityId)
                 )[0]?.name || "Üniversite"}
               </span>
-            </span>
+            </div>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex w-full flex-nowrap items-center justify-end gap-4 sm:w-auto">
             <span className="text-sm text-neutral-500">
               {content.length}/{MAX_POST_LENGTH}
             </span>

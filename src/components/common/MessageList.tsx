@@ -90,13 +90,13 @@ const ListItem = ({
         </div>
         <p
           className={clsx(
-            "text-sm text-neutral-500",
+            "text-wrap break-words text-sm text-neutral-500",
             unreadCount && "font-semibold"
           )}
         >
           {message
-            ? message.length > 60
-              ? message.slice(0, 60) + "..."
+            ? message.length > 30
+              ? message.slice(0, 30) + "..."
               : message
             : "-"}
         </p>

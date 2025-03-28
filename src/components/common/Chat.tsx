@@ -45,7 +45,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+      messagesEndRef.current.scrollIntoView({ behavior: "instant" });
     }
   }, [localConversation]);
 
@@ -150,7 +150,7 @@ export default function Chat() {
               )}
               <div
                 className={clsx(
-                  "flex w-auto max-w-[320px] flex-col border border-transparent p-2.5 leading-tight",
+                  "flex w-auto max-w-[250px] flex-col border border-transparent p-2.5 leading-tight lg:max-w-[320px]",
                   isMe
                     ? "rounded-s-lg rounded-ee-lg bg-neutral-200 text-neutral-900 dark:border-neutral-800 dark:bg-transparent dark:text-white"
                     : "rounded-e-lg rounded-es-lg bg-neutral-100 dark:border-neutral-800 dark:bg-transparent"
@@ -168,7 +168,7 @@ export default function Chat() {
                 ) */}
                 <p
                   className={clsx(
-                    "text-sm font-normal",
+                    "text-wrap break-words text-sm font-normal",
                     isMe
                       ? "text-neutral-900 dark:text-white"
                       : "text-neutral-900 dark:text-white"

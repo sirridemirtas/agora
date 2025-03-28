@@ -25,6 +25,7 @@ interface NavItem {
   loginRequired?: boolean;
   onlyLargeScreen?: boolean;
   hideOnLogin?: boolean;
+  className?: string;
 }
 
 export const navItems: NavItem[] = [
@@ -91,6 +92,7 @@ const NavItem: React.FC<NavItem> = ({
   hideOnLogin,
   loginRequired,
   onlyLargeScreen,
+  className,
 }) => {
   const pathname = usePathname();
   const { isLoggedIn, universityId, username } = useAuth();
@@ -131,14 +133,14 @@ const NavItem: React.FC<NavItem> = ({
       }
       className={clsx(
         // Base styles
-        "flex flex-col items-center gap-1 rounded-full px-4 py-2 transition-all",
+        "flex flex-col items-center gap-1 px-1 py-2 transition-all",
 
         // Small screen hover & active states
         "sm:hover:bg-neutral-100 sm:dark:hover:bg-neutral-800 sm:dark:hover:text-white",
         "sm:active:bg-neutral-200",
 
         // Small to large screen layout
-        "sm:flex-row sm:justify-start sm:gap-2 lg:gap-3 lg:py-3 lg:pr-6",
+        "sm:flex-row sm:justify-start sm:gap-2 sm:rounded-full sm:px-4 lg:gap-3 lg:py-3 lg:pr-6",
 
         // Focus styles
         "outline-none focus-visible:ring-2 focus-visible:ring-neutral-600",
@@ -157,7 +159,8 @@ const NavItem: React.FC<NavItem> = ({
           href === "/university" &&
           activeStyles,
 
-        href === "/user" && "sm:py-1 lg:gap-[0.5rem] lg:px-3 lg:py-[0.5rem]"
+        href === "/user" && "sm:py-1 lg:gap-[0.5rem] lg:px-3 lg:py-[0.5rem]",
+        className
       )}
       title={
         href === "/university"
@@ -209,14 +212,14 @@ const Navigation = () => {
     <nav
       className={clsx(
         // Base styles
-        "fixed bottom-0 left-0 right-0 z-10 flex h-16 items-center justify-around",
-        "border-t bg-neutral-50 bg-opacity-80 px-4 backdrop-blur-md",
+        "fixed bottom-0 left-0 right-0 z-10 flex h-16 w-full items-center justify-around",
+        "border-t bg-neutral-50 bg-opacity-80 px-0 backdrop-blur-md",
 
         // Medium screen styles
         "md:bg-opacity-100 md:backdrop-blur-none",
 
         // Large screen styles
-        "lg:relative lg:h-auto lg:w-64 lg:flex-col lg:items-start lg:justify-start",
+        "lg:relative lg:h-auto lg:w-64 lg:flex-col lg:items-start lg:justify-start lg:px-4",
         "lg:gap-1 lg:rounded-xl lg:bg-white lg:p-4 lg:pt-6 lg:font-semibold lg:shadow-sm",
         "lg:border lg:border-transparent",
 
@@ -228,7 +231,7 @@ const Navigation = () => {
       {/* <Logo className="hidden lg:block ml-1 mb-4" /> */}
 
       {navItems.map((item) => (
-        <NavItem key={item.href} {...item} />
+        <NavItem key={item.href} {...item} className="flex-1 sm:flex-initial" />
       ))}
       {/*  {isLoggedIn && <Avatar size={8} username="anonim" />} */}
 

@@ -37,7 +37,7 @@ export default function SendMessage({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-row items-start gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-row items-end gap-2">
       <div className="w-full">
         <Textarea
           className="w-full resize-none overflow-hidden"
@@ -53,6 +53,7 @@ export default function SendMessage({
         type="submit"
         disabled={!message.trim() || sendMessageLoading}
         icon={SendIcon}
+        className="mb-2"
       >
         Gönder
       </Button>

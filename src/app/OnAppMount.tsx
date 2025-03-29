@@ -13,8 +13,8 @@ export default function OnAppMount() {
         const response = await authService.getTokenInfo();
 
         if (response && response.data) {
-          const { username, universityId } = response.data;
-          setAppStateToLoggedIn({ username, universityId });
+          const { username, universityId, role } = response.data;
+          setAppStateToLoggedIn({ username, universityId, role });
         } else {
           logout();
         }

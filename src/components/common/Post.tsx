@@ -82,7 +82,7 @@ export default function Post({
   replyTo,
   reactions: initialReactions,
 }: PostProps) {
-  const { isLoggedIn, username: uname } = useAuth();
+  const { isLoggedIn, username: uname, role } = useAuth();
   const { likePost, dislikePost, unlikePost, undislikePost } = usePostAction();
   const pathname = usePathname();
   const isUniversityPage = pathname.startsWith("/university");
@@ -424,7 +424,7 @@ export default function Post({
           )}
 
           {/* Delete Button */}
-          {isLoggedIn && username === uname && (
+          {isLoggedIn && (username === uname || role === 1 || role === 2) && (
             <button
               className={clsx(
                 "flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400",

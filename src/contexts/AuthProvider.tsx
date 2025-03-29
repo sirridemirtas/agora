@@ -4,11 +4,16 @@ import { useSharedState } from "@/hooks";
 
 export interface AuthContextType {
   isLoggedIn: boolean;
-  login: (userData?: { username: string; universityId: string }) => void;
+  login: (userData?: {
+    username: string;
+    universityId: string;
+    role?: number;
+  }) => void;
   logout: () => void;
   isLoading: boolean;
   username: string | null;
   universityId: string | null;
+  role: number | null;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -28,11 +33,20 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     "universityId",
     null
   );
+  // Changed key from "userRole" to "role" to match API response
+  const [role, setRole] = useSharedState<number | null>("role", null);
 
-  const login = (userData?: { username: string; universityId: string }) => {
+  const login = (userData?: {
+    username: string;
+    universityId: string;
+    role?: number;
+  }) => {
     if (userData) {
       setUsername(userData.username);
       setUniversityId(userData.universityId);
+      if (userData.role !== undefined) {
+        setRole(userData.role);
+      }
     }
     setIsLoggedIn(true);
   };
@@ -41,6 +55,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setIsLoggedIn(false);
     setUsername(null);
     setUniversityId(null);
+    setRole(null);
   };
 
   if (isLoading) return null;
@@ -54,6 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         isLoading,
         username,
         universityId,
+        role,
       }}
     >
       {children}

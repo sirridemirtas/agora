@@ -19,3 +19,4 @@ export {default as ScrollRestorator} from './ScrollRestorator';
 export {default as SplashScreen} from './SplashScreen';
 export {default as ThemeToggleButton} from './ThemeToggleButton';
 export {default as ToggleProfilePrivacy} from './ToggleProfilePrivacy';
+export {default as UserRoleBadge} from './UserRoleBadge';

@@ -11,7 +11,7 @@ import { useAuth, useUserService, usePageTitle } from "@/hooks";
 import { useEffect, useState } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
 import { universities } from "@/constants/universities";
-import { Avatar } from "@/components/common";
+import { Avatar, UserRoleBadge } from "@/components/common";
 import { Alert, Button } from "@/components/ui";
 
 const UserNotFound = () => {
@@ -61,6 +61,7 @@ export default function ProfilePage() {
 
   // Get university info from profile data
   const universityId = userProfile?.universityId;
+  const userRole = userProfile?.role;
   const universityName = universityId
     ? universities.find((u) => u.id === universityId)?.name
     : null;
@@ -82,10 +83,13 @@ export default function ProfilePage() {
           </div>
           <div className="w-full flex-1">
             <div className="flex w-full items-center justify-between">
-              <h1 className="text-xl font-semibold">
-                <span className="font-normal text-neutral-500">@</span>
-                {username}
-              </h1>
+              <div className="flex flex-row items-center gap-2">
+                <h2 className="text-xl font-semibold">
+                  <span className="font-normal text-neutral-500">@</span>
+                  {username}
+                </h2>
+                <UserRoleBadge role={userRole || 0} />
+              </div>
               <div className="flex items-center gap-1">
                 {!isOwnProfile && isLoggedIn && (
                   <Link href={`/messages/${username}`} title="Mesaj Gönder">

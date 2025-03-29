@@ -19,6 +19,7 @@ export interface User {
   username: string;
   name: string;
   universityId: string;
+  role?: number;
 }
 
 export interface TokenInfo {

@@ -57,8 +57,8 @@ const LoginForm = () => {
 
     const result = await login(credentials);
     if (result.data) {
-      const { username, universityId } = result.data;
-      setAppStateToLoggedIn({ username, universityId });
+      const { username, universityId, role } = result.data;
+      setAppStateToLoggedIn({ username, universityId, role });
       if (pathname === "/login") router.push("/");
     } else if (result.error) {
       setAlertProps({

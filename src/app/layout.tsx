@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import clsx from "clsx";
 import { Libre_Franklin } from "next/font/google";
@@ -17,6 +17,17 @@ const font = Libre_Franklin({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+  maximumScale: 1.0,
+  userScalable: false,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Agora",
   description: "Üniversite bazlı anonim sosyal medya platformu",
@@ -30,12 +41,6 @@ export const metadata: Metadata = {
     "Paylaşım",
   ],
   authors: [{ name: "Sirri Demirtas" }],
-  viewport:
-    "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FAFAFA" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-  ],
   manifest: "/manifest.json",
   icons: {
     icon: "favicon.ico",

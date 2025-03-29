@@ -34,7 +34,7 @@ export default function Page() {
   }, [setTitle]);
 
   return (
-    <div className="p-6 text-sm md:text-base">
+    <div className="p-4 text-sm sm:p-6 md:text-base">
       <div className="mb-4">
         <Input
           type="text"

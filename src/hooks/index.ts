@@ -1,3 +1,4 @@
+export { useAdminService } from "./useAdminService";
 export { useApi } from "./useApi";
 export { useApiLoading } from "./useApiLoading";
 export { useAuth } from "./useAuth";

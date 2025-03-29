@@ -7,7 +7,12 @@ import {
   Settings,
   UserRoundSearch,
 } from "lucide-react";
-import { useAuth, useUserService, usePageTitle } from "@/hooks";
+import {
+  useAuth,
+  useUserService,
+  usePageTitle,
+  useAdminService,
+} from "@/hooks";
 import { useEffect, useState } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
 import { universities } from "@/constants/universities";
@@ -29,9 +34,13 @@ const UserNotFound = () => {
 };
 
 export default function ProfilePage() {
-  const { username: loggedInUsername, isLoggedIn } = useAuth();
+  const { username: loggedInUsername, isLoggedIn, role } = useAuth();
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUserRole, setCurrentUserRole] = useState<number | undefined>(
+    undefined
+  );
+  const { updateUserRole, loading: updateRoleLoading } = useAdminService();
 
   // Extract username from /@username format
   const username = pathname.startsWith("/@")
@@ -53,6 +62,44 @@ export default function ProfilePage() {
     fetchUserProfile();
   }, [username, setTitle, getUserProfile]);
 
+  useEffect(() => {
+    if (userProfile?.role !== undefined) {
+      setCurrentUserRole(userProfile.role);
+    }
+  }, [userProfile]);
+
+  // Handle making a user a moderator
+  const handleMakeModerator = async () => {
+    if (
+      confirm("Bu kullanıcıyı moderatör yapmak istediğinizden emin misiniz?")
+    ) {
+      const response = await updateUserRole(username, 1);
+      if (response?.data) {
+        setCurrentUserRole(1);
+        alert("Kullanıcı moderatör yapıldı.");
+      } else {
+        alert("İşlem sırasında bir hata oluştu.");
+      }
+    }
+  };
+
+  // Handle removing moderator status
+  const handleRemoveModerator = async () => {
+    if (
+      confirm(
+        "Bu kullanıcının moderatörlüğünü kaldırmak istediğinizden emin misiniz?"
+      )
+    ) {
+      const response = await updateUserRole(username, 0);
+      if (response?.data) {
+        setCurrentUserRole(0);
+        alert("Kullanıcının moderatörlüğü kaldırıldı.");
+      } else {
+        alert("İşlem sırasında bir hata oluştu.");
+      }
+    }
+  };
+
   // Determine if the current user is viewing their own profile
   const isOwnProfile = loggedInUsername === username;
 
@@ -61,7 +108,8 @@ export default function ProfilePage() {
 
   // Get university info from profile data
   const universityId = userProfile?.universityId;
-  const userRole = userProfile?.role;
+  const userRole =
+    currentUserRole !== undefined ? currentUserRole : userProfile?.role;
   const universityName = universityId
     ? universities.find((u) => u.id === universityId)?.name
     : null;
@@ -120,12 +168,32 @@ export default function ProfilePage() {
               )}
             </div>
           </div>
-          <div></div>
         </div>
       </div>
-
+      {role === 2 && userRole === 0 && (
+        <div className="px-4 py-2 text-sm sm:px-6">
+          <Button
+            variant="secondary"
+            onClick={handleMakeModerator}
+            disabled={updateRoleLoading}
+          >
+            {updateRoleLoading ? "İşleniyor..." : "Moderatör Yap"}
+          </Button>
+        </div>
+      )}
+      {role === 2 && userRole === 1 && (
+        <div className="px-4 py-2 text-sm sm:px-6">
+          <Button
+            variant="secondary"
+            onClick={handleRemoveModerator}
+            disabled={updateRoleLoading}
+          >
+            {updateRoleLoading ? "İşleniyor..." : "Möderatörlükten Çıkar"}
+          </Button>
+        </div>
+      )}
       {isPrivateProfile ? (
-        <div className="px-6">
+        <div className="px-4 sm:px-6">
           <Alert
             title="Gizli Profil"
             message="Bu kullanıcının profilini görüntüleyemezsiniz; gönderileri, anonim bir şekilde anasayfa ve üniversite sayfalarında yer alır."

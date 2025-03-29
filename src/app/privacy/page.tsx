@@ -1,98 +1,91 @@
 "use client";
 import { useEffect } from "react";
+import Link from "next/link";
 import { usePageTitle } from "@/hooks";
 
 export default function PrivacyPage() {
   const { setTitle } = usePageTitle();
 
   useEffect(() => {
-    setTitle("Gizlilik Politikası");
+    setTitle("Gizlilik Politikası ve Kullanım Koşulları");
   }, [setTitle]);
 
   return (
     <div className="lg:flex-1">
-      <div className="p-8 font-sans">
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">1. Genel Bilgiler</h2>
-          <p className="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
-            ultricies velit sit amet est aliquet, vel facilisis erat sodales.
-            Nulla interdum metus sit amet risus vehicula, nec venenatis purus
-            tincidunt. Sed porttitor elit ac turpis eleifend, et scelerisque
-            felis laoreet. Nulla vel magna vel nunc tempor eleifend.
+      <div className="p-4 font-sans">
+        <div className="mx-auto max-w-3xl p-6">
+          <p className="mb-4">
+            Bu belge, Üniversite Bazlı Sosyal Paylaşım Platformu(bundan sonra
+            platform olarak anılacaktır) tarafından sunulan hizmetlerin gizlilik
+            politikasını ve kullanım koşullarını kapsar. Platformu kullanarak bu
+            koşulları kabul etmiş sayılırsınız.
           </p>
-        </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">2. Toplanan Veriler</h2>
-          <p className="">
-            Integer vel sapien at ligula facilisis tincidunt non non urna.
-            Curabitur non libero vel eros aliquam laoreet. Cras gravida urna
-            eget magna gravida viverra. Proin venenatis bibendum libero, sed
-            consequat arcu tincidunt vel. Aenean tempor nisl id nulla viverra,
-            at dictum sem consectetur.
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">1. Toplanan Veriler</h2>
+            <p>
+              Platform, kullanıcı deneyimini sağlamak ve yasal gereklilikleri
+              yerine getirmek amacıyla kullanıcı verilerini ve yasal
+              zorunluluklar çerçevesinde IP adresleri ile log verilerini saklar.
+            </p>
+          </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">3. Verilerin Kullanımı</h2>
-          <p className="">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt.
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">
+              2. Verilerin Kullanımı
+            </h2>
+            <p>
+              Veriler, platformun işlevselliği, moderasyon ve yasal
+              gereklilikler için işlenebilir. Bunun dışında, kullanıcıların
+              kişisel verileri üçüncü şahıslarla paylaşılmaz.
+            </p>
+          </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">4. Çerezler (Cookies)</h2>
-          <p className="">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">
+              3. Kullanım Koşulları
+            </h2>
+            <p>
+              Kullanıcılar, paylaştıkları içeriklerden tamamen sorumlu olup bu
+              paylaşımlarında Türkiye Cumhuriyeti yasalarına uymak zorundadır.
+              Platform, içeriklerden doğan yasal sorumluluğu kabul etmez.
+              Moderatörler, yasal risk taşıyan içerikleri silebilir.
+            </p>
+          </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">
-            5. Üçüncü Taraf Bağlantıları
-          </h2>
-          <p className="">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-            cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum.
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">
+              4. Çerezler ve Üçüncü Taraflar
+            </h2>
+            <p>
+              Platform, zorunlu ve analitik çerezler kullanır; çerezleri kabul
+              etmek zorunludur. Veriler, yasal zorunluluklar hariç üçüncü
+              taraflarla paylaşılmaz.
+            </p>
+          </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">6. Veri Güvenliği</h2>
-          <p className="">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos qui ratione voluptatem sequi nesciunt.
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">5. Kullanıcı Hakları</h2>
+            <p>
+              Her türlü bildirim, şikayet, içerik kaldırma gibi talepleriniz
+              için mesajlarınızı{" "}
+              <Link href={"/contact"} className="underline">
+                destek
+              </Link>{" "}
+              sayfasından iletebilirsiniz.
+            </p>
+          </section>
 
-        <section className="mb-8">
-          <h2 className="mb-2 text-xl font-semibold">7. İletişim</h2>
-          <p className="">
-            Eğer bu Gizlilik Politikası hakkında herhangi bir sorunuz varsa,
-            bizimle iletişime geçmekten çekinmeyin: E-posta:{" "}
-            <a
-              href="mailto:info@ornek.com"
-              className="text-blue-700 hover:underline"
-            >
-              info@ornek.com
-            </a>
-          </p>
-        </section>
+          <section className="mb-4">
+            <h2 className="mb-1 text-lg font-semibold">
+              6. Güncellemeler ve İletişim
+            </h2>
+            <p>
+              Platform bu belgeyi güncelleyebilir; değişiklikler yayınlandığında
+              geçerli olur.
+            </p>
+          </section>
+        </div>
       </div>
     </div>
   );

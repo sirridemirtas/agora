@@ -201,7 +201,7 @@ export function RegisterForm() {
         label={
           <>
             <Link href={"/privacy"} className="underline" target="_blank">
-              Gizlilik politikası
+              Gizlilik politikası ve kullanım koşulları
             </Link>
             nı okudum ve kabul ediyorum.
           </>

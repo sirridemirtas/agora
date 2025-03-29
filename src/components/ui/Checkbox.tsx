@@ -40,7 +40,7 @@ const Checkbox = forwardRef<HTMLButtonElement, CheckboxProps>(
           defaultChecked={defaultChecked}
           onChange={onChange}
           disabled={disabled}
-          className="group flex items-center"
+          className="group flex items-start"
           {...props}
         >
           {({ checked }) => (

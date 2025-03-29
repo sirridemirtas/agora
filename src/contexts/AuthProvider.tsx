@@ -64,7 +64,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const checkAuthStatus = async () => {
       try {
         const authService = new AuthService();
-        const response = await authService.getTokenInfo();
+        const response = await authService.getTokenInfo(
+          true // Force refresh to get the latest token info
+        );
 
         if (response && response.data) {
           const { username, universityId, role } = response.data;

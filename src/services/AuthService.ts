@@ -57,8 +57,18 @@ export class AuthService extends BaseService {
     });
   }
 
-  async getTokenInfo(): Promise<ApiResponse<TokenInfo>> {
-    return this.fetchApi<TokenInfo>('/auth/token-info', {
+  async getTokenInfo(refresh?: boolean): Promise<ApiResponse<TokenInfo>> {
+    const url = refresh 
+      ? '/auth/token-info?refresh=true'
+      : '/auth/token-info';
+      
+    return this.fetchApi<TokenInfo>(url, {
+      method: 'GET',
+    });
+  }
+
+  async refreshToken(): Promise<ApiResponse<TokenInfo>> {
+    return this.fetchApi<TokenInfo>('/auth/refresh-token', {
       method: 'GET',
     });
   }

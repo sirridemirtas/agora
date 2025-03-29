@@ -1,6 +1,7 @@
 "use client";
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode, useEffect } from "react";
 import { useSharedState } from "@/hooks";
+import { AuthService } from "@/services/AuthService";
 
 export interface AuthContextType {
   isLoggedIn: boolean;
@@ -57,6 +58,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setUniversityId(null);
     setRole(null);
   };
+
+  // Check authentication status on first mount
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const authService = new AuthService();
+        const response = await authService.getTokenInfo();
+
+        if (response && response.data) {
+          const { username, universityId, role } = response.data;
+          login({ username, universityId, role });
+        } else {
+          logout();
+        }
+      } catch (error) {
+        console.error("Failed to verify authentication status:", error);
+        logout();
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   if (isLoading) return null;
 

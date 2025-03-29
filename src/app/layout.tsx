@@ -11,7 +11,6 @@ import {
   //ScrollRestorator,
   SplashScreen,
 } from "@/components/common";
-import OnAppMount from "./OnAppMount";
 
 const font = Libre_Franklin({
   weight: ["400", "500", "600", "700"],
@@ -61,7 +60,6 @@ export default function RootLayout({
         )}
       >
         <GlobalProvider>
-          <OnAppMount />
           {/* <ScrollRestorator /> */}
           <SplashScreen visible={false} />
           <div

@@ -91,6 +91,8 @@ export default function Post({
   const [deleted, setDeleted] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
+  const [avatarLaugh, setAvatarLaugh] = useState(false);
+
   const postService = new PostService();
   const { execute: executeDeletePost, loading: deleteLoading } = useApi(
     postService.deletePost.bind(postService)
@@ -120,6 +122,13 @@ export default function Post({
 
     const currentLikes = reactions.likeCount;
     const currentDislikes = reactions.dislikeCount;
+
+    if (!reactions.liked) {
+      setAvatarLaugh(true);
+      setTimeout(() => {
+        setAvatarLaugh(false);
+      }, 1000);
+    }
 
     if (reactions.liked) {
       const response = await unlikePost(id);
@@ -246,7 +255,7 @@ export default function Post({
                 href={"/@" + username}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Avatar username={username} size={12} />
+                <Avatar username={username} size={12} laugh={avatarLaugh} />
               </Link>
             ) : (
               <Avatar size={12} />

@@ -19,18 +19,21 @@ export type AvatarConfig = {
   shirtStyle: "hoody" | "short" | "polo";
   shirtColor: string;
   bgColor: string;
+  sex: "man" | "woman";
 };
 
 export default function AvatarPreview({
   config,
   username,
   size,
-  lazyLoad = true, // Add lazyLoad prop with default true
+  lazyLoad = true,
+  laugh = false,
 }: {
   config?: AvatarConfig;
   username?: string;
   size?: number;
   lazyLoad?: boolean;
+  laugh?: boolean;
 }) {
   const { getUserAvatar } = useAvatar();
   const [avatarConfig, setAvatarConfig] = useState<AvatarConfig | undefined>(
@@ -100,7 +103,12 @@ export default function AvatarPreview({
         </div>
       ) : avatarConfig ? (
         // Use NiceAvatar when we have config (either from props or API)
-        <NiceAvatar className="h-full w-full" {...avatarConfig} />
+        <NiceAvatar
+          className="h-full w-full"
+          {...avatarConfig}
+          mouthStyle={laugh ? "laugh" : avatarConfig.mouthStyle}
+          sex="man"
+        />
       ) : (
         // Show anonymous icon when no avatar config is available
         <div className="flex h-full w-full items-center justify-center text-neutral-600 dark:text-neutral-200">

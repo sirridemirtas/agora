@@ -64,7 +64,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
   }, [pathname, isLoggedIn, refreshCounts]);
 
   // Set up periodic refresh (every 30 seconds)
-  useEffect(() => {
+  /* useEffect(() => {
     if (!isLoggedIn) return;
 
     const intervalId = setInterval(() => {
@@ -72,7 +72,7 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
     }, 30000);
 
     return () => clearInterval(intervalId);
-  }, [isLoggedIn, refreshCounts]);
+  }, [isLoggedIn, refreshCounts]); */
 
   return (
     <NotificationsContext.Provider

@@ -35,6 +35,11 @@ export const navItems: NavItem[] = [
     text: "Anasayfa",
   },
   {
+    href: "/university",
+    icon: School,
+    text: "Üniversite",
+  },
+  {
     href: "/login",
     icon: LogIn,
     text: "Giriş Yap",
@@ -46,11 +51,7 @@ export const navItems: NavItem[] = [
     text: "Kayıt Ol",
     hideOnLogin: true,
   },
-  {
-    href: "/university",
-    icon: School,
-    text: "Üniversite",
-  },
+
   {
     href: "/notifications",
     icon: Bell,
@@ -74,7 +75,7 @@ export const navItems: NavItem[] = [
     href: "/contact",
     icon: MessageSquareWarning,
     text: "Destek",
-    onlyLargeScreen: true,
+    //onlyLargeScreen: true,
   },
   {
     href: "/user",
@@ -201,9 +202,9 @@ const NavItem: React.FC<NavItem> = ({
 };
 
 const Navigation = () => {
-  /* const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  const handleShare = () => {
+  /* const handleShare = () => {
     console.log("Share button clicked");
   }; */
 
@@ -230,7 +231,14 @@ const Navigation = () => {
       {/* <Logo className="hidden lg:block ml-1 mb-4" /> */}
 
       {navItems.map((item) => (
-        <NavItem key={item.href} {...item} className="flex-1 sm:flex-initial" />
+        <NavItem
+          key={item.href}
+          {...item}
+          className={clsx(
+            "flex-1 sm:flex-initial",
+            item.href === "/contact" && isLoggedIn && "hidden lg:flex"
+          )}
+        />
       ))}
       {/*  {isLoggedIn && <Avatar size={8} username="anonim" />} */}
 

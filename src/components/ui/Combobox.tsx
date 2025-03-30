@@ -84,7 +84,7 @@ function Combobox<T>({
               <Icon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
             )}
             <ComboboxButton className="absolute inset-y-0 right-3 flex items-center">
-              <ChevronDownIcon className="h-5 w-5 text-gray-500" />
+              <ChevronDownIcon className="h-5 w-5 rounded-md bg-neutral-100 text-gray-500 dark:bg-neutral-800" />
             </ComboboxButton>
           </div>
 

@@ -16,7 +16,7 @@ import {
   Trash2 as DeleteIcon,
   HeartOff as DislikeIcon,
   Heart as LikeIcon,
-  MessageSquare as ReplyIcon,
+  //MessageSquare as ReplyIcon,
   Share as ShareIcon,
 } from "lucide-react";
 import { useApi, useAuth, usePostAction } from "@/hooks";
@@ -110,7 +110,7 @@ export default function Post({
     return (e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation();
       if (!isLoggedIn) {
-        console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
+        //console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
         return;
       }
       return func(e);
@@ -131,16 +131,14 @@ export default function Post({
     }
 
     if (reactions.liked) {
-      const response = await unlikePost(id);
-      console.log("Unliked the post:", response);
+      await unlikePost(id);
       setReactions((prev) => ({
         ...prev,
         likeCount: currentLikes - 1,
         liked: false,
       }));
     } else {
-      const response = await likePost(id);
-      console.log("Liked the post:", response);
+      await likePost(id);
       setReactions((prev) => ({
         ...prev,
         likeCount: currentLikes + 1,
@@ -160,16 +158,14 @@ export default function Post({
     const currentDislikes = reactions.dislikeCount;
 
     if (reactions.disliked) {
-      const response = await undislikePost(id);
-      console.log("Undisliked the post:", response);
+      await undislikePost(id);
       setReactions((prev) => ({
         ...prev,
         dislikeCount: currentDislikes - 1,
         disliked: false,
       }));
     } else {
-      const response = await dislikePost(id);
-      console.log("Disliked the post:", response);
+      await dislikePost(id);
       setReactions((prev) => ({
         ...prev,
         dislikeCount: currentDislikes + 1,
@@ -180,13 +176,12 @@ export default function Post({
     }
   });
 
-  const onReply = requireLogin(() => {
+  /* const onReply = requireLogin(() => {
     console.log("Replied");
-  });
+  }); */
 
   const onShare = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    console.log("Shared");
   };
 
   const onDelete = requireLogin(async () => {
@@ -203,17 +198,14 @@ export default function Post({
         const response = await executeDeletePost(id);
 
         if (response.error) {
-          console.error("Gönderi silinirken bir hata oluştu:", response.error);
           alert(
             "Gönderi silinirken bir hata oluştu: " + response.error.message
           );
         } else {
-          console.log("Gönderi başarıyla silindi");
           setDeleted(true);
         }
       } catch (error) {
-        console.error("Post deletion failed:", error);
-        alert("Gönderi silinemedi. Lütfen daha sonra tekrar deneyin.");
+        alert("Gönderi silinemedi. Lütfen daha sonra tekrar deneyin." + error);
       } finally {
         setDeleting(false);
       }
@@ -342,66 +334,82 @@ export default function Post({
               "_pl-0 border-y border-neutral-200 py-1 dark:border-neutral-800"
           )}
         >
-          {/* Upvote Button */}
-          <button
-            className={clsx(
-              "flex items-center transition-colors",
-              //detailed || "-ml-2",
-              reactions.liked
-                ? "text-red-600 dark:text-red-400"
-                : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
-            )}
-            onClick={onUpvote}
-            aria-label="Beğen"
-          >
-            <span
+          <div className="flex flex-row items-center gap-0 rounded-full bg-neutral-100 dark:bg-neutral-800">
+            {/* Upvote Button */}
+            <button
               className={clsx(
-                "rounded-full p-2 transition-colors",
+                "flex items-center transition-colors",
+                //detailed || "-ml-2",
                 reactions.liked
-                  ? "bg-red-50 dark:bg-red-900/20"
-                  : "hover:bg-red-50 dark:hover:bg-red-900/20"
+                  ? "text-red-600 dark:text-red-400"
+                  : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
               )}
+              onClick={onUpvote}
+              aria-label="Beğen"
             >
-              <LikeIcon
-                size={18}
-                fill={reactions.liked ? "currentColor" : "none"}
-              />
-            </span>
-            <span className="min-w-[1.5rem] text-center text-sm">
-              {reactions.likeCount || ""}
-            </span>
-          </button>
+              <span
+                className={clsx(
+                  "rounded-full p-2 transition-colors"
+                  /* reactions.liked
+                    ? "bg-red-50 dark:bg-red-900/20"
+                    : "hover:bg-red-50 dark:hover:bg-red-900/20" */
+                )}
+              >
+                <LikeIcon
+                  size={18}
+                  fill={reactions.liked ? "currentColor" : "none"}
+                />
+              </span>
+              {detailed && reactions.likeCount > 0 && (
+                <span className="min-w-[1.5rem] pr-1 text-center text-sm">
+                  {reactions.likeCount || ""}
+                </span>
+              )}
+            </button>
 
-          {/* Downvote Button */}
-          <button
-            className={clsx(
-              "flex items-center transition-colors",
-              reactions.disliked
-                ? "text-gray-600 dark:text-gray-400"
-                : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
-            )}
-            onClick={onDownvote}
-            aria-label="Beğenme"
-          >
-            <span
+            {/* Seperator */}
+            <div
               className={clsx(
-                "rounded-full p-2 transition-colors",
-                reactions.disliked
-                  ? "bg-gray-50 dark:bg-gray-900"
-                  : "hover:bg-gray-50 dark:hover:bg-gray-900"
+                "h-5 w-[1px] bg-neutral-400 dark:bg-neutral-500",
+                detailed && "hidden sm:block"
               )}
-            >
-              <DislikeIcon
-                size={18}
-                fill={reactions.disliked ? "currentColor" : "none"}
-              />
-            </span>
-            <span className="min-w-[1.5rem] text-center text-sm">
-              {reactions.dislikeCount || ""}
-            </span>
-          </button>
+            ></div>
 
-          {/* Reply Button */}
+            {/* Downvote Button */}
+            <button
+              className={clsx(
+                "flex items-center transition-colors",
+                reactions.disliked
+                  ? "text-gray-600 dark:text-gray-400"
+                  : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
+              )}
+              onClick={onDownvote}
+              aria-label="Beğenme"
+            >
+              <span
+                className={clsx(
+                  "rounded-full p-2 transition-colors"
+                  /* reactions.disliked
+                    ? "bg-gray-50 dark:bg-gray-900"
+                    : "hover:bg-gray-50 dark:hover:bg-gray-900" */
+                )}
+              >
+                <DislikeIcon
+                  size={18}
+                  fill={reactions.disliked ? "currentColor" : "none"}
+                />
+              </span>
+              {detailed && reactions.dislikeCount > 0 && (
+                <span className="min-w-[1.5rem] text-center text-sm">
+                  {reactions.dislikeCount || ""}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Comment Button */}
+
+          {/* Reply Button
           {replyTo ? null : (
             <button
               className="flex items-center gap-1 text-neutral-500 transition-colors hover:text-slate-700 dark:hover:text-slate-300"
@@ -413,50 +421,52 @@ export default function Post({
               </span>
               <span className="text-sm"></span>
             </button>
-          )}
+          )} */}
 
-          {/* Share Button */}
-          {replyTo ? null : (
-            <button
-              className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
-              aria-label="Paylaş"
-              onClick={onShare}
-            >
-              <span
-                className={clsx(
-                  "rounded-full p-2 hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                )}
+          <div className="flex flex-row items-center gap-0 rounded-full bg-neutral-100 dark:bg-neutral-800">
+            {/* Share Button */}
+            {replyTo ? null : (
+              <button
+                className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+                aria-label="Paylaş"
+                onClick={onShare}
               >
-                <ShareIcon size={18} />
-              </span>
-            </button>
-          )}
+                <span
+                  className={clsx(
+                    "_hover:bg-blue-50 _dark:hover:bg-blue-900/20 rounded-full p-2"
+                  )}
+                >
+                  <ShareIcon size={18} />
+                </span>
+              </button>
+            )}
 
-          {/* Delete Button */}
-          {isLoggedIn && (username === uname || role === 1 || role === 2) && (
-            <button
-              className={clsx(
-                "flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400",
-                deleting && "cursor-not-allowed opacity-50"
-              )}
-              aria-label="Sil"
-              onClick={onDelete}
-              disabled={deleting}
-            >
-              <span
+            {/* Delete Button */}
+            {isLoggedIn && (username === uname || role === 1 || role === 2) && (
+              <button
                 className={clsx(
-                  "rounded-full p-2 hover:bg-red-50 dark:hover:bg-red-900/20"
-                  //detailed || "-mr-2"
+                  "flex items-center text-neutral-500 transition-colors hover:text-red-700 dark:hover:text-red-400",
+                  deleting && "cursor-not-allowed opacity-50"
                 )}
+                aria-label="Sil"
+                onClick={onDelete}
+                disabled={deleting}
               >
-                {deleteLoading ? (
-                  <span className="inline-block animate-spin">⋯</span>
-                ) : (
-                  <DeleteIcon size={18} />
-                )}
-              </span>
-            </button>
-          )}
+                <span
+                  className={clsx(
+                    "_hover:bg-red-50 _dark:hover:bg-red-900/20 rounded-full p-2"
+                    //detailed || "-mr-2"
+                  )}
+                >
+                  {deleteLoading ? (
+                    <span className="inline-block animate-spin">⋯</span>
+                  ) : (
+                    <DeleteIcon size={18} />
+                  )}
+                </span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </article>

@@ -19,7 +19,7 @@ import {
   //MessageSquare as ReplyIcon,
   Share as ShareIcon,
 } from "lucide-react";
-import { useApi, useAuth, usePostAction } from "@/hooks";
+import { useApi, useAuth, useLoginModal, usePostAction } from "@/hooks";
 import { PostService } from "@/services/PostService";
 import { Post as PostType } from "@/types";
 import {
@@ -106,10 +106,12 @@ export default function Post({
     disliked: initialReactions?.disliked ?? false,
   });
 
+  const { openModal } = useLoginModal();
   function requireLogin(func: (...args: unknown[]) => void) {
     return (e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation();
       if (!isLoggedIn) {
+        openModal();
         //console.warn("Bu işlemi yapmak için izniniz yok. Giriş yapılmamış!");
         return;
       }

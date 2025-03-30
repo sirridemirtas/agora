@@ -5,7 +5,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button, Textarea, Alert } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
-import { useApi } from "@/hooks";
+import { useApi, useAuth, useLoginModal } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
 import { MAX_REPLY_LENGTH, MIN_REPLY_LENGTH } from "@/constants";
 
@@ -15,6 +15,9 @@ interface ReplyProps {
 }
 
 const Reply = ({ className, onReplyCreated }: ReplyProps) => {
+  const { isLoggedIn } = useAuth();
+  const { openModal } = useLoginModal();
+
   const [content, setContent] = useState("");
   const [success, setSuccess] = useState(false);
   const [replyActionsVisible, setReplyActionsVisible] = useState(false);
@@ -32,6 +35,10 @@ const Reply = ({ className, onReplyCreated }: ReplyProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isLoggedIn) {
+      openModal();
+    }
 
     const trimmedContent = content.trim();
     if (!trimmedContent) return;

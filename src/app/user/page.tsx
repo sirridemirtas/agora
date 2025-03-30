@@ -8,10 +8,11 @@ import {
   UserRoundSearch,
 } from "lucide-react";
 import {
-  useAuth,
-  useUserService,
-  usePageTitle,
   useAdminService,
+  useAuth,
+  useLoginModal,
+  usePageTitle,
+  useUserService,
 } from "@/hooks";
 import { useEffect, useState } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
@@ -40,6 +41,7 @@ export default function ProfilePage() {
   const [currentUserRole, setCurrentUserRole] = useState<number | undefined>(
     undefined
   );
+  const { openModal } = useLoginModal();
   const { updateUserRole, loading: updateRoleLoading } = useAdminService();
 
   // Extract username from /@username format
@@ -139,13 +141,25 @@ export default function ProfilePage() {
                 <UserRoleBadge role={userRole || 0} />
               </div>
               <div className="flex items-center gap-1">
-                {!isOwnProfile && isLoggedIn && (
-                  <Link href={`/messages/${username}`} title="Mesaj Gönder">
+                {isOwnProfile || (
+                  <Link
+                    href={isLoggedIn ? `/messages/${username}` : "#"}
+                    onClick={
+                      !isLoggedIn
+                        ? (e) => {
+                            e.preventDefault();
+                            openModal();
+                          }
+                        : undefined
+                    }
+                    title="Mesaj Gönder"
+                    tabIndex={-1}
+                  >
                     <Button variant="secondary" icon={MessageIcon} />
                   </Link>
                 )}
                 {isOwnProfile && (
-                  <Link href="/settings" title="Ayarlar">
+                  <Link href="/settings" title="Ayarlar" tabIndex={-1}>
                     <Button variant="secondary" icon={Settings} />
                   </Link>
                 )}

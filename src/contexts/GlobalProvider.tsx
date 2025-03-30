@@ -5,6 +5,7 @@ import { PageTitleProvider } from "./PageTitleProvider";
 import { SnackbarProvider } from "./SnackbarProvider";
 import { NewPostProvider } from "./NewPostPlaceholder";
 import { NotificationsProvider } from "./NotificationsProvider";
+import { LoginModalProvider } from "./LoginModalProvider";
 
 export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -12,13 +13,15 @@ export const GlobalProvider: React.FC<{ children: ReactNode }> = ({
   return (
     <AuthProvider>
       <ThemeProvider>
-        <SnackbarProvider>
-          <PageTitleProvider>
-            <NotificationsProvider>
-              <NewPostProvider>{children}</NewPostProvider>
-            </NotificationsProvider>
-          </PageTitleProvider>
-        </SnackbarProvider>
+        <LoginModalProvider>
+          <SnackbarProvider>
+            <PageTitleProvider>
+              <NotificationsProvider>
+                <NewPostProvider>{children}</NewPostProvider>
+              </NotificationsProvider>
+            </PageTitleProvider>
+          </SnackbarProvider>
+        </LoginModalProvider>
       </ThemeProvider>
     </AuthProvider>
   );

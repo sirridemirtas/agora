@@ -11,6 +11,7 @@ import {
   //ScrollRestorator,
   SplashScreen,
 } from "@/components/common";
+import { LoginRequiredModal } from "@/components/common";
 
 const font = Libre_Franklin({
   weight: ["400", "500", "600", "700"],
@@ -67,6 +68,7 @@ export default function RootLayout({
         <GlobalProvider>
           {/* <ScrollRestorator /> */}
           <SplashScreen visible={false} />
+          <LoginRequiredModal />
           <div
             className={clsx(
               "mx-auto md:max-w-[640px] lg:pl-4",

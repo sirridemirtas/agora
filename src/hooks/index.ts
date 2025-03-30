@@ -5,6 +5,7 @@ export { useAuth } from "./useAuth";
 export { useAvatar } from "./useAvatar";
 export { useContact } from "./useContact";
 export {useLazyLoad} from "./useLazyLoad";
+export { useLoginModal } from "./useLoginModal";
 export { useMessageService } from "./useMessageService";
 export { useNotifications } from "./useNotifications";
 export { useNotificationService } from "./useNotificationService";

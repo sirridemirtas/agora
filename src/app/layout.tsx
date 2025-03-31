@@ -30,10 +30,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Agora",
+  title: "DedimKi",
   description: "Üniversite bazlı anonim sosyal medya platformu",
   keywords: [
-    "Agora",
+    "DedimKi",
     "Sosyal Medya",
     "Üniversite",
     "Anonim",
@@ -87,7 +87,7 @@ export default function RootLayout({
                   className="select-none outline-none lg:inline-flex lg:flex-row lg:items-center lg:justify-start"
                 >
                   <Logo className="ml-5 mt-2" />
-                  <h1 className="mt-2 text-xl">Agora</h1>
+                  <h1 className="mt-2 text-xl">DedimKi</h1>
                 </Link>
               </div>
 

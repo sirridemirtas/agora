@@ -15,7 +15,7 @@ export function PageTitleProvider({ children }: { children: ReactNode }) {
   const [title, setPageTitle] = useState("");
 
   const setTitle = (title: string) => {
-    document.title = "Agora | " + title;
+    document.title = "DedimKi | " + title;
     setPageTitle(title);
   };
 

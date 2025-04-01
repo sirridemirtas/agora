@@ -57,7 +57,7 @@ export default function UniversityFeed() {
       )}
       <BaseFeed
         fetchFunction={(page) =>
-          postService.getUniversityPosts(universityId, page)
+          postService.getUniversityFeed(universityId, page)
         }
         emptyTitle={`${university.name} için henüz gönderi paylaşılmamış`}
         emptyMessage="Kullanıcılar gönderi paylaşınca burada görünecek."

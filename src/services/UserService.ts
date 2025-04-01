@@ -34,7 +34,7 @@ export class UserService extends BaseService {
 
   async resetPassword(currentPassword: string, newPassword: string): Promise<ApiResponse<PasswordResetResponse>> {
     return this.fetchApi<PasswordResetResponse>('/users/password/reset', {
-      method: 'POST',
+      method: 'PUT',
       data: { currentPassword, newPassword },
     });
   }

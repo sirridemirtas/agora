@@ -57,7 +57,7 @@ export class NotificationService extends BaseService {
   async markAsRead(notificationId: string): Promise<ApiResponse<void>> {
     try {
       const response = await this.fetchApi<void>(`/notifications/${notificationId}`, {
-        method: 'POST'
+        method: 'PUT'
       });
       return response;
     } catch (error) {
@@ -72,7 +72,7 @@ export class NotificationService extends BaseService {
   async markAllAsRead(): Promise<ApiResponse<MarkAllAsReadResponse>> {
     try {
       const response = await this.fetchApi<MarkAllAsReadResponse>('/notifications/mark-all-read', {
-        method: 'POST'
+        method: 'PUT'
       });
       return response;
     } catch (error) {

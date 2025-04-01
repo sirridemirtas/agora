@@ -9,10 +9,10 @@ export interface CreatePostDto {
 }
 
 export class PostService extends BaseService {
-  async getPosts(page?: number): Promise<ApiResponse<Post[]>> {
-    const url = page !== undefined ? `/posts?page=${page}` : '/posts';
-    return this.fetchApi<Post[]>(url, {
-      method: 'GET',
+  async createPost(data: CreatePostDto): Promise<ApiResponse<Post>> {
+    return this.fetchApi<Post>('/posts', {
+      method: 'POST',
+      data: JSON.stringify(data),
     });
   }
 
@@ -22,10 +22,12 @@ export class PostService extends BaseService {
     });
   }
 
-  async createPost(data: CreatePostDto): Promise<ApiResponse<Post>> {
-    return this.fetchApi<Post>('/posts', {
-      method: 'POST',
-      data: JSON.stringify(data),
+  async getPostReplies(postId: string, page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined 
+      ? `/posts/${postId}/replies?page=${page}` 
+      : `/posts/${postId}/replies`;
+    return this.fetchApi<Post[]>(url, {
+      method: 'GET',
     });
   }
 
@@ -35,28 +37,29 @@ export class PostService extends BaseService {
     });
   }
 
-  async getUniversityPosts(universityId: string, page?: number): Promise<ApiResponse<Post[]>> {
-    const url = page !== undefined 
-      ? `/posts/university/${universityId}?page=${page}` 
-      : `/posts/university/${universityId}`;
+
+  // FEEDS
+
+  async getHomeFeed(page?: number): Promise<ApiResponse<Post[]>> {
+    const url = page !== undefined ? `/feeds/home?page=${page}` : '/feeds/home';
     return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }
 
-  async getUserPosts(username: string, page?: number): Promise<ApiResponse<Post[]>> {
+  async getUniversityFeed(universityId: string, page?: number): Promise<ApiResponse<Post[]>> {
     const url = page !== undefined 
-      ? `/users/${username}/posts?page=${page}` 
-      : `/users/${username}/posts`;
+      ? `/feeds/universities/${universityId}?page=${page}` 
+      : `/feeds/universities/${universityId}`;
     return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });
   }
 
-  async getPostReplies(postId: string, page?: number): Promise<ApiResponse<Post[]>> {
+  async getUserFeed(username: string, page?: number): Promise<ApiResponse<Post[]>> {
     const url = page !== undefined 
-      ? `/posts/${postId}/replies?page=${page}` 
-      : `/posts/${postId}/replies`;
+      ? `/feeds/users/${username}?page=${page}` 
+      : `/feeds/users/${username}`;
     return this.fetchApi<Post[]>(url, {
       method: 'GET',
     });

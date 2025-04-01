@@ -15,7 +15,7 @@ const ProfileFeed = ({ username: propUsername }: ProfileFeedProps) => {
 
   return (
     <BaseFeed
-      fetchFunction={(page) => postService.getUserPosts(username, page)}
+      fetchFunction={(page) => postService.getUserFeed(username, page)}
       emptyTitle={`${username} henüz gönderi paylaşmamış`}
       emptyMessage="Kullanıcı gönderi paylaşınca burada görünecek."
     />

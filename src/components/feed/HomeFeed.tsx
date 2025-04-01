@@ -7,7 +7,7 @@ const HomeFeed = () => {
 
   return (
     <BaseFeed
-      fetchFunction={(page) => postService.getPosts(page)}
+      fetchFunction={(page) => postService.getHomeFeed(page)}
       emptyTitle="Bu sayfada henüz gönderi paylaşılmamış"
       emptyMessage="Kullanıcılar gönderi paylaşınca burada görünecek."
     />

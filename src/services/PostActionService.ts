@@ -23,13 +23,13 @@ export class PostActionService extends BaseService {
 
   async unlikePost(postId: string): Promise<ApiResponse<PostReaction>> {
     return this.fetchApi<PostReaction>(`/posts/${postId}/unlike`, {
-      method: 'POST',
+      method: 'DELETE',
     });
   }
 
   async undislikePost(postId: string): Promise<ApiResponse<PostReaction>> {
     return this.fetchApi<PostReaction>(`/posts/${postId}/undislike`, {
-      method: 'POST',
+      method: 'DELETE',
     });
   }
 }

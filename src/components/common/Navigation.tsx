@@ -235,7 +235,7 @@ const Navigation = () => {
           key={item.href}
           {...item}
           className={clsx(
-            "flex-1 sm:flex-initial",
+            "flex-1 flex-shrink-0 sm:flex-initial",
             item.href === "/contact" && isLoggedIn && "hidden lg:flex"
           )}
         />

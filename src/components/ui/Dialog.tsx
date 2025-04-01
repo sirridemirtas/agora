@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import clsx from "clsx";
 import { X } from "lucide-react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -17,14 +17,14 @@ const Modal: React.FC<ModalProps> = ({
   type = "default",
 }) => {
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition show={isOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-50 overflow-y-auto"
         onClose={onClose}
       >
         <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
@@ -33,7 +33,7 @@ const Modal: React.FC<ModalProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Transition.Child
+            <TransitionChild
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
@@ -43,8 +43,8 @@ const Modal: React.FC<ModalProps> = ({
               leaveTo="opacity-0"
             >
               <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-            </Transition.Child>
-          </Transition.Child>
+            </TransitionChild>
+          </TransitionChild>
 
           <span
             className="hidden sm:inline-block sm:h-screen sm:align-middle"
@@ -53,7 +53,7 @@ const Modal: React.FC<ModalProps> = ({
             &#8203;
           </span>
 
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -101,10 +101,10 @@ const Modal: React.FC<ModalProps> = ({
                 <X className="h-6 w-6 text-gray-400 hover:text-gray-500" />
               </button>
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </div>
       </Dialog>
-    </Transition.Root>
+    </Transition>
   );
 };
 

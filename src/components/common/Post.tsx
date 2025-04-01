@@ -29,7 +29,7 @@ import {
   indeEki,
 } from "@/constants/universities";
 import { Avatar } from "@/components/common";
-
+import { DropdownMenu, DropdownMenuItem } from "@/components/ui";
 interface PostProps extends PostType {
   bordered?: boolean;
   detailed?: boolean;
@@ -181,11 +181,11 @@ export default function Post({
 
   /* const onReply = requireLogin(() => {
     console.log("Replied");
-  }); */
+  });
 
   const onShare = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-  };
+  }; */
 
   const onDelete = requireLogin(async () => {
     if (!id) return;
@@ -435,19 +435,55 @@ export default function Post({
           <div className="flex flex-row items-center gap-0 rounded-full bg-neutral-100 dark:bg-neutral-800">
             {/* Share Button */}
             {replyTo ? null : (
-              <button
-                className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
-                aria-label="Paylaş"
-                onClick={onShare}
+              <DropdownMenu
+                button={
+                  <button
+                    className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+                    aria-label="Paylaş"
+                  >
+                    <span
+                      className={clsx(
+                        "_hover:bg-blue-50 _dark:hover:bg-blue-900/20 rounded-full p-2"
+                      )}
+                    >
+                      <ShareIcon size={18} />
+                    </span>
+                  </button>
+                }
               >
-                <span
-                  className={clsx(
-                    "_hover:bg-blue-50 _dark:hover:bg-blue-900/20 rounded-full p-2"
-                  )}
+                <DropdownMenuItem
+                  onClick={() => {
+                    navigator.clipboard.writeText(
+                      `${window.location.origin}/post/${id}`
+                    );
+                    //alert("Bağlantı kopyalandı");
+                  }}
                 >
-                  <ShareIcon size={18} />
-                </span>
-              </button>
+                  Bağlantıyı Kopyala
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    try {
+                      navigator
+                        .share({
+                          title: "Paylaş",
+                          text: content,
+                          url: `${window.location.origin}/post/${id}`,
+                        })
+                        .catch((error) => {
+                          // AbortError occurs when user cancels sharing, which is expected behavior
+                          if (error.name !== "AbortError") {
+                            console.log("Sharing failed", error);
+                          }
+                        });
+                    } catch (error) {
+                      console.log("Sharing failed", error);
+                    }
+                  }}
+                >
+                  Paylaş
+                </DropdownMenuItem>
+              </DropdownMenu>
             )}
 
             {/* Delete Button */}

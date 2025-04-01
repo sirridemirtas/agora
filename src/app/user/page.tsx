@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import clsx from "clsx";
 import {
   Mail as MessageIcon,
   School,
@@ -78,7 +79,7 @@ export default function ProfilePage() {
       const response = await updateUserRole(username, 1);
       if (response?.data) {
         setCurrentUserRole(1);
-        alert("Kullanıcı moderatör yapıldı.");
+        //alert("Kullanıcı moderatör yapıldı.");
       } else {
         alert("İşlem sırasında bir hata oluştu.");
       }
@@ -95,7 +96,7 @@ export default function ProfilePage() {
       const response = await updateUserRole(username, 0);
       if (response?.data) {
         setCurrentUserRole(0);
-        alert("Kullanıcının moderatörlüğü kaldırıldı.");
+        //alert("Kullanıcının moderatörlüğü kaldırıldı.");
       } else {
         alert("İşlem sırasında bir hata oluştu.");
       }
@@ -190,8 +191,9 @@ export default function ProfilePage() {
             variant="secondary"
             onClick={handleMakeModerator}
             disabled={updateRoleLoading}
+            className={clsx(updateRoleLoading && "cursor-progress")}
           >
-            {updateRoleLoading ? "İşleniyor..." : "Moderatör Yap"}
+            Moderatör Yap
           </Button>
         </div>
       )}

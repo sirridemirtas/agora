@@ -15,6 +15,7 @@ import clsx from "clsx";
 import {
   Trash2 as DeleteIcon,
   HeartOff as DislikeIcon,
+  Ellipsis,
   Heart as LikeIcon,
   //MessageSquare as ReplyIcon,
   Share as ShareIcon,
@@ -205,6 +206,14 @@ export default function Post({
           );
         } else {
           setDeleted(true);
+
+          if (detailed) {
+            if (window.history.length > 1) {
+              router.back();
+            } else {
+              router.push("/");
+            }
+          }
         }
       } catch (error) {
         alert("Gönderi silinemedi. Lütfen daha sonra tekrar deneyin." + error);
@@ -336,77 +345,75 @@ export default function Post({
               "_pl-0 border-y border-neutral-200 py-1 dark:border-neutral-800"
           )}
         >
-          <div className="flex flex-row items-center gap-0 rounded-full bg-neutral-100 dark:bg-neutral-800">
-            {/* Upvote Button */}
-            <button
-              className={clsx(
-                "flex items-center transition-colors",
-                //detailed || "-ml-2",
-                reactions.liked
-                  ? "text-red-600 dark:text-red-400"
-                  : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
-              )}
-              onClick={onUpvote}
-              aria-label="Beğen"
-            >
-              <span
+          <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row items-center gap-0 rounded-full bg-neutral-100 dark:bg-neutral-800">
+              {/* Upvote Button */}
+              <button
                 className={clsx(
-                  "rounded-full p-2 transition-colors"
-                  /* reactions.liked
-                    ? "bg-red-50 dark:bg-red-900/20"
-                    : "hover:bg-red-50 dark:hover:bg-red-900/20" */
+                  "flex items-center transition-colors",
+                  reactions.liked
+                    ? "text-red-600 dark:text-red-400"
+                    : "text-neutral-500 hover:text-red-600 dark:text-neutral-400 dark:hover:text-red-400"
                 )}
+                onClick={onUpvote}
+                aria-label="Beğen"
               >
-                <LikeIcon
-                  size={18}
-                  fill={reactions.liked ? "currentColor" : "none"}
-                />
-              </span>
-              {detailed && reactions.likeCount > 0 && (
-                <span className="min-w-[1.5rem] pr-1 text-center text-sm">
-                  {reactions.likeCount || ""}
+                <span
+                  className={clsx(
+                    "flex-shrink-0 rounded-full p-2 transition-colors"
+                  )}
+                >
+                  <LikeIcon
+                    size={18}
+                    fill={reactions.liked ? "currentColor" : "none"}
+                  />
                 </span>
-              )}
-            </button>
+              </button>
 
-            {/* Seperator */}
-            <div
+              {/* Seperator */}
+              <div
+                className={clsx(
+                  "h-5 w-[1px] bg-neutral-400 dark:bg-neutral-500",
+                  detailed && "hidden sm:block"
+                )}
+              ></div>
+
+              {/* Downvote Button */}
+              <button
+                className={clsx(
+                  "flex flex-shrink-0 items-center transition-colors",
+                  reactions.disliked
+                    ? "text-gray-600 dark:text-gray-400"
+                    : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
+                )}
+                onClick={onDownvote}
+                aria-label="Beğenme"
+              >
+                <span className={"rounded-full p-2 transition-colors"}>
+                  <DislikeIcon
+                    size={18}
+                    fill={reactions.disliked ? "currentColor" : "none"}
+                  />
+                </span>
+              </button>
+            </div>
+            <span
               className={clsx(
-                "h-5 w-[1px] bg-neutral-400 dark:bg-neutral-500",
+                "left-0 text-xs text-neutral-500",
                 detailed && "hidden sm:block"
               )}
-            ></div>
-
-            {/* Downvote Button */}
-            <button
-              className={clsx(
-                "flex items-center transition-colors",
-                reactions.disliked
-                  ? "text-gray-600 dark:text-gray-400"
-                  : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
-              )}
-              onClick={onDownvote}
-              aria-label="Beğenme"
+              title={
+                reactions.likeCount +
+                " Beğenme, " +
+                reactions.dislikeCount +
+                " Beğenmeme"
+              }
             >
-              <span
-                className={clsx(
-                  "rounded-full p-2 transition-colors"
-                  /* reactions.disliked
-                    ? "bg-gray-50 dark:bg-gray-900"
-                    : "hover:bg-gray-50 dark:hover:bg-gray-900" */
-                )}
-              >
-                <DislikeIcon
-                  size={18}
-                  fill={reactions.disliked ? "currentColor" : "none"}
-                />
-              </span>
-              {detailed && reactions.dislikeCount > 0 && (
-                <span className="min-w-[1.5rem] text-center text-sm">
-                  {reactions.dislikeCount || ""}
-                </span>
-              )}
-            </button>
+              {reactions.likeCount > 0 && reactions.likeCount + " Beğenme"}
+              {reactions.likeCount > 0 && reactions.dislikeCount > 0 && ", "}
+              {reactions.dislikeCount > 0 &&
+                reactions.dislikeCount + " Beğenmeme"}
+            </span>
           </div>
 
           {/* Comment Button */}
@@ -454,14 +461,9 @@ export default function Post({
                 onClick={onDelete}
                 disabled={deleting}
               >
-                <span
-                  className={clsx(
-                    "_hover:bg-red-50 _dark:hover:bg-red-900/20 rounded-full p-2"
-                    //detailed || "-mr-2"
-                  )}
-                >
+                <span className={"rounded-full p-2"}>
                   {deleteLoading ? (
-                    <span className="inline-block animate-spin">⋯</span>
+                    <Ellipsis size={18} />
                   ) : (
                     <DeleteIcon size={18} />
                   )}

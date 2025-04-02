@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import clsx from "clsx";
 import { Libre_Franklin } from "next/font/google";
 import "@/styles/globals.css";
@@ -41,7 +42,27 @@ export const metadata: Metadata = {
     "İletişim",
     "Paylaşım",
   ],
-  authors: [{ name: "Sirri Demirtas" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "DedimKi",
+    description: "Üniversite bazlı anonim sosyal medya platformu",
+    url: "https://dedimki.com",
+    siteName: "DedimKi",
+    images: [
+      {
+        url: "https://dedimki.com/icons/icon-512x512.png",
+        width: 512, //1200,
+        height: 512, //630,
+        alt: "DedimKi",
+        type: "image/png",
+      },
+    ],
+    locale: "tr_TR",
+    type: "website",
+  },
   manifest: "/manifest.json",
   icons: {
     icon: "/favicon.ico",
@@ -133,6 +154,7 @@ export default function RootLayout({
           </div>
         </GlobalProvider>
       </body>
+      <GoogleAnalytics gaId="G-FW44RHHXYP" />
     </html>
   );
 }

@@ -10,17 +10,20 @@ type ApiState<T> = {
 type ApiFunction<T, P extends unknown[]> = (...args: P) => Promise<ApiResponse<T>>;
 
 export function useApi<T, P extends unknown[]>(
-  apiFunction: ApiFunction<T, P>
+  apiFunction: ApiFunction<T, P>,
+  options: { initialLoading?: boolean } = { initialLoading: false } // Varsayılan: false
 ) {
   const [state, setState] = useState<ApiState<T>>({
     data: null,
     error: null,
-    loading: false,
+    loading: options.initialLoading ?? false,
   });
+  const [isInitialCallMade, setIsInitialCallMade] = useState(false);
 
   const execute = useCallback(
     async (...args: P) => {
       setState(prev => ({ ...prev, loading: true }));
+      setIsInitialCallMade(true);
 
       try {
         const response = await apiFunction(...args);
@@ -51,7 +54,9 @@ export function useApi<T, P extends unknown[]>(
   );
 
   return {
-    ...state,
+    data: state.data,
+    error: state.error,
+    loading: state.loading || (!isInitialCallMade && options.initialLoading && !state.data && !state.error),
     execute,
   };
 }

@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import ProfileFeed from "@/components/feed/ProfileFeed";
 import { universities } from "@/constants/universities";
 import { Avatar, UserRoleBadge } from "@/components/common";
-import { Alert, Button } from "@/components/ui";
+import { Alert, Button, Loader } from "@/components/ui";
 
 const UserNotFound = () => {
   return (
@@ -118,7 +118,7 @@ export default function ProfilePage() {
     : null;
 
   if (userProfileLoading || isLoading) {
-    return <div className="p-6">Loading profile...</div>;
+    return <Loader />;
   }
 
   if (!userProfile) {

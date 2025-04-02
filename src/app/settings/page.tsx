@@ -96,7 +96,7 @@ export default function SettingsPage() {
   }, [setTitle]);
 
   return (
-    <div className="p-6 lg:flex-1">
+    <div className="p-4 sm:p-6 lg:flex-1">
       {path === "avatar" ? (
         <AvatarEditor />
       ) : path === "password-reset" ? (

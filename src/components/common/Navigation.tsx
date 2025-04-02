@@ -212,7 +212,7 @@ const Navigation = () => {
     <nav
       className={clsx(
         // Base styles
-        "fixed bottom-0 left-0 right-0 z-10 flex h-16 w-full items-center justify-around",
+        "fixed bottom-0 left-0 right-0 z-40 flex h-16 w-full items-center justify-around",
         "border-t bg-neutral-50 bg-opacity-80 px-0 backdrop-blur-md",
 
         // Medium screen styles

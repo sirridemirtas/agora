@@ -340,9 +340,9 @@ export default function Post({
 
         <div
           className={clsx(
-            "_pl-12 flex items-center justify-between gap-4",
+            "flex items-center justify-between gap-4",
             detailed &&
-              "_pl-0 border-y border-neutral-200 py-1 dark:border-neutral-800"
+              "border-y border-neutral-200 py-2 dark:border-neutral-800"
           )}
         >
           <div className="flex flex-row items-center gap-2">
@@ -398,10 +398,7 @@ export default function Post({
               </button>
             </div>
             <span
-              className={clsx(
-                "left-0 text-xs text-neutral-500",
-                detailed && "hidden sm:block"
-              )}
+              className={"left-0 text-xs text-neutral-500"}
               title={
                 reactions.likeCount +
                 " Beğenme, " +
@@ -438,14 +435,10 @@ export default function Post({
               <DropdownMenu
                 button={
                   <button
-                    className="flex items-center text-neutral-500 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+                    className="focus-within::text-blue-700 flex items-center text-neutral-500 transition-colors"
                     aria-label="Paylaş"
                   >
-                    <span
-                      className={clsx(
-                        "_hover:bg-blue-50 _dark:hover:bg-blue-900/20 rounded-full p-2"
-                      )}
-                    >
+                    <span className={"rounded-full p-2"}>
                       <ShareIcon size={18} />
                     </span>
                   </button>
@@ -466,8 +459,8 @@ export default function Post({
                     try {
                       navigator
                         .share({
-                          title: "Paylaş",
-                          text: content,
+                          title: content.slice(0, 37) + "...",
+                          //text: content,
                           url: `${window.location.origin}/post/${id}`,
                         })
                         .catch((error) => {

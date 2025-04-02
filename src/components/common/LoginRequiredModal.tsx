@@ -1,7 +1,12 @@
 "use client";
 import { Fragment } from "react";
 import Link from "next/link";
-import { Transition, Dialog } from "@headlessui/react";
+import {
+  Dialog,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
 import { X } from "lucide-react";
 import { useLoginModal } from "@/hooks";
 import { Button } from "../ui";
@@ -11,9 +16,9 @@ function LoginRequiredModal() {
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-50" onClose={closeModal}>
         {/* Arka plan kaplaması */}
-        <Transition.Child
+        <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
           enterFrom="opacity-0"
@@ -23,11 +28,11 @@ function LoginRequiredModal() {
           leaveTo="opacity-0"
         >
           <div className="_backdrop-blur-[2px] fixed inset-0 bg-neutral-500/50" />
-        </Transition.Child>
+        </TransitionChild>
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center text-center md:items-center">
-            <Transition.Child
+            <TransitionChild
             /* as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 scale-95"
@@ -38,12 +43,12 @@ function LoginRequiredModal() {
             >
               <Dialog.Panel className="flex w-full transform flex-col gap-4 overflow-hidden rounded-t-2xl bg-white p-6 text-left align-middle shadow-xl transition-all md:max-w-xl md:rounded-2xl dark:bg-neutral-900">
                 <div className="flex items-center justify-between">
-                  <Dialog.Title
+                  <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-neutral-900 dark:text-neutral-100"
                   >
                     Giriş yap veya kaydol
-                  </Dialog.Title>
+                  </DialogTitle>
                   <button
                     type="button"
                     className="rounded-md text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2"
@@ -66,7 +71,7 @@ function LoginRequiredModal() {
                   </Link>
                 </div>
               </Dialog.Panel>
-            </Transition.Child>
+            </TransitionChild>
           </div>
         </div>
       </Dialog>

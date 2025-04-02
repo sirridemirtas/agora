@@ -45,7 +45,7 @@ export default function MessagesPage() {
   }, [getConversations, conversationWith]);
 
   return (
-    <div className="p-6 pb-0">
+    <div className="p-4 pb-0 sm:p-6">
       {conversationWith ? (
         <Chat />
       ) : conversations && conversations.length > 0 ? (

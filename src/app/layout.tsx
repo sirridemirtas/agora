@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Sirri Demirtas" }],
   manifest: "/manifest.json",
   icons: {
-    icon: "favicon.ico",
+    icon: "/favicon.ico",
   },
   other: {
     "apple-mobile-web-app-capable": "yes",
@@ -92,6 +92,18 @@ export default function RootLayout({
               </div>
 
               <Navigation />
+              <div className="hidden px-1 pb-1 pt-4 lg:block">
+                <p className="w-full text-center text-xs text-neutral-400">
+                  Copyright © {new Date().getFullYear()}{" "}
+                  <a
+                    href="https://github.com/sirridemirtas"
+                    target="_blank"
+                    className="hover:underline"
+                  >
+                    Sırrı Demirtaş
+                  </a>
+                </p>
+              </div>
             </div>
             <main className={"min-h-svh flex-1"}>
               <header
@@ -116,18 +128,6 @@ export default function RootLayout({
                 )}
               >
                 <div>{children}</div>
-                {/* <footer className="b-0 justify-startp-4 mb-16 flex min-h-16 flex-row items-center lg:mb-0">
-                  <p className="w-full text-center text-xs text-neutral-400">
-                    Copyright © {new Date().getFullYear()}{" "}
-                    <a
-                      href="https://github.com/sirridemirtas"
-                      target="_blank"
-                      className="hover:underline"
-                    >
-                      Sırrı Demirtaş
-                    </a>
-                  </p>
-                </footer> */}
               </div>
             </main>
           </div>

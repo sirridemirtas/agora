@@ -110,7 +110,7 @@ export default function RootLayout({
                 className={clsx(
                   "flex flex-row items-center justify-between px-4",
                   "flex-grow-1 h-16 w-full",
-                  "left:0 right:0 sticky top-0 z-10",
+                  "left:0 right:0 sticky top-0 z-30",
                   "border-b bg-neutral-50 bg-opacity-80 backdrop-blur-md md:border-0 dark:border-x-0 dark:border-neutral-800 dark:bg-black",
                   "md:bg-opacity-100 md:backdrop-blur-none"
                 )}

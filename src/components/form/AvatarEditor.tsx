@@ -6,7 +6,86 @@ import { AvatarConfig, Avatar as AvatarPreview } from "@/components/common";
 import { Alert, Button } from "@/components/ui";
 import { useAuth, useAvatar } from "@/hooks";
 
-const skinToneColors = ["#ffe0bd", "#ffd0a6", "#c68642", "#8d5524", "#613318"];
+const skinToneColors = [
+  "#ffe0bd", // Light beige
+  "#ffd0a6", // Light peach
+  "#f0c27b", // Medium-light tan
+  "#c68642", // Medium brown
+  "#a0522d", // Medium-dark brown
+  "#8d5524", // Dark brown
+  "#613318", // Very dark brown
+];
+const hairColors = [
+  "#000000", // Black
+  "#4d2900", // Dark brown
+  "#a56c43", // Medium brown
+  "#d6b370", // Light brown
+  "#f0e68c", // Light blondes
+  "#e5e5e5", // Gray
+  "#b01030", // Bright red
+  "#8b0000", // Dark reds
+  "#6a4e35", // Medium-dark brown
+  "#cb6820", // Auburn
+  "#9e3300", // Reddish-brown
+  "#0000ff", // Blue
+  "#800080", // Purple
+  "#008000", // Green
+];
+const hatColors = [
+  "#ff5e5e", // Red
+  "#5eabff", // Light blue
+  "#53d86a", // Green
+  "#ff5e8a", // Pink
+  "#dab83f", // Mustard yellow
+  "#7066ff", // Purple
+  "#4f5154", // Gray
+  "#ffffff", // White
+  "#e7b80e", // Golden yellow
+  "#ffa500", // Oranges
+  "#a52a2a", // Browns
+  "#000000", // Blacks
+  "#90ee90", // Light greens
+  "#00ffff", // Cyans
+];
+const shirtColors = [
+  "#f44336", // Red
+  "#e91e63", // Pink
+  "#9c27b0", // Purple
+  "#673ab7", // Deep purple
+  "#3f51b5", // Indigo
+  "#2196f3", // Blue
+  "#03a9f4", // Light blue
+  "#00bcd4", // Cyan
+  "#009688", // Teal
+  "#4caf50", // Green
+  "#8bc34a", // Light green
+  "#cddc39", // Lime
+  "#ffffff", // White
+  "#000000", // Black
+  "#00008b", // Dark blues
+  "#ff69b4", // Bright pinks
+  "#808000", // Olives
+  "#800000", // Maroons
+];
+const bgColors = [
+  "#92a1c6", // Light blue-gray
+  "#dac292", // Light brown
+  "#2b328c", // Dark blue
+  "#9fc2cc", // Pale cyan
+  "#2a8fbd", // Medium blue
+  "#6f8484", // Gray-green
+  "#e6aec7", // Light pink
+  "#5cc750", // Bright green
+  "#befdd5", // Pale green
+  "#85bae3", // Sky blue
+  "#eeb8ff", // Light purple
+  "#fdfd8c", // Pale yellow
+  "#000000", // Blacks
+  "#ffffff", // Whites
+  "#ff0000", // Reds
+  "#ffff00", // Yellows
+  "#800080", // Purples
+];
 
 const controls = [
   {
@@ -27,14 +106,24 @@ const controls = [
     type: "cycle",
     options: ["normal", "thick", "mohawk", "womanLong", "womanShort"],
   },
-  { label: "Saç Rengi", key: "hairColor", type: "colorPicker" },
+  {
+    label: "Saç Rengi",
+    key: "hairColor",
+    type: "cycle",
+    options: hairColors,
+  },
   {
     label: "Şapka Stili",
     key: "hatStyle",
     type: "cycle",
     options: ["none", "beanie", "turban"],
   },
-  { label: "Şapka Rengi", key: "hatColor", type: "colorPicker" },
+  {
+    label: "Şapka Rengi",
+    key: "hatColor",
+    type: "cycle",
+    options: hatColors,
+  },
   {
     label: "Göz Stili",
     key: "eyeStyle",
@@ -65,8 +154,18 @@ const controls = [
     type: "cycle",
     options: ["hoody", "short", "polo"],
   },
-  { label: "Gömlek Rengi", key: "shirtColor", type: "colorPicker" },
-  { label: "Arka Plan Rengi", key: "bgColor", type: "colorPicker" },
+  {
+    label: "Gömlek Rengi",
+    key: "shirtColor",
+    type: "cycle",
+    options: shirtColors,
+  },
+  {
+    label: "Arka Plan Rengi",
+    key: "bgColor",
+    type: "cycle",
+    options: bgColors,
+  },
 ];
 
 export default function AvatarEditor() {
@@ -164,50 +263,20 @@ export default function AvatarEditor() {
               key={control.key}
               className="flex items-center justify-between"
             >
-              {control.type === "cycle" ? (
-                <button
-                  className="flex w-full items-center justify-between rounded bg-neutral-100 px-3 py-2 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                  onClick={() =>
-                    cycleOption(control.key, control.options || [])
-                  }
-                  title={currentValue as string}
-                  aria-label={`${control.label}: ${currentValue}`}
-                >
-                  <span>{control.label}</span>
-                  {isColorControl && (
-                    <div
-                      className="h-5 w-5 rounded border border-neutral-400"
-                      style={{ backgroundColor: currentValue as string }}
-                    />
-                  )}
-                </button>
-              ) : (
-                <button
-                  className="relative flex w-full items-center justify-between rounded bg-neutral-100 px-3 py-2 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                  onClick={() =>
-                    document
-                      .getElementById(`color-input-${control.key}`)
-                      ?.click()
-                  }
-                  title={currentValue as string}
-                  aria-label={`${control.label}: ${currentValue}`}
-                >
-                  <span>{control.label}</span>
+              <button
+                className="flex w-full items-center justify-between rounded bg-neutral-100 px-3 py-2 text-neutral-800 transition hover:bg-neutral-300 dark:bg-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-600"
+                onClick={() => cycleOption(control.key, control.options || [])}
+                title={currentValue as string}
+                aria-label={`${control.label}: ${currentValue}`}
+              >
+                <span>{control.label}</span>
+                {isColorControl && (
                   <div
                     className="h-5 w-5 rounded border border-neutral-400"
                     style={{ backgroundColor: currentValue as string }}
                   />
-                  <input
-                    id={`color-input-${control.key}`}
-                    type="color"
-                    value={currentValue as string}
-                    onChange={(e) =>
-                      setConfig({ ...config, [control.key]: e.target.value })
-                    }
-                    className="absolute h-0 w-0 opacity-0"
-                  />
-                </button>
-              )}
+                )}
+              </button>
             </div>
           );
         })}

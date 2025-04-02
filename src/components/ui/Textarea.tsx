@@ -10,6 +10,7 @@ interface TextareaProps
   label?: string;
   error?: string;
   autosize?: boolean;
+  nostyle?: boolean;
 }
 
 const Textarea: React.FC<TextareaProps> = ({
@@ -23,6 +24,7 @@ const Textarea: React.FC<TextareaProps> = ({
   defaultValue,
   onChange,
   onInput,
+  nostyle = false,
   ...props
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -54,7 +56,7 @@ const Textarea: React.FC<TextareaProps> = ({
   };
 
   return (
-    <Field disabled={disabled} className="flex flex-col space-y-1">
+    <Field disabled={disabled} className="flex w-full flex-col space-y-1">
       {label && (
         <Label className="text-sm font-medium text-gray-700 data-[disabled]:opacity-50 dark:text-gray-300">
           {label}
@@ -73,11 +75,15 @@ const Textarea: React.FC<TextareaProps> = ({
         <HeadlessTextarea
           ref={textareaRef}
           className={clsx(
-            "input",
-            "resize-none",
-            Icon && "input-with-icon",
-            error ? "input-error" : "input-default",
-            className
+            nostyle
+              ? className
+              : [
+                  "input",
+                  "resize-none",
+                  Icon && "input-with-icon",
+                  error ? "input-error" : "input-default",
+                ],
+            "w-full"
           )}
           value={value}
           defaultValue={defaultValue}

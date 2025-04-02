@@ -8,7 +8,7 @@ interface DropdownMenuProps {
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ button, children }) => {
   return (
-    <Menu as="div" className="relative z-20 inline-block text-left">
+    <Menu as="div" className="relative z-auto inline-block text-left">
       <MenuButton
         as="div"
         onClick={(e: React.MouseEvent) => e.stopPropagation()}

@@ -3,9 +3,8 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Send, School } from "lucide-react";
-import { Textarea } from "@headlessui/react";
 import { universities, indeEki } from "@/constants/universities";
-import { Button, Alert } from "@/components/ui";
+import { Button, Alert, Textarea } from "@/components/ui";
 import { PostService, CreatePostDto } from "@/services/PostService";
 import { useAuth, useApi } from "@/hooks";
 import { useNewPost } from "@/contexts/NewPostPlaceholder";
@@ -53,14 +52,6 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
         setSuccess(true);
         setTimeout(() => setSuccess(false), 3000);
 
-        // Reset textarea height safely
-        if (e.currentTarget) {
-          const textarea = e.currentTarget.querySelector("textarea");
-          if (textarea) {
-            textarea.style.height = "auto";
-          }
-        }
-
         // Callback to refresh feed or perform other actions after post creation
         if (onPostCreated) {
           onPostCreated();
@@ -77,27 +68,13 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
     }
   };
 
-  const resize = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.target.scrollTop = 0;
-    e.target.style.height = "auto";
-    e.target.style.height = e.target.scrollHeight + 1 + "px";
-  };
-
   const contentValid =
     content.trim().length >= MIN_POST_LENGTH &&
     content.length <= MAX_POST_LENGTH;
 
   return (
     <div className={clsx("p-4 sm:p-6", className)}>
-      {
-        success && <></> /* (
-        <Alert
-          type="success"
-          message="Gönderinizi başarıyla paylaştınız."
-          className="mb-4"
-        />
-      ) */
-      }
+      {success && <></>}
       {error && (
         <Alert
           type="error"
@@ -112,8 +89,9 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
           <Avatar size={12} username={username || ""} />
           <Textarea
             name="content"
-            onInput={resize}
-            placeholder={"Ne düşünüyorsun, @" + (username || "anonim") + "?"}
+            placeholder={
+              "Kampüste neler oluyor, @" + (username || "anonim") + "?"
+            }
             rows={3}
             maxLength={MAX_POST_LENGTH}
             minLength={MIN_POST_LENGTH}
@@ -121,10 +99,12 @@ const CreatePost = ({ className, onPostCreated }: CreatePostProps) => {
             onChange={(e) => setContent(e.target.value)}
             required
             disabled={loading}
+            nostyle
             className={clsx(
               "focus:shadow-none focus:outline-none focus:ring-0 focus:ring-offset-0",
               "box-border flex-1 resize-none rounded-none border-b border-neutral-200 bg-transparent pt-3 text-lg dark:border-neutral-800"
             )}
+            autosize
           />
         </div>
         <div

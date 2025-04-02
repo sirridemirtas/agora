@@ -115,8 +115,8 @@ const BaseFeed = ({
     );
   }
 
-  // Show loader if loading or initial load is not done
-  if (loading || !initialLoaded) {
+  // Show loader when initially loading and no new filtered posts
+  if (loading && !initialLoaded && filteredNewPosts.length === 0) {
     return (
       <div className="py-8 text-center">
         <Loader size={32} />
@@ -124,21 +124,14 @@ const BaseFeed = ({
     );
   }
 
-  // Hata durumu
-  if (error && page === initialPage) {
-    return (
-      <Alert
-        type="error"
-        title="Gönderiler alınırken bir hata oluştu!"
-        message={error.message}
-        className="mx-6"
-      />
-    );
-  }
-
-  // Empty state: No posts and no new posts
+  // Display empty state when:
+  // 1. Initial API call has completed (initialLoaded is true)
+  // 2. API returned no posts (allPosts is empty)
+  // 3. There are no new filtered posts to show
   const showEmptyState =
     initialLoaded && allPosts.length === 0 && filteredNewPosts.length === 0;
+
+  // Important: Check for empty state AFTER checking for loading state
   if (showEmptyState) {
     return (
       <Alert

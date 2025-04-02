@@ -91,6 +91,7 @@ export default function Post({
 
   const [deleted, setDeleted] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showFullContent, setShowFullContent] = useState(false);
 
   const [avatarLaugh, setAvatarLaugh] = useState(false);
 
@@ -223,6 +224,18 @@ export default function Post({
     }
   });
 
+  // Check if content has more than 5 lines
+  const contentLines = content.split("\n");
+  const isLongContent = contentLines.length > 5;
+
+  // Get abbreviated content (first 5 lines)
+  const getAbbreviatedContent = () => {
+    if (!isLongContent || detailed || showFullContent) {
+      return content;
+    }
+    return contentLines.slice(0, 5).join("\n");
+  };
+
   if (deleted) {
     return null;
   }
@@ -306,7 +319,22 @@ export default function Post({
             </div>
           </div>
         </div>
-        <p className={clsx("mb-4 whitespace-pre-wrap")}>{content}</p>
+        <div className="mb-4">
+          <p className={clsx("whitespace-pre-wrap")}>
+            {getAbbreviatedContent()}
+          </p>
+          {isLongContent && !detailed && !showFullContent && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowFullContent(true);
+              }}
+              className="text-blue-600 hover:underline dark:text-blue-300"
+            >
+              Devamını görüntüle
+            </button>
+          )}
+        </div>
         {!isUniversityPage &&
           userUniversityId &&
           universityId &&

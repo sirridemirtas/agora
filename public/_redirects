@@ -3,3 +3,5 @@
 /@:username             /user             200
 /messages/:username     /messages         200
 /settings/:setting      /settings         200
+
+/sitemap.xml https://api.dedimki.com/api/v1/sitemap.xml 301

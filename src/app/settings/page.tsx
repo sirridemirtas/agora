@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
+import clsx from "clsx";
 import { usePageTitle } from "@/hooks";
 import { useAuth } from "@/hooks";
 import {
@@ -15,13 +16,20 @@ const Setting = ({
   children,
   label,
   helperText,
+  className,
 }: {
   children: React.ReactNode;
   label: string;
   helperText?: string;
+  className?: string;
 }) => {
   return (
-    <div className="flex min-h-16 w-full flex-row items-center justify-between border-b p-2 dark:border-neutral-800">
+    <div
+      className={clsx(
+        "flex min-h-16 w-full flex-row items-center justify-between border-b p-2 dark:border-neutral-800",
+        className
+      )}
+    >
       <div className="flex flex-col justify-between">
         <label>{label}</label>
         {helperText && (
@@ -65,6 +73,18 @@ function Settings() {
               className="flex items-center justify-center gap-2 px-4 py-2 text-gray-600 transition-colors dark:text-gray-300"
             >
               Değiştir
+            </Link>
+          </Setting>
+          <Setting
+            className="lg:hidden"
+            label="Destek"
+            helperText="İletişim ve destek talepleriniz için mesaj gönderin."
+          >
+            <Link
+              href="/contact"
+              className="flex items-center justify-center gap-2 px-4 py-2 text-gray-600 transition-colors dark:text-gray-300"
+            >
+              Form
             </Link>
           </Setting>
           <Setting label="Oturum">

@@ -71,12 +71,18 @@ const NotificationItem = ({
   return (
     <div
       className={clsx(
-        "flex cursor-pointer items-start gap-2 border-b p-3 dark:border-neutral-800",
-        !read && "bg-gray-100 dark:bg-gray-900/50"
+        "flex cursor-pointer items-start gap-2 border-b p-3 dark:border-neutral-800"
+        //!read && "bg-gray-100 dark:bg-gray-900/50"
       )}
       onClick={handleClick}
     >
-      <div className="flex-1">
+      <div
+        className={clsx(
+          "flex-1",
+          read ||
+            "before:content-[' '] before:absolute before:-ml-3 before:mt-2 before:h-2 before:w-2 before:rounded-full before:bg-red-500 before:dark:bg-red-300"
+        )}
+      >
         <div className="mb-1 flex items-center justify-between">
           <div className="flex items-center gap-1">
             {type === "reaction" ? (

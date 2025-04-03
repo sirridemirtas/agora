@@ -415,7 +415,7 @@ export default function Post({
                     : "text-neutral-500 hover:text-gray-600 dark:text-neutral-400 dark:hover:text-gray-400"
                 )}
                 onClick={onDownvote}
-                aria-label="Beğenme"
+                aria-label="Beğeni"
               >
                 <span className={"rounded-full p-2 transition-colors"}>
                   <DislikeIcon
@@ -429,12 +429,12 @@ export default function Post({
               className={"left-0 text-xs text-neutral-500"}
               title={
                 reactions.likeCount +
-                " Beğenme, " +
+                " Beğeni, " +
                 reactions.dislikeCount +
                 " Beğenmeme"
               }
             >
-              {reactions.likeCount > 0 && reactions.likeCount + " Beğenme"}
+              {reactions.likeCount > 0 && reactions.likeCount + " Beğeni"}
               {reactions.likeCount > 0 && reactions.dislikeCount > 0 && ", "}
               {reactions.dislikeCount > 0 &&
                 reactions.dislikeCount + " Beğenmeme"}

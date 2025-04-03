@@ -69,3 +69,15 @@ select.input {
 .form {
   @apply mx-auto flex max-w-xs flex-col gap-4 py-16 sm:max-w-sm;
 }
+
+@keyframes show {
+  to {
+    visibility: visible;
+  }
+}
+
+.showAfter {
+  visibility: hidden;
+  animation: show 0s forwards;
+  animation-delay: 2s;
+}

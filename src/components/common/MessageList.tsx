@@ -116,7 +116,7 @@ export default function MessageList() {
 
   if (conversationsLoading) {
     return (
-      <div className="p-4 text-center">
+      <div className="showAfter p-4 text-center">
         <Loader size={24} />
         Mesajlar yükleniyor...
       </div>

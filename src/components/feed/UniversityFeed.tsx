@@ -11,7 +11,7 @@ import { useAuth } from "@/hooks";
 
 const UniversityNotFound = () => {
   return (
-    <div className="lg:flex-1">
+    <div className="showAfter lg:flex-1">
       <div className="p-8 py-16 text-center">
         <div className="mb-4 flex justify-center">
           <School size={48} className="text-neutral-300" />

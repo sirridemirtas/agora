@@ -137,7 +137,7 @@ export default function NotificationList() {
 
   if (notificationsLoading) {
     return (
-      <div className="p-4 text-center">
+      <div className="showAfter p-4 text-center">
         <Loader size={24} />
         Bildirimler yükleniyor...
       </div>

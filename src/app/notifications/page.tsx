@@ -7,7 +7,7 @@ import { NotificationList } from "@/components/common";
 import { Alert, Button } from "@/components/ui";
 
 const NoNotifications = () => (
-  <div className="lg:flex-1">
+  <div className="showAfter lg:flex-1">
     <div className="p-8 py-16 text-center">
       <div className="mb-4 flex justify-center">
         <BellOff size={48} className="text-neutral-300" />

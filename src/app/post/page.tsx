@@ -13,7 +13,7 @@ import { Reply as ReplyForm } from "@/components/form";
 
 const PostNotFound = () => {
   return (
-    <div className="p-8 py-16 text-center">
+    <div className="showAfter p-8 py-16 text-center">
       <div className="mb-4 flex justify-center">
         <SearchX size={48} className="text-neutral-300" />
       </div>
@@ -27,7 +27,7 @@ const PostNotFound = () => {
 
 const PostLoading = () => {
   return (
-    <div className="p-8 py-16 text-center">
+    <div className="showAfter p-8 py-16 text-center">
       <div className="mb-4 flex justify-center">
         <LoaderCircle size={48} className="animate-spin text-neutral-300" />
       </div>

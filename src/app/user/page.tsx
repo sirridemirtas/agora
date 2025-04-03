@@ -23,7 +23,7 @@ import { Alert, Button, Loader } from "@/components/ui";
 
 const UserNotFound = () => {
   return (
-    <div className="p-8 py-16 text-center">
+    <div className="showAfter p-8 py-16 text-center">
       <div className="mb-4 flex justify-center">
         <UserRoundSearch size={48} className="text-neutral-300" />
       </div>
@@ -118,7 +118,12 @@ export default function ProfilePage() {
     : null;
 
   if (userProfileLoading || isLoading) {
-    return <Loader />;
+    return (
+      <div className="showAfter p-4 text-center lg:flex-1">
+        <Loader />
+        Kullanıcı profili yükleniyor...
+      </div>
+    );
   }
 
   if (!userProfile) {

@@ -33,6 +33,9 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "DedimKi",
   description: "Üniversite bazlı anonim sosyal medya platformu",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION_ID,
+  },
   keywords: [
     "DedimKi",
     "Sosyal Medya",
@@ -154,7 +157,11 @@ export default function RootLayout({
           </div>
         </GlobalProvider>
       </body>
-      <GoogleAnalytics gaId="G-FW44RHHXYP" />
+      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+        <GoogleAnalytics
+          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || ""}
+        />
+      )}
     </html>
   );
 }

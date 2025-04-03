@@ -115,8 +115,8 @@ const BaseFeed = ({
     );
   }
 
-  // Show loader when initially loading and no new filtered posts
-  if (loading && !initialLoaded && filteredNewPosts.length === 0) {
+  // Show loader when initially loading
+  if (loading && !initialLoaded) {
     return (
       <div className="py-8 text-center">
         <Loader size={32} />
@@ -128,10 +128,13 @@ const BaseFeed = ({
   // 1. Initial API call has completed (initialLoaded is true)
   // 2. API returned no posts (allPosts is empty)
   // 3. There are no new filtered posts to show
+  // 4. Not currently loading
   const showEmptyState =
-    initialLoaded && allPosts.length === 0 && filteredNewPosts.length === 0;
+    initialLoaded &&
+    !loading &&
+    allPosts.length === 0 &&
+    filteredNewPosts.length === 0;
 
-  // Important: Check for empty state AFTER checking for loading state
   if (showEmptyState) {
     return (
       <Alert
@@ -156,14 +159,14 @@ const BaseFeed = ({
       : allPosts;
 
   // Only show loader when we actually have posts from the API (not just new posts)
-  const shouldShowLoader = hasMore && allPosts.length > 0;
+  const shouldShowLoader = hasMore && (allPosts.length > 0 || loading);
 
   return (
     <>
       {displayPosts.length > 0 && <PostList posts={displayPosts} />}
       {shouldShowLoader && (
         <div ref={loaderRef} className="py-4 text-center">
-          {loading && <Loader size={24} />}
+          <Loader size={24} />
         </div>
       )}
       {!hasMore && !loading && allPosts.length > 0 && (

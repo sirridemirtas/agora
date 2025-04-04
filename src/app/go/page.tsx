@@ -51,6 +51,7 @@ export default function Page() {
       <div className="mt-4">
         {filteredUniversities.map((university) => (
           <Link
+            prefetch={false}
             key={university.id || university.name}
             href={`/university/${university.id || university.name}`}
             className={
